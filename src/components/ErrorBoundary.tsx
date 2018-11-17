@@ -1,24 +1,10 @@
-import React, { Component } from 'react';
-import { ErrorCode } from '../utils/ErrorCodes';
+import React, { Component } from "react";
 
 export class ErrorBoundary extends Component {
   public componentDidCatch(e: any) {
-    switch (e) {
-      case ErrorCode.CHAR_LIMIT_EXCEEDED:
-        alert(
-          "Sorry, I'm out of letters. No one can possibly handle that many decisions."
-        );
-        break;
-
-      case ErrorCode.TERM_LIMIT_EXCEEDED:
-        alert(
-          "Sorry, I'm out of colors. No one can possibly handle that many decisions."
-        );
-        break;
-
-      default:
-        throw e;
-    }
+    alert(
+      "Uhm. Something went wrong. Sorry about that. Maybe try to do start over or something. I dunno."
+    );
   }
 
   public static getDerivedStateFromError() {}

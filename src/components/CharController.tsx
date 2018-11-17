@@ -1,20 +1,20 @@
-import { produce } from 'immer';
-import { Component } from 'react';
-import { ErrorCode } from '../utils/ErrorCodes';
+import { produce } from "immer";
+import { Component } from "react";
+import { ErrorCode } from "../utils/ErrorCodes";
 
-const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 // XXX: Store colors in theme.
 const COLORS = [
-  '#00a0d7',
-  '#8c6ca7',
-  '#dc504a',
-  '#e58338',
-  '#00adb0',
-  '#ecb03d',
-  '#db4b88',
-  '#7cb741',
+  "#00a0d7",
+  "#8c6ca7",
+  "#dc504a",
+  "#e58338",
+  "#00adb0",
+  "#ecb03d",
+  "#db4b88",
+  "#7cb741",
   // XXX: Get rid of grey?
-  '#868789'
+  "#868789"
 ];
 
 type CharDef = {
@@ -73,7 +73,6 @@ export class CharController extends Component<Props, State> {
   private getUnusedColor = () => {
     const { terms } = this.state;
     if (Object.keys(terms).length >= COLORS.length) {
-      // XXX: Throwing currently results in a total reset. Not so nice. Instead, forbid to enter more terms than there are colors available.
       throw ErrorCode.TERM_LIMIT_EXCEEDED;
     }
 
@@ -90,44 +89,63 @@ export class CharController extends Component<Props, State> {
   private registerTerms = (terms: string[]) => {
     this.setState(
       produce<State>(draft => {
-        let availableCharDefs: CharDefMap = {
-          ...this.getAvailableCharDefs(this.state.charDefs)
-        };
+        try {
+          let availableCharDefs: CharDefMap = {
+            ...this.getAvailableCharDefs(this.state.charDefs)
+          };
 
-        terms.forEach(term => {
-          const trimmedTerm = term.replace(/\s/g, '');
-          const termChars: string[] = trimmedTerm.split('');
+          terms.forEach(term => {
+            const trimmedTerm = term.replace(/\s/g, "");
+            const termChars: string[] = trimmedTerm.split("");
 
-          const newTermCharPositions: number[] = [];
+            const newTermCharPositions: number[] = [];
 
-          if (termChars.length > Object.keys(availableCharDefs).length) {
-            throw ErrorCode.CHAR_LIMIT_EXCEEDED;
-          }
-
-          while (newTermCharPositions.length < termChars.length) {
-            const randomCharPosition = Number(
-              Object.keys(availableCharDefs)[
-                Math.floor(
-                  Math.random() * Object.keys(availableCharDefs).length
-                )
-              ]
-            );
-
-            if (randomCharPosition in availableCharDefs) {
-              delete availableCharDefs[randomCharPosition];
-              newTermCharPositions.push(randomCharPosition);
+            if (termChars.length > Object.keys(availableCharDefs).length) {
+              throw ErrorCode.CHAR_LIMIT_EXCEEDED;
             }
-          }
 
-          newTermCharPositions.sort();
+            while (newTermCharPositions.length < termChars.length) {
+              const randomCharPosition = Number(
+                Object.keys(availableCharDefs)[
+                  Math.floor(
+                    Math.random() * Object.keys(availableCharDefs).length
+                  )
+                ]
+              );
 
-          newTermCharPositions.forEach((position, i) => {
-            draft.charDefs[position].fixedChar = termChars[i];
-            draft.charDefs[position].term = term;
+              if (randomCharPosition in availableCharDefs) {
+                delete availableCharDefs[randomCharPosition];
+                newTermCharPositions.push(randomCharPosition);
+              }
+            }
+
+            newTermCharPositions.sort();
+
+            newTermCharPositions.forEach((position, i) => {
+              draft.charDefs[position].fixedChar = termChars[i];
+              draft.charDefs[position].term = term;
+            });
+
+            draft.terms[term] = { term, color: this.getUnusedColor() };
           });
+        } catch (e) {
+          switch (e) {
+            case ErrorCode.CHAR_LIMIT_EXCEEDED:
+              alert(
+                "Sorry, I'm out of letters. No one can possibly handle that many decisions."
+              );
+              break;
 
-          draft.terms[term] = { term, color: this.getUnusedColor() };
-        });
+            case ErrorCode.TERM_LIMIT_EXCEEDED:
+              alert(
+                "Sorry, I'm out of colors. No one can possibly handle that many decisions."
+              );
+              break;
+
+            default:
+              throw e;
+          }
+        }
       })
     );
   };

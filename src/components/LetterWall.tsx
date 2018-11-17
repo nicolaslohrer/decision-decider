@@ -1,139 +1,84 @@
+import Rect from '@reach/rect';
+import WindowSize from '@reach/window-size';
 import { css } from 'emotion';
-import { produce } from 'immer';
-import React, { Component } from 'react';
-import { RuntimeError } from './ErrorBoundary';
-
-// XXX: Consider allowing more special characters (e.g. ÄÖÜß).
-const ALLOWED_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-const NUM_LETTERS = 500;
-
-type CharDef = { position: number; char: string; locked: boolean };
-type CharDefMap = { [position: string]: CharDef };
+import React, { SFC } from 'react';
+import { CharController } from './CharController';
 
 type Props = {
+  numberOfLetters: number;
   children: (
     renderProps: { registerTerms: (terms: string[]) => void }
   ) => JSX.Element;
 };
-type State = { charDefs: CharDefMap };
 
-export class LetterWall extends Component<Props, State> {
-  public state: State = {
-    charDefs: Array(...Array(NUM_LETTERS)).reduce<CharDefMap>(
-      (charDefs, _x, i) => ({
-        ...charDefs,
-        [i]: {
-          position: i,
-          char: ALLOWED_CHARS.charAt(
-            Math.floor(Math.random() * ALLOWED_CHARS.length)
-          ),
-          locked: false
-        }
-      }),
-      {} as CharDefMap
-    )
-  };
-
-  private getAvailableCharDefs = (charDefs: CharDefMap): CharDefMap =>
-    Object.keys(charDefs).reduce(
-      (availableCharDefs, position) =>
-        charDefs[position].locked
-          ? availableCharDefs
-          : {
-              ...availableCharDefs,
-              [position]: charDefs[position]
-            },
-
-      {}
-    );
-
-  private registerTerms = (terms: string[]) => {
-    this.setState(
-      produce<State>(draft => {
-        let availableCharDefs: CharDefMap = {
-          ...this.getAvailableCharDefs(this.state.charDefs)
-        };
-
-        terms.forEach(term => {
-          const trimmedTerm = term.replace(/\s/g, '');
-          const termChars: string[] = trimmedTerm.split('');
-
-          const newTermCharPositions: number[] = [];
-
-          if (termChars.length > Object.keys(availableCharDefs).length) {
-            throw RuntimeError.CHAR_LIMIT_EXCEEDED;
-          }
-
-          while (newTermCharPositions.length < termChars.length) {
-            const randomCharPosition = Number(
-              Object.keys(availableCharDefs)[
-                Math.floor(
-                  Math.random() * Object.keys(availableCharDefs).length
-                )
-              ]
-            );
-
-            if (randomCharPosition in availableCharDefs) {
-              delete availableCharDefs[randomCharPosition];
-              newTermCharPositions.push(randomCharPosition);
-            }
-          }
-
-          newTermCharPositions.sort();
-
-          newTermCharPositions.forEach((position, i) => {
-            draft.charDefs[position] = {
-              char: termChars[i],
-              locked: true,
-              position
-            };
-          });
-        });
-      })
-    );
-  };
-
-  public render(): JSX.Element {
-    return (
+export const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
+  <CharController numberOfLetters={numberOfLetters}>
+    {({ registerTerms, charDefs }) => (
       <>
         <div
           className={css`
             z-index: 500;
           `}
         >
-          {this.props.children({ registerTerms: this.registerTerms })}
+          {children({ registerTerms })}
         </div>
-        <ul
-          className={css`
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-wrap: wrap;
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-          `}
-        >
-          {Object.keys(this.state.charDefs)
-            .sort()
-            .map(position => (
-              <li
-                className={css`
-                  text-transform: uppercase;
-                  color: ${this.state.charDefs[position].locked
-                    ? 'red'
-                    : 'black'};
-                  font-size: 50px;
-                `}
-              >
-                {this.state.charDefs[position].char}
-              </li>
-            ))}
-        </ul>
+        <WindowSize>
+          {(size: any) => (
+            <Rect>
+              {({ ref, rect }: any) => (
+                <ul
+                  ref={ref}
+                  className={css`
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: ${size.width}px;
+                    max-width: 100%;
+                    height: ${size.height}px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                  `}
+                >
+                  {(() => {
+                    if (!rect) {
+                      return null;
+                    }
+
+                    const squareLength = `${Math.sqrt(
+                      (rect.width * rect.height) / numberOfLetters
+                    )}px`;
+
+                    return Object.keys(charDefs)
+                      .sort()
+                      .map(position => {
+                        return (
+                          <li
+                            key={charDefs[position].position}
+                            className={css`
+                              width: ${squareLength};
+                              line-height: ${squareLength};
+                              text-align: center;
+                              text-transform: uppercase;
+                              color: ${charDefs[position].locked
+                                ? 'red'
+                                : 'black'};
+                              font-size: calc(${squareLength} * 0.75);
+                            `}
+                          >
+                            {charDefs[position].char}
+                          </li>
+                        );
+                      });
+                  })()}
+                </ul>
+              )}
+            </Rect>
+          )}
+        </WindowSize>
       </>
-    );
-  }
-}
+    )}
+  </CharController>
+);

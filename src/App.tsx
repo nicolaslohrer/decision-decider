@@ -39,7 +39,7 @@ export class App extends Component<{}, State> {
     return (
       <ThemeProvider theme={theme}>
         <ErrorBoundary>
-          <LetterWall>
+          <LetterWall numberOfLetters={500}>
             {({ registerTerms }) => (
               <>
                 <form

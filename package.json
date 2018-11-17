@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reach/rect": "^0.1.1",
+    "@reach/window-size": "^0.1.1",
     "@types/jest": "^23.3.9",
     "@types/node": "^10.12.9",
     "@types/prettier": "^1.15.0",

@@ -3,20 +3,41 @@ import { Component } from 'react';
 import { ErrorCode } from '../utils/ErrorCodes';
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+// XXX: Store colors in theme.
+const COLORS = [
+  '#00a0d7',
+  '#8c6ca7',
+  '#dc504a',
+  '#e58338',
+  '#00adb0',
+  '#ecb03d',
+  '#db4b88',
+  '#7cb741',
+  // XXX: Get rid of grey?
+  '#868789'
+];
 
-type CharDef = { position: number; randomChar: string; fixedChar: string };
+type CharDef = {
+  position: number;
+  randomChar: string;
+  fixedChar?: string;
+  term?: string;
+};
 type CharDefMap = { [position: string]: CharDef };
+type TermDef = { term: string; color: string };
+type TermDefMap = { [term: string]: TermDef };
 
 type Props = {
   numberOfLetters: number;
   children: (
     renderProps: {
       registerTerms: (terms: string[]) => void;
-      charDefs: CharDefMap;
+      chars: CharDefMap;
+      terms: TermDefMap;
     }
   ) => JSX.Element;
 };
-type State = { charDefs: CharDefMap };
+type State = { charDefs: CharDefMap; terms: TermDefMap };
 
 export class CharController extends Component<Props, State> {
   private getRandomChar = () =>
@@ -28,12 +49,12 @@ export class CharController extends Component<Props, State> {
         ...charDefs,
         [i]: {
           position: i,
-          randomChar: this.getRandomChar(),
-          fixedChar: false
+          randomChar: this.getRandomChar()
         }
       }),
       {} as CharDefMap
-    )
+    ),
+    terms: {}
   };
 
   private getAvailableCharDefs = (charDefs: CharDefMap): CharDefMap =>
@@ -48,6 +69,23 @@ export class CharController extends Component<Props, State> {
 
       {}
     );
+
+  private getUnusedColor = () => {
+    const { terms } = this.state;
+    if (Object.keys(terms).length >= COLORS.length) {
+      // XXX: Throwing currently results in a total reset. Not so nice. Instead, forbid to enter more terms than there are colors available.
+      throw ErrorCode.TERM_LIMIT_EXCEEDED;
+    }
+
+    while (true) {
+      const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+      if (
+        !Object.keys(terms).some(termId => terms[termId].color === randomColor)
+      ) {
+        return randomColor;
+      }
+    }
+  };
 
   private registerTerms = (terms: string[]) => {
     this.setState(
@@ -85,7 +123,10 @@ export class CharController extends Component<Props, State> {
 
           newTermCharPositions.forEach((position, i) => {
             draft.charDefs[position].fixedChar = termChars[i];
+            draft.charDefs[position].term = term;
           });
+
+          draft.terms[term] = { term, color: this.getUnusedColor() };
         });
       })
     );
@@ -94,7 +135,8 @@ export class CharController extends Component<Props, State> {
   public render(): JSX.Element | null {
     return this.props.children({
       registerTerms: this.registerTerms,
-      charDefs: this.state.charDefs
+      chars: this.state.charDefs,
+      terms: this.state.terms
     });
   }
 }

@@ -10,6 +10,12 @@ export class ErrorBoundary extends Component {
         );
         break;
 
+      case ErrorCode.TERM_LIMIT_EXCEEDED:
+        alert(
+          "Sorry, I'm out of colors. No one can possibly handle that many decisions."
+        );
+        break;
+
       default:
         throw e;
     }

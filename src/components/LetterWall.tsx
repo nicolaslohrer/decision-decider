@@ -13,7 +13,7 @@ type Props = {
 
 export const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
   <CharController numberOfLetters={numberOfLetters}>
-    {({ registerTerms, charDefs }) => (
+    {({ registerTerms, chars, terms }) => (
       <>
         <div
           className={css`
@@ -54,22 +54,22 @@ export const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                       (rect.width * rect.height) / numberOfLetters
                     )}px`;
 
-                    return Object.keys(charDefs)
+                    return Object.keys(chars)
                       .sort()
                       .map(position => {
                         return (
                           <li
-                            key={charDefs[position].position}
+                            key={chars[position].position}
                             className={cx(
                               css`
                                 text-align: center;
                                 text-transform: uppercase;
-                                color: ${charDefs[position].fixedChar
+                                color: ${chars[position].fixedChar
                                   ? 'red'
                                   : 'black'};
                                 font-size: calc(${squareLength} * 0.75);
 
-                                transition: 0.6s;
+                                transition: 0.6s ease-out;
                                 transform-style: preserve-3d;
                                 position: relative;
 
@@ -86,7 +86,7 @@ export const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                                   left: 0;
                                 }
                               `,
-                              charDefs[position].fixedChar &&
+                              chars[position].fixedChar &&
                                 css`
                                   transform: rotateY(180deg);
                                 `
@@ -98,16 +98,24 @@ export const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                                 transform: rotateY(0deg);
                               `}
                             >
-                              {charDefs[position].randomChar}
+                              {chars[position].randomChar}
                             </span>
                             <span
-                              className={css`
-                                transform: rotateY(180deg);
-                                background-color: red;
-                                color: white;
-                              `}
+                              className={cx(
+                                css`
+                                  transform: rotateY(180deg);
+
+                                  color: white;
+                                `,
+                                chars[position].fixedChar &&
+                                  css`
+                                    background-color: ${terms[
+                                      chars[position].term!
+                                    ].color};
+                                  `
+                              )}
                             >
-                              {charDefs[position].fixedChar}
+                              {chars[position].fixedChar}
                             </span>
                           </li>
                         );

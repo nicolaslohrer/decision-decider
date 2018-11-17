@@ -1,6 +1,8 @@
 import { injectGlobal } from 'emotion';
+import { ThemeProvider } from 'emotion-theming';
 import { normalize } from 'polished';
 import React, { Component } from 'react';
+import { theme } from './theme';
 
 export class App extends Component {
   public componentDidMount() {
@@ -28,6 +30,10 @@ export class App extends Component {
   }
 
   public render() {
-    return <div>test</div>;
+    return (
+      <ThemeProvider theme={theme}>
+        <span>test</span>
+      </ThemeProvider>
+    );
   }
 }

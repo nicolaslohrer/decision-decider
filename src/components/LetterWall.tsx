@@ -1,6 +1,6 @@
 import Rect from '@reach/rect';
 import WindowSize from '@reach/window-size';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import React, { SFC } from 'react';
 import { CharController } from './CharController';
 
@@ -41,6 +41,8 @@ export const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                     list-style-type: none;
                     margin: 0;
                     padding: 0;
+
+                    perspective: 1000px;
                   `}
                 >
                   {(() => {
@@ -58,18 +60,55 @@ export const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                         return (
                           <li
                             key={charDefs[position].position}
-                            className={css`
-                              width: ${squareLength};
-                              line-height: ${squareLength};
-                              text-align: center;
-                              text-transform: uppercase;
-                              color: ${charDefs[position].locked
-                                ? 'red'
-                                : 'black'};
-                              font-size: calc(${squareLength} * 0.75);
-                            `}
+                            className={cx(
+                              css`
+                                text-align: center;
+                                text-transform: uppercase;
+                                color: ${charDefs[position].fixedChar
+                                  ? 'red'
+                                  : 'black'};
+                                font-size: calc(${squareLength} * 0.75);
+
+                                transition: 0.6s;
+                                transform-style: preserve-3d;
+                                position: relative;
+
+                                &,
+                                > span {
+                                  width: ${squareLength};
+                                  line-height: ${squareLength};
+                                }
+
+                                > span {
+                                  backface-visibility: hidden;
+                                  position: absolute;
+                                  top: 0;
+                                  left: 0;
+                                }
+                              `,
+                              charDefs[position].fixedChar &&
+                                css`
+                                  transform: rotateY(180deg);
+                                `
+                            )}
                           >
-                            {charDefs[position].char}
+                            <span
+                              className={css`
+                                z-index: 2;
+                                transform: rotateY(0deg);
+                              `}
+                            >
+                              {charDefs[position].randomChar}
+                            </span>
+                            <span
+                              className={css`
+                                transform: rotateY(180deg);
+                                background-color: red;
+                                color: white;
+                              `}
+                            >
+                              {charDefs[position].fixedChar}
+                            </span>
                           </li>
                         );
                       });

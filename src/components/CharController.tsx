@@ -4,7 +4,7 @@ import { ErrorCode } from '../utils/ErrorCodes';
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-type CharDef = { position: number; char: string; locked: boolean };
+type CharDef = { position: number; randomChar: string; fixedChar: string };
 type CharDefMap = { [position: string]: CharDef };
 
 type Props = {
@@ -19,14 +19,17 @@ type Props = {
 type State = { charDefs: CharDefMap };
 
 export class CharController extends Component<Props, State> {
+  private getRandomChar = () =>
+    CHARS.charAt(Math.floor(Math.random() * CHARS.length));
+
   public state: State = {
     charDefs: Array(...Array(this.props.numberOfLetters)).reduce<CharDefMap>(
       (charDefs, _x, i) => ({
         ...charDefs,
         [i]: {
           position: i,
-          char: CHARS.charAt(Math.floor(Math.random() * CHARS.length)),
-          locked: false
+          randomChar: this.getRandomChar(),
+          fixedChar: false
         }
       }),
       {} as CharDefMap
@@ -36,7 +39,7 @@ export class CharController extends Component<Props, State> {
   private getAvailableCharDefs = (charDefs: CharDefMap): CharDefMap =>
     Object.keys(charDefs).reduce(
       (availableCharDefs, position) =>
-        charDefs[position].locked
+        charDefs[position].fixedChar
           ? availableCharDefs
           : {
               ...availableCharDefs,
@@ -81,11 +84,7 @@ export class CharController extends Component<Props, State> {
           newTermCharPositions.sort();
 
           newTermCharPositions.forEach((position, i) => {
-            draft.charDefs[position] = {
-              char: termChars[i],
-              locked: true,
-              position
-            };
+            draft.charDefs[position].fixedChar = termChars[i];
           });
         });
       })

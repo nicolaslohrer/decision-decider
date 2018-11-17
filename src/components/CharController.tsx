@@ -23,13 +23,14 @@ type CharDef = {
 };
 type CharDefMap = { [position: string]: CharDef };
 type TermDef = { term: string; color: string };
-type TermDefMap = { [term: string]: TermDef };
+
+export type TermDefMap = { [term: string]: TermDef };
 
 type Props = {
   numberOfLetters: number;
   children: (
     renderProps: {
-      registerTerms: (terms: string[]) => void;
+      registerTerm: (term: string) => void;
       chars: CharDefMap;
       terms: TermDefMap;
       pickWinner: () => void;
@@ -86,8 +87,9 @@ export class CharController extends PureComponent<Props, State> {
     }
   };
 
-  private registerTerms = (terms: string[]) => {
+  private registerTerm = (term: string) => {
     // XXX: Cancel in case of a duplicate term.
+
     this.setState(
       produce<State>(draft => {
         try {
@@ -95,42 +97,44 @@ export class CharController extends PureComponent<Props, State> {
             ...this.getAvailableCharDefs(this.state.charDefs)
           };
 
-          terms.forEach(term => {
-            if (term) {
-              const trimmedTerm = term.replace(/\s/g, "");
-              const termChars: string[] = trimmedTerm.split("");
+          if (
+            term &&
+            !Object.keys(draft.terms).some(
+              termId => draft.terms[termId].term === term
+            )
+          ) {
+            const trimmedTerm = term.replace(/\s/g, "");
+            const termChars: string[] = trimmedTerm.split("");
 
-              const newTermCharPositions: number[] = [];
+            const newTermCharPositions: number[] = [];
 
-              if (termChars.length > Object.keys(availableCharDefs).length) {
-                throw ErrorCode.CHAR_LIMIT_EXCEEDED;
-              }
-
-              while (newTermCharPositions.length < termChars.length) {
-                const randomCharPosition = Number(
-                  Object.keys(availableCharDefs)[
-                    Math.floor(
-                      Math.random() * Object.keys(availableCharDefs).length
-                    )
-                  ]
-                );
-
-                if (randomCharPosition in availableCharDefs) {
-                  delete availableCharDefs[randomCharPosition];
-                  newTermCharPositions.push(randomCharPosition);
-                }
-              }
-
-              newTermCharPositions.sort();
-
-              newTermCharPositions.forEach((position, i) => {
-                draft.charDefs[position].fixedChar = termChars[i];
-                draft.charDefs[position].term = term;
-              });
-
-              draft.terms[term] = { term, color: this.getUnusedColor() };
+            if (termChars.length > Object.keys(availableCharDefs).length) {
+              throw ErrorCode.CHAR_LIMIT_EXCEEDED;
             }
-          });
+
+            while (newTermCharPositions.length < termChars.length) {
+              const randomCharPosition = Number(
+                Object.keys(availableCharDefs)[
+                  Math.floor(
+                    Math.random() * Object.keys(availableCharDefs).length
+                  )
+                ]
+              );
+
+              if (randomCharPosition in availableCharDefs) {
+                newTermCharPositions.push(randomCharPosition);
+              }
+            }
+
+            newTermCharPositions.sort();
+
+            newTermCharPositions.forEach((position, i) => {
+              draft.charDefs[position].fixedChar = termChars[i];
+              draft.charDefs[position].term = term;
+            });
+
+            draft.terms[term] = { term, color: this.getUnusedColor() };
+          }
         } catch (e) {
           switch (e) {
             case ErrorCode.CHAR_LIMIT_EXCEEDED:
@@ -175,7 +179,7 @@ export class CharController extends PureComponent<Props, State> {
 
   public render(): JSX.Element | null {
     return this.props.children({
-      registerTerms: this.registerTerms,
+      registerTerm: this.registerTerm,
       chars: this.state.charDefs,
       terms: this.state.terms,
       pickWinner: this.pickWinner,

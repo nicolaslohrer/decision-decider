@@ -28,6 +28,8 @@ export class App extends Component<{}, State> {
 
         -webkit-tap-highlight-color: transparent;
 
+        font-family: "Ubuntu Mono", monospace;
+
         &::before,
         &::after {
           box-sizing: inherit;
@@ -44,15 +46,16 @@ export class App extends Component<{}, State> {
     return (
       <ThemeProvider theme={theme}>
         <ErrorBoundary>
-          <LetterWall numberOfLetters={300} key={this.state.version}>
-            {({ registerTerms, pickWinner, winner }) => (
+          <LetterWall numberOfLetters={225} key={this.state.version}>
+            {({ registerTerm, pickWinner, winner, terms }) => (
               <TermEntryDialog
-                registerTerms={registerTerms}
+                terms={terms}
+                registerTerm={registerTerm}
                 pickWinner={pickWinner}
-                reset={() =>
-                  this.setState(({ version }) => ({ version: version + 1 }))
+                reset={(cb?: () => void) =>
+                  this.setState(({ version }) => ({ version: version + 1 }), cb)
                 }
-                isOpen={!winner}
+                isDone={!!winner}
               />
             )}
           </LetterWall>

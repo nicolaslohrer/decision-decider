@@ -2,15 +2,16 @@ import Rect from "@reach/rect";
 import WindowSize from "@reach/window-size";
 import { css, cx } from "emotion";
 import React, { memo, SFC } from "react";
-import { CharController } from "./CharController";
+import { CharController, TermDefMap } from "./CharController";
 
 type Props = {
   numberOfLetters: number;
   children: (
     renderProps: {
-      registerTerms: (terms: string[]) => void;
+      registerTerm: (term: string) => void;
       pickWinner: () => void;
       winner?: string;
+      terms: TermDefMap;
     }
   ) => JSX.Element;
 };
@@ -19,26 +20,34 @@ const COMPUTATION_DURATION = "3.75s";
 
 const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
   <CharController numberOfLetters={numberOfLetters}>
-    {({ registerTerms, chars, terms, pickWinner, winner }) => (
-      <>
-        <div
-          className={css`
-            z-index: 500;
-          `}
-        >
-          {children({ registerTerms, pickWinner, winner })}
-        </div>
-        <WindowSize>
-          {(size: any) => (
+    {({ registerTerm, chars, terms, pickWinner, winner }) => (
+      <WindowSize>
+        {(size: any) => (
+          <div
+            className={css`
+              display: flex;
+              flex-direction: column;
+              height: 100%;
+              width: 100%;
+              width: ${size.width}px;
+              height: ${size.height}px;
+            `}
+          >
             <div
               className={css`
-                position: absolute;
-                left: 0;
-                top: 0;
+                z-index: 500;
+              `}
+            >
+              {children({ registerTerm, pickWinner, winner, terms })}
+            </div>
+            <div
+              className={css`
+                flex-grow: 1;
                 padding: 1rem;
-                width: ${size.width}px;
                 max-width: 100%;
-                height: ${size.height}px;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
               `}
             >
               <Rect>
@@ -46,6 +55,7 @@ const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                   <ul
                     ref={ref}
                     className={css`
+                      flex-grow: 1;
                       width: 100%;
                       height: 100%;
                       /* XXX: Get rid of vertical scrollbar. */
@@ -78,7 +88,6 @@ const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                                   text-align: center;
                                   text-transform: uppercase;
                                   font-size: calc(${squareLength} * 0.55);
-                                  font-family: "Ubuntu Mono", monospace;
                                   font-weight: 400;
                                   transition: 0.5s ease-out;
                                   transform-style: preserve-3d;
@@ -164,9 +173,9 @@ const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                 )}
               </Rect>
             </div>
-          )}
-        </WindowSize>
-      </>
+          </div>
+        )}
+      </WindowSize>
     )}
   </CharController>
 );

@@ -1,13 +1,17 @@
-import { DialogContent, DialogOverlay } from "@reach/dialog";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@reach/dialog/styles.css";
 import { css, cx } from "emotion";
 import React, { Component, createRef } from "react";
+import { TermDefMap } from "./CharController";
 
 type Props = {
-  registerTerms: (terms: string[]) => void;
+  registerTerm: (term: string) => void;
   pickWinner: () => void;
-  reset: () => void;
-  isOpen: boolean;
+  reset: (cb?: () => void) => void;
+  isDone: boolean;
+  className?: string;
+  terms: TermDefMap;
 };
 type State = { term: string };
 
@@ -19,64 +23,109 @@ export class TermEntryDialog extends Component<Props, State> {
   public render() {
     const {
       state: { term },
-      props: { registerTerms, pickWinner, reset, isOpen }
+      props: { registerTerm, pickWinner, reset, isDone, className, terms }
     } = this;
     return (
-      <DialogOverlay
+      <div
         className={cx(
           css`
-            background-color: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 1rem 1rem 0;
           `,
-          !isOpen &&
-            css`
-              transition: opacity 0.3s ease-in;
-              opacity: 0;
-            `
+          className
         )}
       >
-        <DialogContent
-          className={css`
-            width: calc(100vw - 2rem);
-            max-width: 500px;
-            margin: 0;
-            padding: 0;
-          `}
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            registerTerm(term);
+            this.setState({ term: "" }, () => {
+              inputRef.current!.focus();
+            });
+          }}
         >
-          <form
-            onSubmit={e => {
-              e.preventDefault();
-              registerTerms([term]);
-              this.setState({ term: "" }, () => {
-                inputRef.current!.focus();
-              });
-            }}
+          <div
+            className={css`
+              display: flex;
+              margin-bottom: 0.5rem;
+              opacity: ${isDone && 0.4};
+              caret-color: ${isDone && "transparent"};
+            `}
           >
             <input
+              className={css`
+                border: 0 none;
+                border-bottom: 1px solid grey;
+                outline: 0 none;
+                line-height: 2;
+                padding: 0 3rem 0 0.5rem;
+                font-size: 1.25rem;
+                flex-grow: 1;
+              `}
+              placeholder="Enter Option"
               ref={inputRef}
               value={term}
               onChange={({ target: { value } }) =>
-                this.setState({ term: value })
+                !isDone && this.setState({ term: value })
               }
             />
-            <button type="submit">add term</button>
             <button
-              type="button"
-              onClick={() => {
-                pickWinner();
-                inputRef.current!.focus(); // Make sure keyboard stays open to avoid jumping during the animations.
-              }}
+              type="submit"
+              className={css`
+                border: 0 none;
+                line-height: 2;
+                padding: 0 1rem;
+                cursor: pointer;
+                right: 0;
+                font-size: 1.25rem;
+                background-color: transparent;
+                position: absolute;
+              `}
+              title="Add option"
             >
-              Decide decision!
+              <FontAwesomeIcon icon={faPlus} size="xs" />
             </button>
-            <button type="button" onClick={reset}>
-              Start over
-            </button>
-          </form>
-        </DialogContent>
-      </DialogOverlay>
+          </div>
+          <div
+            className={css`
+              display: flex;
+              justify-content: space-between;
+            `}
+          >
+            {isDone ? (
+              <button
+                type="button"
+                className={css`
+                  width: 100%;
+                  line-height: 2;
+                `}
+                onClick={() => {
+                  reset(() => inputRef.current!.focus());
+                }}
+              >
+                Start over
+              </button>
+            ) : (
+              <button
+                type="button"
+                className={css`
+                  width: 100%;
+                  line-height: 2;
+                `}
+                onClick={() => {
+                  if (this.state.term) {
+                    this.setState({ term: "" });
+                  }
+                  pickWinner();
+                  inputRef.current!.focus();
+                }}
+                disabled={Object.keys(terms).length < 2}
+              >
+                Decide decision!
+              </button>
+            )}
+          </div>
+        </form>
+      </div>
     );
   }
 }

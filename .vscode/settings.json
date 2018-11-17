@@ -1,0 +1,35 @@
+{
+  "editor.formatOnSave": true,
+  "editor.rulers": [80],
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "[typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "[typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "editor.tabSize": 2,
+  "todohighlight.keywords": ["TODO:", "FIXME:", "XXX:"],
+  "todohighlight.include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.json",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.html"
+  ],
+  "todohighlight.exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.vscode/**",
+    "**/*.min.*",
+    "**/*.map",
+    "**/target/**"
+  ]
+}

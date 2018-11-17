@@ -1,14 +1,14 @@
-import { injectGlobal } from 'emotion';
-import { ThemeProvider } from 'emotion-theming';
-import { normalize } from 'polished';
-import React, { Component } from 'react';
-import { ErrorBoundary } from './components/ErrorBoundary';
-import { LetterWall } from './components/LetterWall';
-import { theme } from './theme';
+import { injectGlobal } from "emotion";
+import { ThemeProvider } from "emotion-theming";
+import { normalize } from "polished";
+import React, { Component } from "react";
+import { ErrorBoundary } from "./components/ErrorBoundary";
+import { LetterWall } from "./components/LetterWall";
+import { theme } from "./theme";
 
 type State = { term: string };
 export class App extends Component<{}, State> {
-  public state: State = { term: '' };
+  public state: State = { term: "" };
 
   public componentDidMount() {
     injectGlobal`
@@ -46,7 +46,7 @@ export class App extends Component<{}, State> {
                   onSubmit={e => {
                     e.preventDefault();
                     registerTerms([term]);
-                    this.setState({ term: '' });
+                    this.setState({ term: "" });
                   }}
                 >
                   <input

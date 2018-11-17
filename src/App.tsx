@@ -2,6 +2,7 @@ import { injectGlobal } from 'emotion';
 import { ThemeProvider } from 'emotion-theming';
 import { normalize } from 'polished';
 import React, { Component } from 'react';
+import { LetterWall } from './components/LetterWall';
 import { theme } from './theme';
 
 export class App extends Component {
@@ -32,7 +33,7 @@ export class App extends Component {
   public render() {
     return (
       <ThemeProvider theme={theme}>
-        <span>test</span>
+        <LetterWall terms={['hello', 'bye', 'whats up']} />
       </ThemeProvider>
     );
   }

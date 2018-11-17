@@ -1,14 +1,16 @@
+import "@reach/dialog/styles.css";
 import { injectGlobal } from "emotion";
 import { ThemeProvider } from "emotion-theming";
 import { normalize } from "polished";
 import React, { Component } from "react";
 import { ErrorBoundary } from "./components/ErrorBoundary";
-import { LetterWall } from "./components/LetterWall";
+import LetterWall from "./components/LetterWall";
+import { TermEntryDialog } from "./components/TermEntryDialog";
 import { theme } from "./theme";
 
-type State = { term: string };
+type State = { version: number };
 export class App extends Component<{}, State> {
-  public state: State = { term: "" };
+  public state: State = { version: 0 };
 
   public componentDidMount() {
     injectGlobal`
@@ -31,33 +33,27 @@ export class App extends Component<{}, State> {
           box-sizing: inherit;
         }
       }
+
+      html {
+        font-size: 16px;
+      }
     `;
   }
 
   public render() {
-    const { term } = this.state;
     return (
       <ThemeProvider theme={theme}>
         <ErrorBoundary>
-          <LetterWall numberOfLetters={500}>
-            {({ registerTerms }) => (
-              <>
-                <form
-                  onSubmit={e => {
-                    e.preventDefault();
-                    registerTerms([term]);
-                    this.setState({ term: "" });
-                  }}
-                >
-                  <input
-                    value={term}
-                    onChange={({ target: { value } }) =>
-                      this.setState({ term: value })
-                    }
-                  />
-                  <button type="submit">add term</button>
-                </form>
-              </>
+          <LetterWall numberOfLetters={500} key={this.state.version}>
+            {({ registerTerms, pickWinner, winner }) => (
+              <TermEntryDialog
+                registerTerms={registerTerms}
+                pickWinner={pickWinner}
+                reset={() =>
+                  this.setState(({ version }) => ({ version: version + 1 }))
+                }
+                isOpen={!winner}
+              />
             )}
           </LetterWall>
         </ErrorBoundary>

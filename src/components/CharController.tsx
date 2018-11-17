@@ -1,5 +1,5 @@
 import { produce } from "immer";
-import { Component } from "react";
+import { PureComponent } from "react";
 import { ErrorCode } from "../utils/ErrorCodes";
 
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -34,12 +34,14 @@ type Props = {
       registerTerms: (terms: string[]) => void;
       chars: CharDefMap;
       terms: TermDefMap;
+      pickWinner: () => void;
+      winner?: string;
     }
   ) => JSX.Element;
 };
-type State = { charDefs: CharDefMap; terms: TermDefMap };
+type State = { charDefs: CharDefMap; terms: TermDefMap; winner?: string };
 
-export class CharController extends Component<Props, State> {
+export class CharController extends PureComponent<Props, State> {
   private getRandomChar = () =>
     CHARS.charAt(Math.floor(Math.random() * CHARS.length));
 
@@ -87,6 +89,7 @@ export class CharController extends Component<Props, State> {
   };
 
   private registerTerms = (terms: string[]) => {
+    // XXX: Cancel in case of a duplicate term.
     this.setState(
       produce<State>(draft => {
         try {
@@ -95,38 +98,40 @@ export class CharController extends Component<Props, State> {
           };
 
           terms.forEach(term => {
-            const trimmedTerm = term.replace(/\s/g, "");
-            const termChars: string[] = trimmedTerm.split("");
+            if (term) {
+              const trimmedTerm = term.replace(/\s/g, "");
+              const termChars: string[] = trimmedTerm.split("");
 
-            const newTermCharPositions: number[] = [];
+              const newTermCharPositions: number[] = [];
 
-            if (termChars.length > Object.keys(availableCharDefs).length) {
-              throw ErrorCode.CHAR_LIMIT_EXCEEDED;
-            }
-
-            while (newTermCharPositions.length < termChars.length) {
-              const randomCharPosition = Number(
-                Object.keys(availableCharDefs)[
-                  Math.floor(
-                    Math.random() * Object.keys(availableCharDefs).length
-                  )
-                ]
-              );
-
-              if (randomCharPosition in availableCharDefs) {
-                delete availableCharDefs[randomCharPosition];
-                newTermCharPositions.push(randomCharPosition);
+              if (termChars.length > Object.keys(availableCharDefs).length) {
+                throw ErrorCode.CHAR_LIMIT_EXCEEDED;
               }
+
+              while (newTermCharPositions.length < termChars.length) {
+                const randomCharPosition = Number(
+                  Object.keys(availableCharDefs)[
+                    Math.floor(
+                      Math.random() * Object.keys(availableCharDefs).length
+                    )
+                  ]
+                );
+
+                if (randomCharPosition in availableCharDefs) {
+                  delete availableCharDefs[randomCharPosition];
+                  newTermCharPositions.push(randomCharPosition);
+                }
+              }
+
+              newTermCharPositions.sort();
+
+              newTermCharPositions.forEach((position, i) => {
+                draft.charDefs[position].fixedChar = termChars[i];
+                draft.charDefs[position].term = term;
+              });
+
+              draft.terms[term] = { term, color: this.getUnusedColor() };
             }
-
-            newTermCharPositions.sort();
-
-            newTermCharPositions.forEach((position, i) => {
-              draft.charDefs[position].fixedChar = termChars[i];
-              draft.charDefs[position].term = term;
-            });
-
-            draft.terms[term] = { term, color: this.getUnusedColor() };
           });
         } catch (e) {
           switch (e) {
@@ -150,11 +155,32 @@ export class CharController extends Component<Props, State> {
     );
   };
 
+  private pickWinner = () => {
+    const { terms, winner } = this.state;
+
+    if (!Object.keys(terms).length || winner) {
+      return;
+    }
+
+    this.setState(
+      produce<State>(draft => {
+        draft.winner =
+          terms[
+            Object.keys(terms)[
+              Math.floor(Math.random() * Object.keys(terms).length)
+            ]
+          ].term;
+      })
+    );
+  };
+
   public render(): JSX.Element | null {
     return this.props.children({
       registerTerms: this.registerTerms,
       chars: this.state.charDefs,
-      terms: this.state.terms
+      terms: this.state.terms,
+      pickWinner: this.pickWinner,
+      winner: this.state.winner
     });
   }
 }

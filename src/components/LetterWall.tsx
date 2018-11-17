@@ -15,7 +15,7 @@ type Props = {
   ) => JSX.Element;
 };
 
-const COMPUTATION_DURATION = "6s";
+const COMPUTATION_DURATION = "3.75s";
 
 const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
   <CharController numberOfLetters={numberOfLetters}>
@@ -114,8 +114,14 @@ const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                                     transform: rotateY(
                                       ${chars[position].fixedChar &&
                                       chars[position].term !== winner
-                                        ? "2520deg"
-                                        : "2700deg"}
+                                        ? `${[4, 5, 6, 7, 8, 9][
+                                            Math.floor(Math.random() * 5)
+                                          ] * 360}deg`
+                                        : `${[4, 5, 6, 7, 8, 9][
+                                            Math.floor(Math.random() * 5)
+                                          ] *
+                                            360 +
+                                            180}deg`}
                                     );
                                   `
                               )}

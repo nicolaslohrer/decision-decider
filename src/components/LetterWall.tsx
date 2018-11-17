@@ -61,7 +61,7 @@ export class LetterWall extends Component<Props, State> {
           const newTermCharPositions: number[] = [];
 
           if (termChars.length > Object.keys(availableCharDefs).length) {
-            throw RuntimeError.NOT_ENOUGH_CHARS_LEFT;
+            throw RuntimeError.CHAR_LIMIT_EXCEEDED;
           }
 
           while (newTermCharPositions.length < termChars.length) {

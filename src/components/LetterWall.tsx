@@ -34,6 +34,7 @@ export const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                     top: 0;
                     width: ${size.width}px;
                     max-width: 100%;
+                    /* XXX: Get rid of vertical scrollbar. */
                     height: ${size.height}px;
                     display: flex;
                     flex-wrap: wrap;

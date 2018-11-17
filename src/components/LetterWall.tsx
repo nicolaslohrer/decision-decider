@@ -1,8 +1,8 @@
-import Rect from '@reach/rect';
-import WindowSize from '@reach/window-size';
-import { css, cx } from 'emotion';
-import React, { SFC } from 'react';
-import { CharController } from './CharController';
+import Rect from "@reach/rect";
+import WindowSize from "@reach/window-size";
+import { css, cx } from "emotion";
+import React, { SFC } from "react";
+import { CharController } from "./CharController";
 
 type Props = {
   numberOfLetters: number;
@@ -64,12 +64,8 @@ export const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                               css`
                                 text-align: center;
                                 text-transform: uppercase;
-                                color: ${chars[position].fixedChar
-                                  ? 'red'
-                                  : 'black'};
                                 font-size: calc(${squareLength} * 0.75);
-
-                                transition: 0.6s ease-out;
+                                transition: 0.5s ease-out;
                                 transform-style: preserve-3d;
                                 position: relative;
 
@@ -84,6 +80,7 @@ export const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                                   position: absolute;
                                   top: 0;
                                   left: 0;
+                                  border-radius: 4px;
                                 }
                               `,
                               chars[position].fixedChar &&

@@ -62,7 +62,13 @@ export class TermEntryDialog extends Component<Props, State> {
               }
             />
             <button type="submit">add term</button>
-            <button type="button" onClick={pickWinner}>
+            <button
+              type="button"
+              onClick={() => {
+                pickWinner();
+                inputRef.current!.focus(); // Make sure keyboard stays open to avoid jumping during the animations.
+              }}
+            >
               Decide decision!
             </button>
             <button type="button" onClick={reset}>

@@ -77,7 +77,7 @@ const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                                 css`
                                   text-align: center;
                                   text-transform: uppercase;
-                                  font-size: 70%;
+                                  font-size: calc(${squareLength} * 0.55);
                                   font-family: "Ubuntu Mono", monospace;
                                   font-weight: 400;
                                   transition: 0.5s ease-out;

@@ -2,10 +2,14 @@ import { injectGlobal } from 'emotion';
 import { ThemeProvider } from 'emotion-theming';
 import { normalize } from 'polished';
 import React, { Component } from 'react';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { LetterWall } from './components/LetterWall';
 import { theme } from './theme';
 
-export class App extends Component {
+type State = { term: string };
+export class App extends Component<{}, State> {
+  public state: State = { term: '' };
+
   public componentDidMount() {
     injectGlobal`
       ${normalize()}
@@ -31,9 +35,32 @@ export class App extends Component {
   }
 
   public render() {
+    const { term } = this.state;
     return (
       <ThemeProvider theme={theme}>
-        <LetterWall terms={['hello', 'bye', 'whats up']} />
+        <ErrorBoundary>
+          <LetterWall>
+            {({ registerTerms }) => (
+              <>
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    registerTerms([term]);
+                    this.setState({ term: '' });
+                  }}
+                >
+                  <input
+                    value={term}
+                    onChange={({ target: { value } }) =>
+                      this.setState({ term: value })
+                    }
+                  />
+                  <button type="submit">add term</button>
+                </form>
+              </>
+            )}
+          </LetterWall>
+        </ErrorBoundary>
       </ThemeProvider>
     );
   }

@@ -1,15 +1,20 @@
 import { css } from 'emotion';
 import { produce } from 'immer';
 import React, { Component } from 'react';
+import { RuntimeError } from './ErrorBoundary';
 
 // XXX: Consider allowing more special characters (e.g. ÄÖÜß).
 const ALLOWED_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-const NUM_LETTERS = 100;
+const NUM_LETTERS = 500;
 
 type CharDef = { position: number; char: string; locked: boolean };
 type CharDefMap = { [position: string]: CharDef };
 
-type Props = { terms: string[] };
+type Props = {
+  children: (
+    renderProps: { registerTerms: (terms: string[]) => void }
+  ) => JSX.Element;
+};
 type State = { charDefs: CharDefMap };
 
 export class LetterWall extends Component<Props, State> {
@@ -29,10 +34,6 @@ export class LetterWall extends Component<Props, State> {
     )
   };
 
-  public componentDidMount() {
-    this.registerTerms(this.props.terms);
-  }
-
   private getAvailableCharDefs = (charDefs: CharDefMap): CharDefMap =>
     Object.keys(charDefs).reduce(
       (availableCharDefs, position) =>
@@ -46,7 +47,7 @@ export class LetterWall extends Component<Props, State> {
       {}
     );
 
-  private registerTerms = (terms: string[]): void => {
+  private registerTerms = (terms: string[]) => {
     this.setState(
       produce<State>(draft => {
         let availableCharDefs: CharDefMap = {
@@ -58,6 +59,10 @@ export class LetterWall extends Component<Props, State> {
           const termChars: string[] = trimmedTerm.split('');
 
           const newTermCharPositions: number[] = [];
+
+          if (termChars.length > Object.keys(availableCharDefs).length) {
+            throw RuntimeError.NOT_ENOUGH_CHARS_LEFT;
+          }
 
           while (newTermCharPositions.length < termChars.length) {
             const randomCharPosition = Number(
@@ -90,25 +95,45 @@ export class LetterWall extends Component<Props, State> {
 
   public render(): JSX.Element {
     return (
-      <ul
-        className={css`
-          text-transform: uppercase;
-        `}
-      >
-        {Object.keys(this.state.charDefs)
-          .sort()
-          .map(position => (
-            <li
-              className={css`
-                color: ${this.state.charDefs[position].locked
-                  ? 'red'
-                  : 'black'};
-              `}
-            >
-              {this.state.charDefs[position].char}
-            </li>
-          ))}
-      </ul>
+      <>
+        <div
+          className={css`
+            z-index: 500;
+          `}
+        >
+          {this.props.children({ registerTerms: this.registerTerms })}
+        </div>
+        <ul
+          className={css`
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-wrap: wrap;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+          `}
+        >
+          {Object.keys(this.state.charDefs)
+            .sort()
+            .map(position => (
+              <li
+                className={css`
+                  text-transform: uppercase;
+                  color: ${this.state.charDefs[position].locked
+                    ? 'red'
+                    : 'black'};
+                  font-size: 50px;
+                `}
+              >
+                {this.state.charDefs[position].char}
+              </li>
+            ))}
+        </ul>
+      </>
     );
   }
 }

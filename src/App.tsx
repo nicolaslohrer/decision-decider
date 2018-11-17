@@ -44,7 +44,7 @@ export class App extends Component<{}, State> {
     return (
       <ThemeProvider theme={theme}>
         <ErrorBoundary>
-          <LetterWall numberOfLetters={500} key={this.state.version}>
+          <LetterWall numberOfLetters={300} key={this.state.version}>
             {({ registerTerms, pickWinner, winner }) => (
               <TermEntryDialog
                 registerTerms={registerTerms}

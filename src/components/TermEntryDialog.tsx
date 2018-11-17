@@ -1,7 +1,7 @@
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import { css, cx } from "emotion";
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 
 type Props = {
   registerTerms: (terms: string[]) => void;
@@ -10,6 +10,8 @@ type Props = {
   isOpen: boolean;
 };
 type State = { term: string };
+
+const inputRef = createRef<HTMLInputElement>();
 
 export class TermEntryDialog extends Component<Props, State> {
   public state: State = { term: "" };
@@ -47,10 +49,13 @@ export class TermEntryDialog extends Component<Props, State> {
             onSubmit={e => {
               e.preventDefault();
               registerTerms([term]);
-              this.setState({ term: "" });
+              this.setState({ term: "" }, () => {
+                inputRef.current!.focus();
+              });
             }}
           >
             <input
+              ref={inputRef}
               value={term}
               onChange={({ target: { value } }) =>
                 this.setState({ term: value })

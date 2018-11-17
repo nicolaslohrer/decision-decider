@@ -75,24 +75,30 @@ const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                                 css`
                                   text-align: center;
                                   text-transform: uppercase;
-                                  font-size: calc(${squareLength} * 0.75);
+                                  font-size: 70%;
+                                  font-family: "Ubuntu Mono", monospace;
+                                  font-weight: 400;
                                   transition: 0.5s ease-out;
                                   transform-style: preserve-3d;
                                   position: relative;
+                                  margin: 0.15rem;
+                                  width: calc(${squareLength} - 0.3rem);
+                                  line-height: calc(${squareLength} - 0.3rem);
+                                  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.15);
+                                  border-radius: 2px;
 
-                                  &,
                                   > span {
-                                    width: ${squareLength};
-                                    line-height: ${squareLength};
+                                    display: block;
+                                    width: 100%;
+                                    height: 100%;
+                                    border-radius: 2px;
                                   }
 
                                   > span {
-                                    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
                                     backface-visibility: hidden;
                                     position: absolute;
                                     top: 0;
                                     left: 0;
-                                    border-radius: 4px;
                                   }
                                 `,
                                 chars[position].fixedChar &&

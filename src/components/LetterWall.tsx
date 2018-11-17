@@ -58,7 +58,6 @@ const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                       flex-grow: 1;
                       width: 100%;
                       height: 100%;
-                      /* XXX: Get rid of vertical scrollbar. */
                       display: flex;
                       flex-wrap: wrap;
                       list-style-type: none;

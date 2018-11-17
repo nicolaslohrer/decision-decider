@@ -12,9 +12,7 @@ const COLORS = [
   "#00adb0",
   "#ecb03d",
   "#db4b88",
-  "#7cb741",
-  // XXX: Get rid of grey?
-  "#868789"
+  "#7cb741"
 ];
 
 type CharDef = {

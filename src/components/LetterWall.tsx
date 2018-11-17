@@ -15,6 +15,8 @@ type Props = {
   ) => JSX.Element;
 };
 
+const COMPUTATION_DURATION = "6s";
+
 const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
   <CharController numberOfLetters={numberOfLetters}>
     {({ registerTerms, chars, terms, pickWinner, winner }) => (
@@ -84,6 +86,7 @@ const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                                   margin: 0.15rem;
                                   width: calc(${squareLength} - 0.3rem);
                                   line-height: calc(${squareLength} - 0.3rem);
+                                  background-color: #f5f5f5;
                                   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.15);
                                   border-radius: 2px;
 
@@ -106,44 +109,46 @@ const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                                     transform: rotateY(180deg);
                                   `,
                                 winner &&
-                                  chars[position].term !== winner &&
                                   css`
+                                    transition-duration: ${COMPUTATION_DURATION};
                                     transform: rotateY(
-                                      ${chars[position].fixedChar
-                                        ? "0deg"
-                                        : "180deg"}
+                                      ${chars[position].fixedChar &&
+                                      chars[position].term !== winner
+                                        ? "2520deg"
+                                        : "2700deg"}
                                     );
                                   `
                               )}
                             >
                               {/* XXX: Fill up last row. */}
                               <span
-                                className={css`
-                                  z-index: 2;
-                                  transform: rotateY(0deg);
-                                `}
+                                className={cx(
+                                  css`
+                                    z-index: 2;
+                                    transform: rotateY(0deg);
+                                  `
+                                )}
                               >
-                                {winner &&
-                                chars[position].term !== winner &&
-                                chars[position].fixedChar
-                                  ? ""
-                                  : chars[position].randomChar}
+                                {chars[position].fixedChar ||
+                                  chars[position].randomChar}
                               </span>
                               <span
                                 className={cx(
                                   css`
                                     transform: rotateY(180deg);
-                                    color: white;
+                                    color: black;
                                   `,
                                   chars[position].fixedChar &&
                                     css`
+                                      color: white;
                                       background-color: ${terms[
                                         chars[position].term!
                                       ].color};
                                     `
                                 )}
                               >
-                                {chars[position].fixedChar}
+                                {chars[position].fixedChar ||
+                                  chars[position].randomChar}
                               </span>
                             </li>
                           );

@@ -1,63 +1,104 @@
 import "@reach/dialog/styles.css";
 import { css, cx } from "emotion";
-import React, { SFC } from "react";
+import React, { Component } from "react";
+import { Dialog } from "./Dialog";
+import { Imprint } from "./Imprint";
+import { Privacy } from "./Privacy";
 
-export const Footer: SFC<{ className?: string }> = ({ className }) => {
-  return (
-    <footer
-      className={cx(
-        css`
-          padding: 1.25vh 2vh;
-          border-top: 1px solid black;
-          font-size: 0.6rem;
-          opacity: 0.6;
+type Props = { className?: string };
+type State = { isImprintVisible: boolean; isPrivacyVisible: boolean };
 
-          &:hover,
-          &:hover {
-            opacity: 1;
-          }
-        `,
-        className
-      )}
-    >
-      <ul
-        className={css`
-          display: flex;
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-          justify-content: center;
+export class Footer extends Component<Props, State> {
+  public state: State = { isImprintVisible: false, isPrivacyVisible: false };
 
-          li {
-            display: flex;
+  public render() {
+    const {
+      props: { className },
+      state: { isPrivacyVisible, isImprintVisible }
+    } = this;
 
-            &::before {
-              content: "※";
-              margin-right: 1ch;
+    return (
+      <footer
+        className={cx(
+          css`
+            padding: 1.25vh 2vh;
+            border-top: 1px solid black;
+            font-size: 0.6rem;
+            opacity: 0.6;
+            transition: opacity 0.25s ease-out;
+
+            &:hover,
+            &:hover {
+              opacity: 1;
             }
-
-            + li {
-              display: inline-block;
-              margin-left: 2.5ch;
-            }
-          }
-        `}
+          `,
+          className
+        )}
       >
-        <li>
-          <span>
-            A weird side project by{" "}
-            <a href="http://nicolasschabram.com">Nicolas Schabram</a>
-          </span>
-        </li>
-        <li>
-          <span>
-            <a href="#0" onClick={() => {}}>
-              Imprint
-            </a>
-            {/* XXX: Add imprint. */}
-          </span>
-        </li>
-      </ul>
-    </footer>
-  );
-};
+        <ul
+          className={css`
+            display: flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+
+            li {
+              display: flex;
+
+              &::before {
+                content: "※";
+                margin-right: 1ch;
+              }
+
+              + li {
+                display: inline-block;
+                margin-left: 2.5ch;
+              }
+            }
+          `}
+        >
+          <li>
+            <span>
+              A weird side project by{" "}
+              <a href="http://nicolasschabram.com">Nicolas Schabram</a>
+            </span>
+          </li>
+          <li>
+            <span>
+              <a
+                href="#0"
+                onClick={() => this.setState({ isImprintVisible: true })}
+              >
+                Imprint
+              </a>
+            </span>
+          </li>
+          <li>
+            <span>
+              <a
+                href="#0"
+                onClick={() => this.setState({ isPrivacyVisible: true })}
+              >
+                Privacy
+              </a>
+            </span>
+          </li>
+        </ul>
+
+        <Dialog
+          isOpen={isImprintVisible}
+          onDismiss={() => this.setState({ isImprintVisible: false })}
+        >
+          <Imprint />
+        </Dialog>
+        <Dialog
+          isOpen={isPrivacyVisible}
+          onDismiss={() => this.setState({ isPrivacyVisible: false })}
+        >
+          <Privacy />
+        </Dialog>
+      </footer>
+    );
+  }
+}

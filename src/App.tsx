@@ -53,6 +53,8 @@ export class App extends Component<{}, State> {
       }
 
       a {
+        transition: opacity 0.25s ease-out;
+
         &:link,
         &:visited {
           color: ${COLORS[2]};
@@ -63,6 +65,13 @@ export class App extends Component<{}, State> {
           opacity: 0.8;
         }
       }
+
+      hr {
+        height: 1px;
+        background-color: lightgrey;
+        border: none;
+      }
+
     `;
   }
 
@@ -88,7 +97,6 @@ export class App extends Component<{}, State> {
               }
               mode={mode}
             />
-            // XXX: Add spacing below entry form. More complicated than it seems.
           )}
         </LetterWall>
         <Footer />

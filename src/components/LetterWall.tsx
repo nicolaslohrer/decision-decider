@@ -52,7 +52,6 @@ class LetterWall extends Component<Props, State> {
           >
             <div
               className={css`
-                z-index: 500;
                 margin-bottom: 2vh;
               `}
             >

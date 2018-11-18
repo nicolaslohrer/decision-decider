@@ -1,19 +1,9 @@
 import { produce } from "immer";
 import { PureComponent } from "react";
+import { COLORS } from "../utils/Colors";
 import { ErrorCode } from "../utils/ErrorCodes";
 
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-// XXX: Store colors in theme.
-const COLORS = [
-  "#00a0d7",
-  "#8c6ca7",
-  "#dc504a",
-  "#e58338",
-  "#00adb0",
-  "#ecb03d",
-  "#db4b88",
-  "#7cb741"
-];
 
 type CharDef = {
   position: number;

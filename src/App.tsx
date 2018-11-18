@@ -1,12 +1,10 @@
 import "@reach/dialog/styles.css";
 import { injectGlobal } from "emotion";
-import { ThemeProvider } from "emotion-theming";
 import { normalize } from "polished";
 import React, { Component } from "react";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import LetterWall from "./components/LetterWall";
 import { TermEntryDialog } from "./components/TermEntryDialog";
-import { theme } from "./theme";
 
 type State = { version: number };
 export class App extends Component<{}, State> {
@@ -44,23 +42,21 @@ export class App extends Component<{}, State> {
 
   public render() {
     return (
-      <ThemeProvider theme={theme}>
-        <ErrorBoundary>
-          <LetterWall numberOfLetters={175} key={this.state.version}>
-            {({ registerTerm, pickWinner, winner, terms }) => (
-              <TermEntryDialog
-                terms={terms}
-                registerTerm={registerTerm}
-                pickWinner={pickWinner}
-                reset={(cb?: () => void) =>
-                  this.setState(({ version }) => ({ version: version + 1 }), cb)
-                }
-                isDone={!!winner}
-              />
-            )}
-          </LetterWall>
-        </ErrorBoundary>
-      </ThemeProvider>
+      <ErrorBoundary>
+        <LetterWall numberOfLetters={175} key={this.state.version}>
+          {({ registerTerm, pickWinner, winner, terms }) => (
+            <TermEntryDialog
+              terms={terms}
+              registerTerm={registerTerm}
+              pickWinner={pickWinner}
+              reset={(cb?: () => void) =>
+                this.setState(({ version }) => ({ version: version + 1 }), cb)
+              }
+              isDone={!!winner}
+            />
+          )}
+        </LetterWall>
+      </ErrorBoundary>
     );
   }
 }

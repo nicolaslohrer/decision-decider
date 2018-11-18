@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@reach/dialog/styles.css";
 import { css, cx } from "emotion";
 import React, { Component, createRef } from "react";
+import { Button } from "./Button";
 import { TermDefMap } from "./CharController";
 
 type Props = {
@@ -60,6 +61,7 @@ export class TermEntryDialog extends Component<Props, State> {
                 padding: 0 3rem 0 0.5rem;
                 font-size: 1.25rem;
                 flex-grow: 1;
+                border-radius: 0;
               `}
               placeholder="Enter Option"
               ref={inputRef}
@@ -92,25 +94,17 @@ export class TermEntryDialog extends Component<Props, State> {
             `}
           >
             {isDone ? (
-              <button
+              <Button
                 type="button"
-                className={css`
-                  width: 100%;
-                  line-height: 2;
-                `}
                 onClick={() => {
                   reset(() => inputRef.current!.focus());
                 }}
               >
                 Start over
-              </button>
+              </Button>
             ) : (
-              <button
+              <Button
                 type="button"
-                className={css`
-                  width: 100%;
-                  line-height: 2;
-                `}
                 onClick={() => {
                   if (this.state.term) {
                     this.setState({ term: "" });
@@ -120,8 +114,8 @@ export class TermEntryDialog extends Component<Props, State> {
                 }}
                 disabled={Object.keys(terms).length < 2}
               >
-                Decide decision!
-              </button>
+                Decide Decision
+              </Button>
             )}
           </div>
         </form>

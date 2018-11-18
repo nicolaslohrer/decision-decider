@@ -9,25 +9,33 @@ type Props = {
     renderProps: {
       registerTerm: (term: string) => void;
       pickWinner: () => void;
-      winner?: string;
       terms: TermDefMap;
-      isResultMode: boolean;
+      mode: Mode;
     }
   ) => JSX.Element;
   className?: string;
 };
 
-type State = { isResultMode: boolean };
+export type Mode =
+  | "COLLECTING_USER_INPUT"
+  | "ROTATING_LETTERS"
+  | "FILTERING_LETTERS"
+  | "DONE";
 
-const COMPUTATION_DURATION = 3.75;
+type State = { mode: Mode };
 
-class LetterWall extends Component<Props> {
-  public state: State = { isResultMode: false };
+const animationDurations = {
+  letterRotation: 3500,
+  letterFiltering: 2000
+};
+
+class LetterWall extends Component<Props, State> {
+  public state: State = { mode: "COLLECTING_USER_INPUT" };
 
   public render() {
     const {
       props: { numberOfLetters, children, className },
-      state: { isResultMode }
+      state: { mode }
     } = this;
 
     return (
@@ -45,21 +53,29 @@ class LetterWall extends Component<Props> {
             <div
               className={css`
                 z-index: 500;
-                margin-bottom: 2vh;
               `}
             >
               {children({
                 registerTerm,
                 pickWinner: () => {
-                  setTimeout(
-                    () => this.setState({ isResultMode: true }),
-                    (COMPUTATION_DURATION + 1.25) * 1000
-                  );
-                  pickWinner();
+                  setTimeout(() => {
+                    pickWinner();
+                    this.setState({ mode: "ROTATING_LETTERS" }, () => {
+                      setTimeout(
+                        () =>
+                          this.setState({ mode: "FILTERING_LETTERS" }, () =>
+                            setTimeout(
+                              () => this.setState({ mode: "DONE" }),
+                              animationDurations.letterFiltering
+                            )
+                          ),
+                        animationDurations.letterRotation
+                      );
+                    });
+                  });
                 },
-                winner,
                 terms,
-                isResultMode
+                mode
               })}
             </div>
             <div
@@ -79,7 +95,9 @@ class LetterWall extends Component<Props> {
                       height: 100%;
                       display: flex;
                       flex-wrap: wrap;
-                      justify-content: ${isResultMode
+                      justify-content: ${["FILTERING_LETTERS", "DONE"].includes(
+                        mode
+                      )
                         ? "center"
                         : "space-between"};
                       align-items: center;
@@ -149,10 +167,13 @@ class LetterWall extends Component<Props> {
                                   css`
                                     transform: rotateY(180deg);
                                   `,
-                                winner &&
-                                  !isResultMode &&
+                                [
+                                  "ROTATING_LETTERS",
+                                  "FILTERING_LETTERS",
+                                  "DONE"
+                                ].includes(mode) &&
                                   css`
-                                    transition-duration: ${COMPUTATION_DURATION}s;
+                                    transition-duration: ${animationDurations.letterRotation}ms;
                                     transform: rotateY(
                                       ${chars[position].fixedChar &&
                                       chars[position].term !== winner
@@ -166,26 +187,29 @@ class LetterWall extends Component<Props> {
                                             180}deg`}
                                     );
                                   `,
-                                isResultMode &&
-                                  chars[position].term !== winner &&
-                                  css`
-                                    transition: all 3s ease-out;
-                                    width: 0;
-                                    margin: 0;
-                                    border: 0;
-                                    padding: 0;
-                                    opacity: 0;
-                                    overflow: hidden;
-                                  `,
-
-                                isResultMode &&
-                                  chars[position].term === winner &&
-                                  css`
-                                    transition: all 1s ease-out;
-                                    width: calc(2 * ${squareSize}px - 0.3rem);
-                                    height: calc(2 * ${squareSize}px - 0.3rem);
-                                    font-size: calc(2 * ${squareSize}px * 0.55);
-                                  `
+                                ["FILTERING_LETTERS", "DONE"].includes(mode) &&
+                                  cx(
+                                    chars[position].term === winner
+                                      ? css`
+                                          transition: all
+                                            ${animationDurations.letterFiltering}ms
+                                            ease-out;
+                                          width: calc(2 * ${squareSize}px);
+                                          height: calc(2 * ${squareSize}px);
+                                          font-size: calc(2 * ${squareSize}px);
+                                        `
+                                      : css`
+                                          transition: all
+                                            ${animationDurations.letterFiltering}ms
+                                            ease-out;
+                                          width: 0;
+                                          margin: 0;
+                                          border: 0;
+                                          padding: 0;
+                                          opacity: 0;
+                                          overflow: hidden;
+                                        `
+                                  )
                               )}
                             >
                               {/* XXX: Fill up last row. */}

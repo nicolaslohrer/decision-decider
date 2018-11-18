@@ -78,7 +78,7 @@ export class App extends Component<{}, State> {
             margin-bottom: 2vh;
           `}
         >
-          {({ registerTerm, pickWinner, winner, terms, isResultMode }) => (
+          {({ registerTerm, pickWinner, terms, mode }) => (
             <EntryForm
               terms={terms}
               registerTerm={registerTerm}
@@ -86,9 +86,9 @@ export class App extends Component<{}, State> {
               reset={(cb?: () => void) =>
                 this.setState(({ version }) => ({ version: version + 1 }), cb)
               }
-              isDone={!!winner}
-              isResultMode={isResultMode}
+              mode={mode}
             />
+            // XXX: Add spacing below entry form. More complicated than it seems.
           )}
         </LetterWall>
         <Footer />

@@ -6,36 +6,34 @@ import { css, cx } from "emotion";
 import React, { Component, createRef } from "react";
 import { Button } from "./Button";
 import { TermDefMap } from "./CharController";
+import { Mode } from "./LetterWall";
 
 type Props = {
   registerTerm: (term: string) => void;
   pickWinner: () => void;
   reset: (cb?: () => void) => void;
-  isDone: boolean;
   className?: string;
   terms: TermDefMap;
-  isResultMode: boolean;
+  mode: Mode;
 };
-type State = { term: string; isInputHidden: boolean };
+type State = { term: string; hasSubmitted: boolean };
 
 const inputRef = createRef<HTMLInputElement>();
 
+const animationDurations = {
+  formFadeOut: 250,
+  restartFadeIn: 250
+};
+
 export class EntryForm extends Component<Props, State> {
-  public state: State = { term: "", isInputHidden: false };
+  public state: State = { term: "", hasSubmitted: false };
 
   public render() {
     const {
-      state: { term, isInputHidden },
-      props: {
-        registerTerm,
-        pickWinner,
-        reset,
-        isDone,
-        className,
-        terms,
-        isResultMode
-      }
+      state: { term, hasSubmitted },
+      props: { registerTerm, pickWinner, reset, className, terms, mode }
     } = this;
+
     return (
       <div className={className}>
         <form
@@ -53,88 +51,99 @@ export class EntryForm extends Component<Props, State> {
                 ref={ref}
                 className={cx(
                   css`
-                    display: flex;
-                    margin-bottom: 0.5rem;
-                    opacity: ${isDone && 0.4};
-                    caret-color: ${isDone && "transparent"};
                     height: ${rect ? `${rect.height}px` : "auto"};
+                    transition: all ${animationDurations.formFadeOut}ms ease-out;
                   `,
-                  isInputHidden &&
+                  hasSubmitted &&
+                    mode !== "DONE" &&
                     css`
-                      transition: all 0.35s ease-out;
+                      margin-top: -200px;
                       opacity: 0;
-                      height: 0;
-                      overflow: hidden;
+                      transform: scale(0.9);
                     `
                 )}
               >
-                <input
-                  className={css`
-                    border: 0 none;
-                    border-bottom: 1px solid grey;
-                    outline: 0 none;
-                    line-height: 2;
-                    padding: 0 3rem 0 0.5rem;
-                    font-size: 1.25rem;
-                    flex-grow: 1;
-                    border-radius: 0;
-                  `}
-                  placeholder="Enter Option"
-                  ref={inputRef}
-                  value={term}
-                  onChange={({ target: { value } }) =>
-                    !isDone && this.setState({ term: value })
+                <div
+                  className={
+                    mode !== "COLLECTING_USER_INPUT"
+                      ? css`
+                          position: absolute;
+                          left: -10000px;
+                        `
+                      : undefined
                   }
-                />
-                <button
-                  type="submit"
-                  className={css`
-                    border: 0 none;
-                    line-height: 2;
-                    padding: 0 1rem;
-                    cursor: pointer;
-                    right: 0;
-                    font-size: 1.25rem;
-                    background-color: transparent;
-                    position: absolute;
-                  `}
-                  title="Add option"
                 >
-                  <FontAwesomeIcon icon={faPlus} size="xs" />
-                </button>
+                  <div
+                    className={css`
+                      display: flex;
+                      margin-bottom: 2vh;
+                    `}
+                  >
+                    <input
+                      className={css`
+                        border: 0 none;
+                        border-bottom: 1px solid grey;
+                        outline: 0 none;
+                        line-height: 2;
+                        padding: 0 3rem 0 0.5rem;
+                        font-size: 1.25rem;
+                        flex-grow: 1;
+                        border-radius: 0;
+                      `}
+                      placeholder="Enter Option"
+                      ref={inputRef}
+                      value={term}
+                      onChange={({ target: { value } }) =>
+                        mode === "COLLECTING_USER_INPUT" &&
+                        this.setState({ term: value })
+                      }
+                    />
+                    <button
+                      type="submit"
+                      className={css`
+                        border: 0 none;
+                        line-height: 2;
+                        padding: 0 1rem;
+                        cursor: pointer;
+                        right: 0;
+                        font-size: 1.25rem;
+                        background-color: transparent;
+                        position: absolute;
+                      `}
+                      title="Add option"
+                    >
+                      <FontAwesomeIcon icon={faPlus} size="xs" />
+                    </button>
+                  </div>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      this.setState({ term: "", hasSubmitted: true }, () => {
+                        setTimeout(
+                          pickWinner,
+                          animationDurations.formFadeOut + 450
+                        );
+                      });
+                      inputRef.current!.focus();
+                    }}
+                    disabled={Object.keys(terms).length < 2}
+                  >
+                    Decide Decision
+                  </Button>
+                </div>
+                {mode === "DONE" && (
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      reset(() => inputRef.current!.focus());
+                    }}
+                  >
+                    Start over
+                  </Button>
+                )}
               </div>
             )}
           </Rect>
-          <div
-            className={css`
-              display: flex;
-              justify-content: space-between;
-            `}
-          >
-            {isResultMode && (
-              <Button
-                type="button"
-                onClick={() => {
-                  reset(() => inputRef.current!.focus());
-                }}
-              >
-                Start over
-              </Button>
-            )}
-            {!isDone && (
-              <Button
-                type="button"
-                onClick={() => {
-                  this.setState({ isInputHidden: true, term: "" });
-                  inputRef.current!.focus();
-                  setTimeout(pickWinner, 1000);
-                }}
-                disabled={Object.keys(terms).length < 2}
-              >
-                Decide Decision
-              </Button>
-            )}
-          </div>
         </form>
       </div>
     );

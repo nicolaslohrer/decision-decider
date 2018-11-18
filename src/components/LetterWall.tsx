@@ -11,6 +11,7 @@ type Props = {
       pickWinner: () => void;
       winner?: string;
       terms: TermDefMap;
+      isResultMode: boolean;
     }
   ) => JSX.Element;
   className?: string;
@@ -37,9 +38,6 @@ class LetterWall extends Component<Props> {
               css`
                 display: flex;
                 flex-direction: column;
-                /* height: 95vh; */
-                height: 100%;
-                max-width: 100%;
               `,
               className
             )}
@@ -47,6 +45,7 @@ class LetterWall extends Component<Props> {
             <div
               className={css`
                 z-index: 500;
+                margin-bottom: 2vh;
               `}
             >
               {children({
@@ -54,19 +53,18 @@ class LetterWall extends Component<Props> {
                 pickWinner: () => {
                   setTimeout(
                     () => this.setState({ isResultMode: true }),
-                    (COMPUTATION_DURATION + 1.75) * 1000
+                    (COMPUTATION_DURATION + 1.25) * 1000
                   );
                   pickWinner();
                 },
                 winner,
-                terms
+                terms,
+                isResultMode
               })}
             </div>
             <div
               className={css`
                 flex-grow: 1;
-                padding: 2vh;
-                max-width: 100%;
                 display: flex;
                 flex-direction: column;
                 align-items: stretch;
@@ -78,7 +76,6 @@ class LetterWall extends Component<Props> {
                     ref={ref}
                     className={css`
                       flex-grow: 1;
-                      width: 100%;
                       height: 100%;
                       display: flex;
                       flex-wrap: wrap;
@@ -98,9 +95,17 @@ class LetterWall extends Component<Props> {
                         return null;
                       }
 
-                      const squareLength = `${Math.sqrt(
-                        (rect.width * rect.height) / numberOfLetters
-                      )}px`;
+                      let squareSize: number = 0;
+
+                      // Fit squares into rect. https://stackoverflow.com/a/38567903/7480786
+                      if (rect.height) {
+                        const rectRatio = rect.width / rect.height;
+                        let columns = Math.sqrt(numberOfLetters * rectRatio);
+                        let rows = columns / rectRatio;
+                        columns = Math.ceil(columns);
+                        rows = Math.ceil(rows);
+                        squareSize = rect.width / columns;
+                      }
 
                       return Object.keys(chars)
                         .sort()
@@ -113,19 +118,17 @@ class LetterWall extends Component<Props> {
                                 css`
                                   text-align: center;
                                   text-transform: uppercase;
-                                  font-size: calc(${squareLength} * 0.55);
+                                  font-size: calc(${squareSize}px * 0.55);
                                   font-weight: 400;
                                   transition: 0.5s ease-out;
                                   transform-style: preserve-3d;
                                   position: relative;
-                                  margin: 0.15rem;
-                                  width: calc(${squareLength} - 0.3rem);
-
-                                  height: calc(${squareLength} - 0.3rem);
+                                  width: ${squareSize}px;
+                                  height: ${squareSize}px;
                                   display: block;
-                                  background-color: #f5f5f5;
-                                  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.15);
                                   border-radius: 2px;
+                                  background-color: #f5f5f5;
+                                  border: ${squareSize * 0.03}px solid white;
 
                                   > span {
                                     display: block;
@@ -136,8 +139,6 @@ class LetterWall extends Component<Props> {
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;
-                                  }
-                                  > span {
                                     backface-visibility: hidden;
                                     position: absolute;
                                     top: 0;
@@ -168,8 +169,7 @@ class LetterWall extends Component<Props> {
                                 isResultMode &&
                                   chars[position].term !== winner &&
                                   css`
-                                    transition: all 1s ease-out;
-                                    flex-basis: 0;
+                                    transition: all 3s ease-out;
                                     width: 0;
                                     margin: 0;
                                     border: 0;
@@ -182,9 +182,9 @@ class LetterWall extends Component<Props> {
                                   chars[position].term === winner &&
                                   css`
                                     transition: all 1s ease-out;
-                                    width: calc(2 * ${squareLength} - 0.3rem);
-                                    height: calc(2 * ${squareLength} - 0.3rem);
-                                    font-size: calc(2 * ${squareLength} * 0.55);
+                                    width: calc(2 * ${squareSize}px - 0.3rem);
+                                    height: calc(2 * ${squareSize}px - 0.3rem);
+                                    font-size: calc(2 * ${squareSize}px * 0.55);
                                   `
                               )}
                             >

@@ -1,17 +1,8 @@
-import styled, { keyframes } from "react-emotion";
+import styled from "react-emotion";
+import { colorCycle } from "../utils/colorCycle";
 import { COLORS } from "../utils/Colors";
-import { shuffleArray } from "../utils/shuffleArray";
 
-const colorCycle = keyframes`
-  ${(() => {
-    let keyframes: string = "";
-    shuffleArray(COLORS).forEach((color, i) => {
-      keyframes += `${(100 / (COLORS.length - 1)) *
-        i}% { background-color: ${color}; }`;
-    });
-    return keyframes;
-  })()}
-`;
+const backgroundColorCycle = colorCycle("background-color");
 
 export const Button = styled("button")`
   border-radius: 3px;
@@ -24,7 +15,7 @@ export const Button = styled("button")`
   background: lightgrey;
   letter-spacing: 0.25ch;
   animation: ${({ disabled }: any) =>
-    !disabled && `${colorCycle} ${COLORS.length * 5}s infinite`};
+    !disabled && `${backgroundColorCycle} ${COLORS.length * 5}s infinite`};
   transition: opacity 0.35s ease-out;
 
   &:hover {

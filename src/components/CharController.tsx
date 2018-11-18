@@ -88,8 +88,6 @@ export class CharController extends PureComponent<Props, State> {
   };
 
   private registerTerm = (term: string) => {
-    // XXX: Cancel in case of a duplicate term.
-
     this.setState(
       produce<State>(draft => {
         try {
@@ -103,16 +101,16 @@ export class CharController extends PureComponent<Props, State> {
               termId => draft.terms[termId].term === term
             )
           ) {
-            const trimmedTerm = term.replace(/\s/g, "");
+            const trimmedTerm = term.trim();
             const termChars: string[] = trimmedTerm.split("");
 
-            const newTermCharPositions: number[] = [];
+            const newCharPositions: number[] = [];
 
             if (termChars.length > Object.keys(availableCharDefs).length) {
               throw ErrorCode.CHAR_LIMIT_EXCEEDED;
             }
 
-            while (newTermCharPositions.length < termChars.length) {
+            while (newCharPositions.length < termChars.length) {
               const randomCharPosition = Number(
                 Object.keys(availableCharDefs)[
                   Math.floor(
@@ -122,13 +120,14 @@ export class CharController extends PureComponent<Props, State> {
               );
 
               if (randomCharPosition in availableCharDefs) {
-                newTermCharPositions.push(randomCharPosition);
+                delete availableCharDefs[randomCharPosition];
+                newCharPositions.push(randomCharPosition);
               }
             }
 
-            newTermCharPositions.sort();
+            newCharPositions.sort();
 
-            newTermCharPositions.forEach((position, i) => {
+            newCharPositions.forEach((position, i) => {
               draft.charDefs[position].fixedChar = termChars[i];
               draft.charDefs[position].term = term;
             });

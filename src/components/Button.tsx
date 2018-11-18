@@ -2,7 +2,7 @@ import styled, { keyframes } from "react-emotion";
 import { COLORS } from "../utils/Colors";
 import { shuffleArray } from "../utils/shuffleArray";
 
-const colorCycle = () => keyframes`
+const colorCycle = keyframes`
   ${(() => {
     let keyframes: string = "";
     shuffleArray(COLORS).forEach((color, i) => {
@@ -21,9 +21,10 @@ export const Button = styled("button")`
   font-weight: 700;
   font-size: 1rem;
   color: white;
-  background: none;
+  background: lightgrey;
   letter-spacing: 0.25ch;
-  animation: ${colorCycle()} ${COLORS.length * 5}s infinite;
+  animation: ${({ disabled }: any) =>
+    !disabled && `${colorCycle} ${COLORS.length * 5}s infinite`};
   transition: opacity 0.35s ease-out;
 
   &:hover {

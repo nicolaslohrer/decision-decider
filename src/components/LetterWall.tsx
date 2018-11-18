@@ -60,6 +60,7 @@ const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                       height: 100%;
                       display: flex;
                       flex-wrap: wrap;
+                      justify-content: space-between;
                       list-style-type: none;
                       margin: 0;
                       padding: 0;

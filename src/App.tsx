@@ -18,8 +18,6 @@ export class App extends Component<{}, State> {
         box-sizing: border-box;
         position: relative;
 
-        user-select: none;
-
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;

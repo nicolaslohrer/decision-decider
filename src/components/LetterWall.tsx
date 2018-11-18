@@ -83,6 +83,7 @@ const LetterWall: SFC<Props> = ({ numberOfLetters, children }) => (
                           return (
                             <li
                               key={chars[position].position}
+                              // For flip animation, see https://davidwalsh.name/css-flip.
                               className={cx(
                                 css`
                                   text-align: center;

@@ -53,6 +53,7 @@ class LetterWall extends Component<Props, State> {
             <div
               className={css`
                 z-index: 500;
+                margin-bottom: 2vh;
               `}
             >
               {children({
@@ -194,14 +195,15 @@ class LetterWall extends Component<Props, State> {
                                           transition: all
                                             ${animationDurations.letterFiltering}ms
                                             ease-out;
-                                          width: calc(2 * ${squareSize}px);
-                                          height: calc(2 * ${squareSize}px);
-                                          font-size: calc(2 * ${squareSize}px);
+                                          width: calc(1.5 * ${squareSize}px);
+                                          height: calc(1.5 * ${squareSize}px);
+                                          font-size: calc(1 * ${squareSize}px);
                                         `
                                       : css`
                                           transition: all
                                             ${animationDurations.letterFiltering}ms
                                             ease-out;
+                                          transform: scale(0.5);
                                           width: 0;
                                           margin: 0;
                                           border: 0;

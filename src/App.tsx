@@ -1,10 +1,12 @@
 import "@reach/dialog/styles.css";
-import { injectGlobal } from "emotion";
+import { css, injectGlobal } from "emotion";
 import { normalize } from "polished";
 import React, { Component } from "react";
+import { EntryForm } from "./components/EntryForm";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { Footer } from "./components/Footer";
 import LetterWall from "./components/LetterWall";
-import { TermEntryDialog } from "./components/TermEntryDialog";
+import { COLORS } from "./utils/Colors";
 
 type State = { version: number };
 export class App extends Component<{}, State> {
@@ -35,26 +37,71 @@ export class App extends Component<{}, State> {
       html {
         font-size: 16px;
       }
+
+      body,
+      html {
+        height: 100%;
+      }
+
+      body, #root {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #root {
+        flex-grow: 1;
+      }
+
+      a {
+        transition: opacity 0.25s ease-out;
+
+        &:link,
+        &:visited {
+          color: ${COLORS[2]};
+        }
+
+        &:hover,
+        &:focus {
+          opacity: 0.8;
+        }
+      }
+
+      hr {
+        height: 1px;
+        background-color: lightgrey;
+        border: none;
+      }
+
     `;
   }
 
   public render() {
     return (
       <ErrorBoundary>
-        <LetterWall numberOfLetters={175} key={this.state.version}>
-          {({ registerTerm, pickWinner, winner, terms }) => (
-            <TermEntryDialog
+        <LetterWall
+          numberOfLetters={175}
+          key={this.state.version}
+          className={css`
+            flex-grow: 1;
+            padding: 2vh 2vh 0;
+            margin-bottom: 2vh;
+          `}
+        >
+          {({ registerTerm, pickWinner, terms, mode }) => (
+            <EntryForm
               terms={terms}
               registerTerm={registerTerm}
               pickWinner={pickWinner}
               reset={(cb?: () => void) =>
                 this.setState(({ version }) => ({ version: version + 1 }), cb)
               }
-              isDone={!!winner}
+              mode={mode}
             />
           )}
         </LetterWall>
+        <Footer />
       </ErrorBoundary>
+      // XXX: Improve lighthouse score.
     );
   }
 }

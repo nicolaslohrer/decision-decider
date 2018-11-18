@@ -1,11 +1,12 @@
 export function shuffleArray(array: any[]) {
-  let counter = array.length;
+  let shuffledArray = [...array];
+  let counter = shuffledArray.length;
   while (counter > 0) {
     let index = Math.floor(Math.random() * counter);
     counter--;
-    let temp = array[counter];
-    array[counter] = array[index];
-    array[index] = temp;
+    let temp = shuffledArray[counter];
+    shuffledArray[counter] = shuffledArray[index];
+    shuffledArray[index] = temp;
   }
-  return array;
+  return shuffledArray;
 }

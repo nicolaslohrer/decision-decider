@@ -7,7 +7,7 @@ export const Footer: SFC<{ className?: string }> = ({ className }) => {
     <footer
       className={cx(
         css`
-          padding: 2vh;
+          padding: 1.25vh 2vh;
           border-top: 1px solid black;
           font-size: 0.6rem;
           opacity: 0.6;

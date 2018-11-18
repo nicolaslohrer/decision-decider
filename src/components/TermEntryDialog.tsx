@@ -30,7 +30,7 @@ export class TermEntryDialog extends Component<Props, State> {
       <div
         className={cx(
           css`
-            padding: 1rem 1rem 0;
+            padding: 2vh;
           `,
           className
         )}

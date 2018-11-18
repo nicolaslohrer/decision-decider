@@ -57,6 +57,7 @@ export class App extends Component<{}, State> {
       </ErrorBoundary>
       // XXX: Add imprint.
       // XXX: Fix spacing issues.
+      // XXX: Improve lighthouse score.
     );
   }
 }

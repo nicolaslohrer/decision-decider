@@ -1,12 +1,28 @@
 {
   "short_name": "Decision Decider",
   "name": "Decision Decider",
-  "icons": {
-    "48": "icons/48x48.png",
-    "128": "icons/128x128.png",
-    "192": "icons/192x192.png",
-    "512": "icons/512x512.png"
-  },
+  "icons": [
+    {
+      "src": "icons/48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#dc504a",

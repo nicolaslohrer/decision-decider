@@ -128,6 +128,7 @@ class LetterWall extends Component<Props, State> {
                       return Object.keys(chars)
                         .sort()
                         .map(position => {
+                          // XXX: Fix card animations in Safari on iOS.
                           return (
                             <li
                               key={chars[position].position}

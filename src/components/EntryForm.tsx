@@ -79,6 +79,7 @@ export class EntryForm extends Component<Props, State> {
                       margin-bottom: 2vh;
                     `}
                   >
+                    {/* XXX: Set focus to input on mount. */}
                     <input
                       className={css`
                         border: 0 none;

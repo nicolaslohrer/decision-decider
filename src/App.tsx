@@ -96,6 +96,10 @@ export class App extends Component<{}, State> {
                 this.setState(({ version }) => ({ version: version + 1 }), cb)
               }
               mode={mode}
+              className={css`
+                position: relative;
+                z-index: 100;
+              `}
             />
           )}
         </LetterWall>

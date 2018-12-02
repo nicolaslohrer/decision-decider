@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@reach/dialog/styles.css";
 import Rect from "@reach/rect";
 import { css, cx } from "emotion";
-import React, { Component, createRef } from "react";
+import React, { createRef } from "react";
 import { Button } from "./Button";
 import { TermDefMap } from "./CharController";
 import { Mode } from "./LetterWall";
@@ -25,7 +25,7 @@ const animationDurations = {
   restartFadeIn: 250
 };
 
-export class EntryForm extends Component<Props, State> {
+export class EntryForm extends React.Component<Props, State> {
   public state: State = { term: "", hasSubmitted: false };
 
   public render() {
@@ -79,6 +79,7 @@ export class EntryForm extends Component<Props, State> {
                       margin-bottom: 2vh;
                     `}
                   >
+                    {/* XXX: It'd be nicer to show mobile keyboards on mount right away. But that doesn't seem to be easily possible. Setting the focus on input element or setting autoFocus={true} isn't sufficient, unfortunately. */}
                     <input
                       className={css`
                         border: 0 none;
@@ -97,6 +98,7 @@ export class EntryForm extends Component<Props, State> {
                         mode === "COLLECTING_USER_INPUT" &&
                         this.setState({ term: value })
                       }
+                      autoFocus={true}
                     />
                     <button
                       type="submit"

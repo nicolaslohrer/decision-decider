@@ -1,4 +1,4 @@
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import { colorCycle } from "../utils/colorCycle";
 import { COLORS } from "../utils/Colors";
 

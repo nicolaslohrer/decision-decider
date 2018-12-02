@@ -1,5 +1,5 @@
+import { css } from "@emotion/core";
 import Rect from "@reach/rect";
-import { css, cx } from "emotion";
 import React, { Component, memo } from "react";
 import { CharController, TermDefMap } from "./CharController";
 
@@ -42,16 +42,16 @@ class LetterWall extends Component<Props, State> {
       <CharController numberOfLetters={numberOfLetters}>
         {({ registerTerm, chars, terms, pickWinner, winner }) => (
           <div
-            className={cx(
+            css={[
               css`
                 display: flex;
                 flex-direction: column;
               `,
               className
-            )}
+            ]}
           >
             <div
-              className={css`
+              css={css`
                 margin-bottom: 2vh;
               `}
             >
@@ -79,7 +79,7 @@ class LetterWall extends Component<Props, State> {
               })}
             </div>
             <div
-              className={css`
+              css={css`
                 flex-grow: 1;
                 display: flex;
                 flex-direction: column;
@@ -90,7 +90,7 @@ class LetterWall extends Component<Props, State> {
                 {({ ref, rect }: any) => (
                   <ul
                     ref={ref}
-                    className={css`
+                    css={css`
                       flex-grow: 1;
                       height: 100%;
                       display: flex;
@@ -133,7 +133,7 @@ class LetterWall extends Component<Props, State> {
                             <li
                               key={chars[position].position}
                               // For flip animation, see https://davidwalsh.name/css-flip.
-                              className={cx(
+                              css={[
                                 css`
                                   text-align: center;
                                   text-transform: uppercase;
@@ -188,42 +188,40 @@ class LetterWall extends Component<Props, State> {
                                     );
                                   `,
                                 ["FILTERING_LETTERS", "DONE"].includes(mode) &&
-                                  cx(
-                                    chars[position].term === winner
-                                      ? css`
-                                          transition: all
-                                            ${animationDurations.letterFiltering}ms
-                                            ease-out;
-                                          width: calc(1.5 * ${squareSize}px);
-                                          height: calc(1.5 * ${squareSize}px);
-                                          font-size: calc(1 * ${squareSize}px);
-                                        `
-                                      : css`
-                                          transition: all
-                                            ${animationDurations.letterFiltering}ms
-                                            ease-out;
-                                          transform: scale(0.5);
-                                          width: 0;
-                                          margin: 0;
-                                          border: 0;
-                                          padding: 0;
-                                          opacity: 0;
-                                          overflow: hidden;
-                                        `
-                                  )
-                              )}
+                                  (chars[position].term === winner
+                                    ? css`
+                                        transition: all
+                                          ${animationDurations.letterFiltering}ms
+                                          ease-out;
+                                        width: calc(1.5 * ${squareSize}px);
+                                        height: calc(1.5 * ${squareSize}px);
+                                        font-size: calc(1 * ${squareSize}px);
+                                      `
+                                    : css`
+                                        transition: all
+                                          ${animationDurations.letterFiltering}ms
+                                          ease-out;
+                                        transform: scale(0.5);
+                                        width: 0;
+                                        margin: 0;
+                                        border: 0;
+                                        padding: 0;
+                                        opacity: 0;
+                                        overflow: hidden;
+                                      `)
+                              ]}
                             >
                               {/* XXX: Fill up last row. */}
                               <span
-                                className={cx(
+                                css={[
                                   css`
                                     z-index: 2;
                                     transform: rotateY(0deg);
                                   `
-                                )}
+                                ]}
                               />
                               <span
-                                className={cx(
+                                css={[
                                   css`
                                     transform: rotateY(180deg);
                                     color: black;
@@ -235,7 +233,7 @@ class LetterWall extends Component<Props, State> {
                                         .fixedChar !== " " &&
                                         terms[chars[position].term!].color};
                                     `
-                                )}
+                                ]}
                               >
                                 {chars[position].fixedChar ||
                                   chars[position].randomChar}

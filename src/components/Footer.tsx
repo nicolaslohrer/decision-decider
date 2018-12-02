@@ -1,5 +1,5 @@
+import { css } from "@emotion/core";
 import "@reach/dialog/styles.css";
-import { css, cx } from "emotion";
 import React, { Component } from "react";
 import { Dialog } from "./Dialog";
 import { Imprint } from "./Imprint";
@@ -19,7 +19,7 @@ export class Footer extends Component<Props, State> {
 
     return (
       <footer
-        className={cx(
+        css={[
           css`
             padding: 1.25vh 2vh;
             border-top: 1px solid black;
@@ -31,12 +31,12 @@ export class Footer extends Component<Props, State> {
             &:hover {
               opacity: 1;
             }
-          `,
-          className
-        )}
+          `
+        ]}
+        className={className}
       >
         <ul
-          className={css`
+          css={css`
             display: flex;
             list-style-type: none;
             margin: 0;

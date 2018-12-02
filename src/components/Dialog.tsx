@@ -1,8 +1,8 @@
+import { css } from "@emotion/core";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
-import { css } from "emotion";
 import React, { SFC } from "react";
 import { COLORS } from "../utils/Colors";
 
@@ -23,7 +23,7 @@ export const Dialog: SFC<Props> = ({ isOpen, onDismiss, children }) => {
       >
         <button
           onClick={onDismiss}
-          className={css`
+          css={css`
             background: transparent;
             padding: 0;
             float: right;

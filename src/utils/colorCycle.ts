@@ -1,4 +1,4 @@
-import { keyframes } from "emotion";
+import { keyframes } from "@emotion/core";
 import { COLORS } from "./Colors";
 import { shuffleArray } from "./shuffleArray";
 

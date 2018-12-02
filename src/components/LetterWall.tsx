@@ -176,8 +176,7 @@ class LetterWall extends Component<Props, State> {
                                   css`
                                     transition-duration: ${animationDurations.letterRotation}ms;
                                     transform: rotateY(
-                                      ${chars[position].fixedChar &&
-                                      chars[position].term !== winner
+                                      ${chars[position].term !== winner
                                         ? `${[4, 5, 6, 7, 8, 9][
                                             Math.floor(Math.random() * 5)
                                           ] * 360}deg`
@@ -222,10 +221,7 @@ class LetterWall extends Component<Props, State> {
                                     transform: rotateY(0deg);
                                   `
                                 )}
-                              >
-                                {chars[position].fixedChar ||
-                                  chars[position].randomChar}
-                              </span>
+                              />
                               <span
                                 className={cx(
                                   css`

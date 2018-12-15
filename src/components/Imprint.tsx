@@ -1,7 +1,11 @@
-import React, { SFC } from "react";
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
+import { FunctionComponent } from "react";
 import Markdown from "react-remarkable";
 
-export const Imprint: SFC = () => {
+jsx;
+
+export const Imprint: FunctionComponent = () => {
   return (
     <Markdown>{`
 # Impressum

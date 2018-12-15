@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { css, Global, jsx } from "@emotion/core";
 import { normalize } from "polished";
-import { SFC } from "react";
-import { COLORS } from "../utils/Colors";
+import { FunctionComponent } from "react";
+import { COLORS } from "../settings";
 
 jsx;
 
-export const GlobalStyles: SFC = () => (
+export const GlobalStyles: FunctionComponent = () => (
   <Global
     styles={css`
       ${normalize()}

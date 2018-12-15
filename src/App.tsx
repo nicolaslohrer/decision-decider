@@ -1,53 +1,23 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { jsx } from "@emotion/core";
 import "@reach/dialog/styles.css";
-import { Component } from "react";
-import { EntryForm } from "./components/EntryForm";
+import { FunctionComponent, useState } from "react";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Footer } from "./components/Footer";
 import { GlobalStyles } from "./components/GlobalStyles";
-import LetterWall from "./components/LetterWall";
+import { Decider } from "./decider/Decider";
 
 jsx; // TODO: This is no long-term solution. Remove in all files once the underlying problem is resolved. See https://bit.ly/2S4Xj06.
 
-type State = { version: number };
+// TODO: Improve lighthouse score.
 
-// TODO: Rewrite app using hooks.
-export class App extends Component<{}, State> {
-  public state: State = { version: 0 };
-
-  public render() {
-    return (
-      <ErrorBoundary>
-        <GlobalStyles />
-        <LetterWall
-          numberOfLetters={175}
-          key={this.state.version}
-          css={css`
-            flex-grow: 1;
-            padding: 2vh 2vh 0;
-            margin-bottom: 2vh;
-          `}
-        >
-          {({ registerTerm, pickWinner, terms, mode }) => (
-            <EntryForm
-              terms={terms}
-              registerTerm={registerTerm}
-              pickWinner={pickWinner}
-              reset={(cb?: () => void) =>
-                this.setState(({ version }) => ({ version: version + 1 }), cb)
-              }
-              mode={mode}
-              css={css`
-                position: relative;
-                z-index: 100;
-              `}
-            />
-          )}
-        </LetterWall>
-        <Footer />
-      </ErrorBoundary>
-      // TODO: Improve lighthouse score.
-    );
-  }
-}
+export const App: FunctionComponent = () => {
+  const [version, setVersion] = useState(0);
+  return (
+    <ErrorBoundary>
+      <GlobalStyles />
+      <Decider key={version} reset={() => setVersion(prev => prev + 1)} />
+      <Footer />
+    </ErrorBoundary>
+  );
+};

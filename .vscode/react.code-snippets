@@ -3,10 +3,10 @@
     "prefix": "cc",
     "description": "React Class Component",
     "body": [
-      "import React, { Component } from \"react\";",
+      "import React from \"react\";",
       "",
-      "export class ${1:Name} extends Component {",
-      "  public render(): JSX.Element {",
+      "export class ${1:Name} extends React.Component {",
+      "  public render() {",
       "    return <div>${1:Name}</div>;",
       "  }",
       "}"

@@ -1,26 +1,18 @@
 {
-  "Class Component": {
-    "prefix": "cc",
-    "description": "React Class Component",
+  "React Function Component": {
+    "prefix": "rfc",
+    "description": "React Function Component",
     "body": [
-      "import React, { Component } from \"react\";",
+      "/** @jsx jsx */",
+      "import { jsx } from \"@emotion/core\";",
+      "import { FunctionComponent } from \"react\";",
       "",
-      "export class ${1:Name} extends Component {",
-      "  public render(): JSX.Element {",
-      "    return <div>${1:Name}</div>;",
-      "  }",
-      "}"
-    ]
-  },
-  "Stateless Functional Component": {
-    "prefix": "sfc",
-    "description": "Stateless Functional Component",
-    "body": [
-      "import React, { SFC } from \"react\";",
+      "jsx;", // TODO: Hopefully remove this eventually.
       "",
-      "export const ${1:Name}: SFC = () => {",
+      "export const ${1:Name}: FunctionComponent = () => {",
       "  return <div>${1:Name}</div>;",
-      "};"
+      "};",
+      ""
     ]
   }
 }

@@ -4,17 +4,16 @@ import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
-import { SFC } from "react";
-import { COLORS } from "../utils/Colors";
+import { FunctionComponent } from "react";
+import { COLORS } from "../settings";
 
-jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
+jsx;
 
-type Props = { isOpen: boolean; onDismiss: () => void };
+type Props = { onDismiss: () => void };
 
-export const Dialog: SFC<Props> = ({ isOpen, onDismiss, children }) => {
+export const Dialog: FunctionComponent<Props> = ({ onDismiss, children }) => {
   return (
     <DialogOverlay
-      isOpen={isOpen}
       onDismiss={onDismiss}
       css={css`
         z-index: 150;

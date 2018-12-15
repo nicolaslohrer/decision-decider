@@ -1,7 +1,11 @@
-import React, { SFC } from "react";
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
+import { FunctionComponent } from "react";
 import Markdown from "react-remarkable";
 
-export const Privacy: SFC = () => {
+jsx;
+
+export const Privacy: FunctionComponent = () => {
   return (
     <Markdown>{`
 # Privacy Policy

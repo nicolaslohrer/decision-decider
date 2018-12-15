@@ -1,5 +1,10 @@
-import React, { Component } from "react";
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
+import { Component } from "react";
 
+jsx;
+
+// TODO: Migrate to function component once the React team introduces a way to handle componentDidCatch with them.
 export class ErrorBoundary extends Component {
   public componentDidCatch(e: any) {
     alert(
@@ -9,7 +14,7 @@ export class ErrorBoundary extends Component {
 
   public static getDerivedStateFromError() {}
 
-  public render(): JSX.Element {
-    return <>{this.props.children}</>;
+  public render() {
+    return this.props.children;
   }
 }

@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { colorCycle } from "../utils/colorCycle";
-import { COLORS } from "../utils/Colors";
+import { COLORS } from "../settings";
+import { getColorCycleKeyframes } from "../utils/colorCycle";
 
-const backgroundColorCycle = colorCycle("background-color");
+const backgroundColorCycle = getColorCycleKeyframes("background-color");
 
 export const Button = styled.button`
   border-radius: 3px;

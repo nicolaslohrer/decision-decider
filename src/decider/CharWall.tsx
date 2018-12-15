@@ -36,7 +36,7 @@ export const CharWall: FunctionComponent = memo(() => {
         // If necessary, add dummy chars to fill last row.
         const charsWithDummies: Chars = { ...chars };
         for (let i = 0; i < remainder; i++) {
-          // XXX: I cannot set the position randomly but have to put the dummies at the end. Otherwise, they're gonna switch positions on every render.
+          // FIXME: I cannot set the position randomly but have to put the dummies at the end. Otherwise, they're gonna switch positions on every render.
           const position = Math.random() * numberOfLetters;
           charsWithDummies[position] = {
             position,

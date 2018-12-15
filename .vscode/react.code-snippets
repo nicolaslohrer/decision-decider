@@ -7,7 +7,7 @@
       "import { jsx } from \"@emotion/core\";",
       "import { FunctionComponent } from \"react\";",
       "",
-      "jsx;",
+      "jsx;", // TODO: Hopefully remove this eventually.
       "",
       "export const ${1:Name}: FunctionComponent = () => {",
       "  return <div>${1:Name}</div>;",

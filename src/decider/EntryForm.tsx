@@ -4,6 +4,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@reach/dialog/styles.css";
 import Rect from "@reach/rect";
+import VisuallyHidden from "@reach/visually-hidden";
 import { FunctionComponent, useContext, useRef, useState } from "react";
 import { Button } from "../components/Button";
 import { FORM_FADE_OUT_DURATION } from "../settings";
@@ -73,6 +74,9 @@ export const EntryForm: FunctionComponent<Props> = ({ reset, className }) => {
                   `}
                 >
                   {/* TODO: It'd be nicer to show mobile keyboards on mount right away. But that doesn't seem to be easily possible. Setting the focus on input element or setting autoFocus={true} isn't sufficient, unfortunately. */}
+                  <VisuallyHidden>
+                    <label htmlFor="input">Enter Option</label>
+                  </VisuallyHidden>
                   <input
                     css={css`
                       border: 0 none;
@@ -84,6 +88,7 @@ export const EntryForm: FunctionComponent<Props> = ({ reset, className }) => {
                       flex-grow: 1;
                       border-radius: 0;
                     `}
+                    id="input"
                     placeholder="Enter Option"
                     ref={inputRef}
                     value={term}

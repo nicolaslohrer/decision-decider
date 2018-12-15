@@ -136,7 +136,7 @@ export class CharController extends PureComponent<Props, State> {
               alert(
                 "Sorry, I'm out of colors. No one can possibly handle that many decisions."
               );
-              // XXX: Produces an error.
+              // TODO: Produces an error.
               break;
 
             default:

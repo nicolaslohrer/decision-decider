@@ -4,7 +4,7 @@ import { normalize } from "polished";
 import { SFC } from "react";
 import { COLORS } from "../utils/Colors";
 
-jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
+jsx;
 
 export const GlobalStyles: SFC = () => (
   <Global

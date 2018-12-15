@@ -8,9 +8,11 @@ import { Footer } from "./components/Footer";
 import { GlobalStyles } from "./components/GlobalStyles";
 import LetterWall from "./components/LetterWall";
 
-jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
+jsx; // TODO: This is no long-term solution. Remove in all files once the underlying problem is resolved. See https://bit.ly/2S4Xj06.
 
 type State = { version: number };
+
+// TODO: Rewrite app using hooks.
 export class App extends Component<{}, State> {
   public state: State = { version: 0 };
 
@@ -45,7 +47,7 @@ export class App extends Component<{}, State> {
         </LetterWall>
         <Footer />
       </ErrorBoundary>
-      // XXX: Improve lighthouse score.
+      // TODO: Improve lighthouse score.
     );
   }
 }

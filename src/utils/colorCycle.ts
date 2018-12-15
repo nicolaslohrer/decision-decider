@@ -3,7 +3,7 @@ import { jsx, keyframes } from "@emotion/core";
 import { COLORS } from "./Colors";
 import { shuffleArray } from "./shuffleArray";
 
-jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
+jsx;
 
 export const colorCycle = (cssPropertyName: string) => keyframes`
   ${(() => {

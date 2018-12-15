@@ -7,7 +7,7 @@ import "@reach/dialog/styles.css";
 import { SFC } from "react";
 import { COLORS } from "../utils/Colors";
 
-jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
+jsx;
 
 type Props = { isOpen: boolean; onDismiss: () => void };
 

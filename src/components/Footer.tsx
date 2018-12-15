@@ -6,7 +6,7 @@ import { Dialog } from "./Dialog";
 import { Imprint } from "./Imprint";
 import { Privacy } from "./Privacy";
 
-jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
+jsx;
 
 type Props = { className?: string };
 type State = { isImprintVisible: boolean; isPrivacyVisible: boolean };

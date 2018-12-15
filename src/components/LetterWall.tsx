@@ -9,7 +9,7 @@ import {
   TermDefMap
 } from "./CharController";
 
-jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
+jsx;
 
 type Props = {
   numberOfLetters: number;
@@ -147,7 +147,7 @@ class LetterWall extends Component<Props, State> {
                         .sort((a, b) => a - b)
                         .map(position => (
                           <li
-                            // XXX: Fix card animations in Safari on iOS.
+                            // TODO: Fix card animations in Safari on iOS.
                             key={charsWithDummies[position].position}
                             // For flip animation, see https://davidwalsh.name/css-flip.
                             css={[

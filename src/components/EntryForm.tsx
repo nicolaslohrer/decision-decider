@@ -9,7 +9,7 @@ import { Button } from "./Button";
 import { TermDefMap } from "./CharController";
 import { Mode } from "./LetterWall";
 
-jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
+jsx;
 
 type Props = {
   registerTerm: (term: string) => void;
@@ -82,7 +82,7 @@ export class EntryForm extends React.Component<Props, State> {
                       margin-bottom: 2vh;
                     `}
                   >
-                    {/* XXX: It'd be nicer to show mobile keyboards on mount right away. But that doesn't seem to be easily possible. Setting the focus on input element or setting autoFocus={true} isn't sufficient, unfortunately. */}
+                    {/* TODO: It'd be nicer to show mobile keyboards on mount right away. But that doesn't seem to be easily possible. Setting the focus on input element or setting autoFocus={true} isn't sufficient, unfortunately. */}
                     <input
                       css={css`
                         border: 0 none;

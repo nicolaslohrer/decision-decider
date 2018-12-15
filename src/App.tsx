@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import "@reach/dialog/styles.css";
-import { useState } from "react";
+import { FunctionComponent, useState } from "react";
 import { EntryForm } from "./components/EntryForm";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Footer } from "./components/Footer";
@@ -10,9 +10,7 @@ import LetterWall from "./components/LetterWall";
 
 jsx; // TODO: This is no long-term solution. Remove in all files once the underlying problem is resolved. See https://bit.ly/2S4Xj06.
 
-type State = { version: number };
-
-export function App() {
+export const App: FunctionComponent = () => {
   const [version, setVersion] = useState(0);
 
   return (
@@ -45,4 +43,4 @@ export function App() {
     </ErrorBoundary>
     // TODO: Improve lighthouse score.
   );
-}
+};

@@ -2,6 +2,7 @@
 import { css, Global, jsx } from "@emotion/core";
 import { normalize } from "polished";
 import { FunctionComponent } from "react";
+import "typeface-ubuntu-mono";
 import { COLORS } from "../settings";
 
 jsx;

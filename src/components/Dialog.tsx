@@ -13,9 +13,15 @@ type Props = { isOpen: boolean; onDismiss: () => void };
 
 export const Dialog: SFC<Props> = ({ isOpen, onDismiss, children }) => {
   return (
-    <DialogOverlay isOpen={isOpen} onDismiss={onDismiss}>
+    <DialogOverlay
+      isOpen={isOpen}
+      onDismiss={onDismiss}
+      css={css`
+        z-index: 150;
+      `}
+    >
       <DialogContent
-        className={css`
+        css={css`
           width: 90%;
           max-width: 700px;
 

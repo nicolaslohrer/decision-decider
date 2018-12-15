@@ -1,5 +1,9 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import { FunctionComponent } from "react";
 import Markdown from "react-remarkable";
+
+jsx;
 
 export const Privacy: FunctionComponent = () => {
   return (

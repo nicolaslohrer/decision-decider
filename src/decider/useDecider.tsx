@@ -2,69 +2,65 @@
 import { jsx } from "@emotion/core";
 import { produce } from "immer";
 import { useState } from "react";
-import { COLORS } from "../utils/Colors";
-import { ErrorCode } from "../utils/ErrorCodes";
+import {
+  COLORS,
+  ErrorCode,
+  FORM_FADE_OUT_DURATION,
+  LETTER_FILTERING_DURATION,
+  LETTER_ROTATION_DURATION
+} from "../settings";
+import { getRandomChar } from "../utils/randomChar";
 
 jsx;
 
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+export type LifecyclePhase =
+  | "COLLECTING_USER_INPUT"
+  | "HIDING_ENTRY_FORM"
+  | "ROTATING_LETTERS"
+  | "FILTERING_LETTERS"
+  | "DONE";
 
-type CharDef = {
+type Char = {
   position: number;
   randomChar: string;
   fixedChar?: string;
   term?: string;
 };
-export type CharDefMap = { [position: string]: CharDef };
-type TermDef = { term: string; color: string };
+export type Chars = { [position: string]: Char };
 
-export type TermDefMap = { [term: string]: TermDef };
+type Term = { term: string; color: string };
+export type Terms = { [term: string]: Term };
 
-type Return = {
-  registerTerm: (term: string) => void;
-  chars: CharDefMap;
-  terms: TermDefMap;
-  pickWinner: () => void;
-  winner?: string;
-};
-
-export const getRandomChar = () =>
-  CHARS.charAt(Math.floor(Math.random() * CHARS.length));
-
-export const useCharController = (numberOfLetters: number): Return => {
-  const [charDefs, setCharDefs] = useState<CharDefMap>(
-    Array(...Array(numberOfLetters)).reduce<CharDefMap>(
-      (charDefs, _x, i) => ({
-        ...charDefs,
+export const useDecider = (numberOfLetters: number) => {
+  const [chars, setChars] = useState<Chars>(
+    Array(...Array(numberOfLetters)).reduce<Chars>(
+      (chars, _x, i) => ({
+        ...chars,
         [i]: {
           position: i,
           randomChar: getRandomChar()
         }
       }),
-      {} as CharDefMap
+      {}
     )
   );
-  const [terms, setTerms] = useState<TermDefMap>({});
+  const [terms, setTerms] = useState<Terms>({});
   const [winner, setWinner] = useState<string | undefined>(undefined);
 
-  const getAvailableCharDefs = (charDefs: CharDefMap): CharDefMap =>
-    Object.keys(charDefs).reduce(
-      (availableCharDefs, position) =>
-        charDefs[position].fixedChar
-          ? availableCharDefs
+  const getAvailableChars = (): Chars =>
+    Object.keys(chars).reduce(
+      (availableChars, position) =>
+        chars[position].fixedChar
+          ? availableChars
           : {
-              ...availableCharDefs,
-              [position]: charDefs[position]
+              ...availableChars,
+              [position]: chars[position]
             },
 
       {}
     );
 
   const getUnusedColor = () => {
-    if (Object.keys(terms).length >= COLORS.length) {
-      throw ErrorCode.TERM_LIMIT_EXCEEDED;
-    }
-
     while (true) {
       const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
       if (
@@ -77,8 +73,8 @@ export const useCharController = (numberOfLetters: number): Return => {
 
   const registerTerm = (term: string) => {
     try {
-      let availableCharDefs: CharDefMap = {
-        ...getAvailableCharDefs(charDefs)
+      let availableChars: Chars = {
+        ...getAvailableChars()
       };
 
       if (
@@ -90,19 +86,22 @@ export const useCharController = (numberOfLetters: number): Return => {
 
         const newCharPositions: number[] = [];
 
-        if (termChars.length > Object.keys(availableCharDefs).length) {
+        if (termChars.length > Object.keys(availableChars).length) {
           throw ErrorCode.CHAR_LIMIT_EXCEEDED;
+        }
+        if (Object.keys(terms).length >= COLORS.length) {
+          throw ErrorCode.TERM_LIMIT_EXCEEDED;
         }
 
         while (newCharPositions.length < termChars.length) {
           const randomCharPosition = Number(
-            Object.keys(availableCharDefs)[
-              Math.floor(Math.random() * Object.keys(availableCharDefs).length)
+            Object.keys(availableChars)[
+              Math.floor(Math.random() * Object.keys(availableChars).length)
             ]
           );
 
-          if (randomCharPosition in availableCharDefs) {
-            delete availableCharDefs[randomCharPosition];
+          if (randomCharPosition in availableChars) {
+            delete availableChars[randomCharPosition];
             newCharPositions.push(randomCharPosition);
           }
         }
@@ -110,7 +109,7 @@ export const useCharController = (numberOfLetters: number): Return => {
         newCharPositions.sort((a, b) => a - b);
 
         newCharPositions.forEach((position, i) => {
-          setCharDefs(
+          setChars(
             produce(draft => {
               draft[position].fixedChar = termChars[i];
               draft[position].term = term;
@@ -146,10 +145,6 @@ export const useCharController = (numberOfLetters: number): Return => {
   };
 
   const pickWinner = () => {
-    if (!Object.keys(terms).length || winner) {
-      return;
-    }
-
     setWinner(
       terms[
         Object.keys(terms)[
@@ -159,11 +154,37 @@ export const useCharController = (numberOfLetters: number): Return => {
     );
   };
 
+  const [lifecyclePhase, setLifecyclePhase] = useState<LifecyclePhase>(
+    "COLLECTING_USER_INPUT"
+  );
+
+  const submit = () => {
+    if (Object.keys(terms).length && !winner) {
+      setLifecyclePhase("HIDING_ENTRY_FORM");
+      setTimeout(
+        () =>
+          setTimeout(() => {
+            setLifecyclePhase("ROTATING_LETTERS");
+            pickWinner();
+            setTimeout(() => {
+              setLifecyclePhase("FILTERING_LETTERS");
+              setTimeout(
+                () => setLifecyclePhase("DONE"),
+                LETTER_FILTERING_DURATION
+              );
+            }, LETTER_ROTATION_DURATION);
+          }),
+        FORM_FADE_OUT_DURATION + 450
+      );
+    }
+  };
+
   return {
+    lifecyclePhase,
     registerTerm,
-    chars: charDefs,
+    chars,
     terms,
-    pickWinner,
+    submit,
     winner
   };
 };

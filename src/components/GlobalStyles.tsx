@@ -2,7 +2,7 @@
 import { css, Global, jsx } from "@emotion/core";
 import { normalize } from "polished";
 import { FunctionComponent } from "react";
-import { COLORS } from "../utils/Colors";
+import { COLORS } from "../settings";
 
 jsx;
 

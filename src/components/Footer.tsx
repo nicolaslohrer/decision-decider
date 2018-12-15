@@ -77,18 +77,16 @@ export const Footer: FunctionComponent<Props> = ({ className }) => {
         </li>
       </ul>
 
-      <Dialog
-        isOpen={isImprintVisible}
-        onDismiss={() => setIsImprintVisible(false)}
-      >
-        <Imprint />
-      </Dialog>
-      <Dialog
-        isOpen={isPrivacyVisible}
-        onDismiss={() => setIsPrivacyVisible(false)}
-      >
-        <Privacy />
-      </Dialog>
+      {isImprintVisible && (
+        <Dialog onDismiss={() => setIsImprintVisible(false)}>
+          <Imprint />
+        </Dialog>
+      )}
+      {isPrivacyVisible && (
+        <Dialog onDismiss={() => setIsPrivacyVisible(false)}>
+          <Privacy />
+        </Dialog>
+      )}
     </footer>
   );
 };

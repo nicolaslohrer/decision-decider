@@ -5,20 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import { FunctionComponent } from "react";
-import { COLORS } from "../utils/Colors";
+import { COLORS } from "../settings";
 
 jsx;
 
-type Props = { isOpen: boolean; onDismiss: () => void };
+type Props = { onDismiss: () => void };
 
-export const Dialog: FunctionComponent<Props> = ({
-  isOpen,
-  onDismiss,
-  children
-}) => {
+export const Dialog: FunctionComponent<Props> = ({ onDismiss, children }) => {
   return (
     <DialogOverlay
-      isOpen={isOpen}
       onDismiss={onDismiss}
       css={css`
         z-index: 150;

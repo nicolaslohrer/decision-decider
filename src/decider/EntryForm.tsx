@@ -4,49 +4,24 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@reach/dialog/styles.css";
 import Rect from "@reach/rect";
-import { FunctionComponent, useEffect, useRef, useState } from "react";
-import { Button } from "./Button";
-import { TermDefMap } from "./CharController";
-import { Mode } from "./LetterWall";
+import { FunctionComponent, useContext, useRef, useState } from "react";
+import { Button } from "../components/Button";
+import { FORM_FADE_OUT_DURATION } from "../settings";
+import { DeciderContext } from "./Decider";
 
 jsx;
 
 type Props = {
-  registerTerm: (term: string) => void;
-  pickWinner: () => void;
   reset: () => void;
   className?: string;
-  terms: TermDefMap;
-  mode: Mode;
 };
 
-const animationDurations = {
-  formFadeOut: 250,
-  restartFadeIn: 250
-};
-
-export const EntryForm: FunctionComponent<Props> = ({
-  registerTerm,
-  pickWinner,
-  reset,
-  className,
-  terms,
-  mode
-}) => {
-  const [term, setTerm] = useState("");
-  const [hasSubmitted, setHasSubmitted] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(
-    () => {
-      if (hasSubmitted) {
-        setTerm("");
-        setTimeout(pickWinner, animationDurations.formFadeOut + 450);
-        inputRef.current!.focus();
-      }
-    },
-    [hasSubmitted]
+export const EntryForm: FunctionComponent<Props> = ({ reset, className }) => {
+  const { registerTerm, submit, terms, lifecyclePhase } = useContext(
+    DeciderContext
   );
+  const [term, setTerm] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className={className}>
@@ -55,7 +30,6 @@ export const EntryForm: FunctionComponent<Props> = ({
           e.preventDefault();
           registerTerm(term);
           setTerm("");
-          // XXX: We were previously waiting for setTerm before setting focus. Does this still work?
           inputRef.current!.focus();
         }}
       >
@@ -66,10 +40,14 @@ export const EntryForm: FunctionComponent<Props> = ({
               css={[
                 css`
                   height: ${rect ? `${rect.height}px` : "auto"};
-                  transition: all ${animationDurations.formFadeOut}ms ease-out;
+                  transition: all ${FORM_FADE_OUT_DURATION}ms ease-out;
                 `,
-                hasSubmitted &&
-                  mode !== "DONE" &&
+
+                [
+                  "HIDING_ENTRY_FORM",
+                  "ROTATING_LETTERS",
+                  "FILTERING_LETTERS"
+                ].includes(lifecyclePhase) &&
                   css`
                     margin-top: -200px;
                     opacity: 0;
@@ -79,12 +57,13 @@ export const EntryForm: FunctionComponent<Props> = ({
             >
               <div
                 css={
-                  mode !== "COLLECTING_USER_INPUT"
-                    ? css`
-                        position: absolute;
-                        left: -10000px;
-                      `
-                    : undefined
+                  !["COLLECTING_USER_INPUT", "HIDING_ENTRY_FORM"].includes(
+                    lifecyclePhase
+                  ) &&
+                  css`
+                    position: absolute;
+                    left: -10000px;
+                  `
                 }
               >
                 <div
@@ -109,7 +88,8 @@ export const EntryForm: FunctionComponent<Props> = ({
                     ref={inputRef}
                     value={term}
                     onChange={({ target: { value } }) =>
-                      mode === "COLLECTING_USER_INPUT" && setTerm(value)
+                      lifecyclePhase === "COLLECTING_USER_INPUT" &&
+                      setTerm(value)
                     }
                     autoFocus={true}
                   />
@@ -132,13 +112,17 @@ export const EntryForm: FunctionComponent<Props> = ({
                 </div>
                 <Button
                   type="button"
-                  onClick={() => setHasSubmitted(true)}
+                  onClick={() => {
+                    setTerm("");
+                    submit();
+                    inputRef.current!.focus();
+                  }}
                   disabled={Object.keys(terms).length < 2}
                 >
                   Decide Decision
                 </Button>
               </div>
-              {mode === "DONE" && (
+              {lifecyclePhase === "DONE" && (
                 <Button type="button" onClick={reset}>
                   Start over
                 </Button>

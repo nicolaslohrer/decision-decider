@@ -228,7 +228,6 @@ class LetterWall extends Component<Props, State> {
                                     `)
                             ]}
                           >
-                            {/* XXX: Fill up last row. */}
                             <span
                               css={[
                                 css`

@@ -10,8 +10,6 @@ import LetterWall from "./components/LetterWall";
 
 jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
 
-// XXX: Figure out how emotion v10's JSX pragma thingy works. Styles are currently broken.
-
 type State = { version: number };
 export class App extends Component<{}, State> {
   public state: State = { version: 0 };

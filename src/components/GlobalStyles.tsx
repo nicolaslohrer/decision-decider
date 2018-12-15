@@ -1,7 +1,10 @@
-import { css, Global } from "@emotion/core";
+/** @jsx jsx */
+import { css, Global, jsx } from "@emotion/core";
 import { normalize } from "polished";
-import React, { SFC } from "react";
+import { SFC } from "react";
 import { COLORS } from "../utils/Colors";
+
+jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
 
 export const GlobalStyles: SFC = () => (
   <Global

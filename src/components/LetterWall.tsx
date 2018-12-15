@@ -1,7 +1,10 @@
-import { css } from "@emotion/core";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import Rect from "@reach/rect";
-import React, { Component, memo } from "react";
+import { Component, memo } from "react";
 import { CharController, TermDefMap } from "./CharController";
+
+jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
 
 type Props = {
   numberOfLetters: number;
@@ -42,13 +45,11 @@ class LetterWall extends Component<Props, State> {
       <CharController numberOfLetters={numberOfLetters}>
         {({ registerTerm, chars, terms, pickWinner, winner }) => (
           <div
-            css={[
-              css`
-                display: flex;
-                flex-direction: column;
-              `,
-              className
-            ]}
+            className={className}
+            css={css`
+              display: flex;
+              flex-direction: column;
+            `}
           >
             <div
               css={css`

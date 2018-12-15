@@ -1,10 +1,13 @@
-import { css } from "@emotion/core";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
-import React, { SFC } from "react";
+import { SFC } from "react";
 import { COLORS } from "../utils/Colors";
+
+jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
 
 type Props = { isOpen: boolean; onDismiss: () => void };
 

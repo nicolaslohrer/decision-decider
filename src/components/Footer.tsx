@@ -1,9 +1,12 @@
-import { css } from "@emotion/core";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import "@reach/dialog/styles.css";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Dialog } from "./Dialog";
 import { Imprint } from "./Imprint";
 import { Privacy } from "./Privacy";
+
+jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
 
 type Props = { className?: string };
 type State = { isImprintVisible: boolean; isPrivacyVisible: boolean };

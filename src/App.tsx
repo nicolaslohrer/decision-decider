@@ -1,11 +1,14 @@
-import { css } from "@emotion/core";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import "@reach/dialog/styles.css";
-import React, { Component } from "react";
+import { Component } from "react";
 import { EntryForm } from "./components/EntryForm";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Footer } from "./components/Footer";
 import { GlobalStyles } from "./components/GlobalStyles";
 import LetterWall from "./components/LetterWall";
+
+jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
 
 // XXX: Figure out how emotion v10's JSX pragma thingy works. Styles are currently broken.
 

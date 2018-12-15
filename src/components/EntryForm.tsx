@@ -1,4 +1,5 @@
-import { css } from "@emotion/core";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@reach/dialog/styles.css";
@@ -7,6 +8,8 @@ import React, { createRef } from "react";
 import { Button } from "./Button";
 import { TermDefMap } from "./CharController";
 import { Mode } from "./LetterWall";
+
+jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
 
 type Props = {
   registerTerm: (term: string) => void;

@@ -135,7 +135,6 @@ export const useDecider = (numberOfLetters: number) => {
           alert(
             "Sorry, I'm out of colors. No one can possibly handle that many decisions."
           );
-          // TODO: Produces an error.
           break;
 
         default:

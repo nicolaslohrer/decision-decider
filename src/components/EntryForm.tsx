@@ -14,7 +14,7 @@ jsx;
 type Props = {
   registerTerm: (term: string) => void;
   pickWinner: () => void;
-  reset: (cb?: () => void) => void;
+  reset: () => void;
   className?: string;
   terms: TermDefMap;
   mode: Mode;
@@ -137,12 +137,7 @@ export class EntryForm extends React.Component<Props, State> {
                   </Button>
                 </div>
                 {mode === "DONE" && (
-                  <Button
-                    type="button"
-                    onClick={() => {
-                      reset(() => inputRef.current!.focus());
-                    }}
-                  >
+                  <Button type="button" onClick={reset}>
                     Start over
                   </Button>
                 )}

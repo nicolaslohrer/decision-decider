@@ -1,7 +1,7 @@
-import React, { SFC } from "react";
+import { FunctionComponent } from "react";
 import Markdown from "react-remarkable";
 
-export const Imprint: SFC = () => {
+export const Imprint: FunctionComponent = () => {
   return (
     <Markdown>{`
 # Impressum

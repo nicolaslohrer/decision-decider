@@ -1,7 +1,7 @@
-import React, { SFC } from "react";
+import { FunctionComponent } from "react";
 import Markdown from "react-remarkable";
 
-export const Privacy: SFC = () => {
+export const Privacy: FunctionComponent = () => {
   return (
     <Markdown>{`
 # Privacy Policy

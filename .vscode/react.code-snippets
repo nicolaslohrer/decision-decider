@@ -16,9 +16,9 @@
     "prefix": "sfc",
     "description": "Stateless Functional Component",
     "body": [
-      "import React, { SFC } from \"react\";",
+      "import React, { FunctionComponent } from \"react\";",
       "",
-      "export const ${1:Name}: SFC = () => {",
+      "export const ${1:Name}: FunctionComponent = () => {",
       "  return <div>${1:Name}</div>;",
       "};"
     ]

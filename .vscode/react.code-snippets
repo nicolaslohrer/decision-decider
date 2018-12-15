@@ -1,20 +1,7 @@
 {
-  "Class Component": {
-    "prefix": "cc",
-    "description": "React Class Component",
-    "body": [
-      "import React from \"react\";",
-      "",
-      "export class ${1:Name} extends React.Component {",
-      "  public render() {",
-      "    return <div>${1:Name}</div>;",
-      "  }",
-      "}"
-    ]
-  },
-  "Stateless Functional Component": {
-    "prefix": "sfc",
-    "description": "Stateless Functional Component",
+  "React Function Component": {
+    "prefix": "rfc",
+    "description": "React Function Component",
     "body": [
       "import React, { FunctionComponent } from \"react\";",
       "",

@@ -1,18 +1,27 @@
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
-import { css } from "emotion";
-import React, { SFC } from "react";
+import { SFC } from "react";
 import { COLORS } from "../utils/Colors";
+
+jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
 
 type Props = { isOpen: boolean; onDismiss: () => void };
 
 export const Dialog: SFC<Props> = ({ isOpen, onDismiss, children }) => {
   return (
-    <DialogOverlay isOpen={isOpen} onDismiss={onDismiss}>
+    <DialogOverlay
+      isOpen={isOpen}
+      onDismiss={onDismiss}
+      css={css`
+        z-index: 150;
+      `}
+    >
       <DialogContent
-        className={css`
+        css={css`
           width: 90%;
           max-width: 700px;
 
@@ -23,7 +32,7 @@ export const Dialog: SFC<Props> = ({ isOpen, onDismiss, children }) => {
       >
         <button
           onClick={onDismiss}
-          className={css`
+          css={css`
             background: transparent;
             padding: 0;
             float: right;

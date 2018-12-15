@@ -1,12 +1,15 @@
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@reach/dialog/styles.css";
 import Rect from "@reach/rect";
-import { css, cx } from "emotion";
 import React, { createRef } from "react";
 import { Button } from "./Button";
 import { TermDefMap } from "./CharController";
 import { Mode } from "./LetterWall";
+
+jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
 
 type Props = {
   registerTerm: (term: string) => void;
@@ -49,7 +52,7 @@ export class EntryForm extends React.Component<Props, State> {
             {({ ref, rect }: any) => (
               <div
                 ref={ref}
-                className={cx(
+                css={[
                   css`
                     height: ${rect ? `${rect.height}px` : "auto"};
                     transition: all ${animationDurations.formFadeOut}ms ease-out;
@@ -61,10 +64,10 @@ export class EntryForm extends React.Component<Props, State> {
                       opacity: 0;
                       transform: scale(0.9);
                     `
-                )}
+                ]}
               >
                 <div
-                  className={
+                  css={
                     mode !== "COLLECTING_USER_INPUT"
                       ? css`
                           position: absolute;
@@ -74,14 +77,14 @@ export class EntryForm extends React.Component<Props, State> {
                   }
                 >
                   <div
-                    className={css`
+                    css={css`
                       display: flex;
                       margin-bottom: 2vh;
                     `}
                   >
                     {/* XXX: It'd be nicer to show mobile keyboards on mount right away. But that doesn't seem to be easily possible. Setting the focus on input element or setting autoFocus={true} isn't sufficient, unfortunately. */}
                     <input
-                      className={css`
+                      css={css`
                         border: 0 none;
                         border-bottom: 1px solid grey;
                         outline: 0 none;
@@ -102,7 +105,7 @@ export class EntryForm extends React.Component<Props, State> {
                     />
                     <button
                       type="submit"
-                      className={css`
+                      css={css`
                         border: 0 none;
                         line-height: 2;
                         padding: 0 1rem;

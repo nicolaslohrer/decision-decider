@@ -1,87 +1,29 @@
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import "@reach/dialog/styles.css";
-import { css, injectGlobal } from "emotion";
-import { normalize } from "polished";
-import React, { Component } from "react";
+import { Component } from "react";
 import { EntryForm } from "./components/EntryForm";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Footer } from "./components/Footer";
+import { GlobalStyles } from "./components/GlobalStyles";
 import LetterWall from "./components/LetterWall";
-import { COLORS } from "./utils/Colors";
+
+jsx; // FIXME: This is no long-term solution. https://bit.ly/2S4Xj06
+
+// XXX: Figure out how emotion v10's JSX pragma thingy works. Styles are currently broken.
 
 type State = { version: number };
 export class App extends Component<{}, State> {
   public state: State = { version: 0 };
 
-  public componentDidMount() {
-    injectGlobal`
-      ${normalize()}
-
-      * {
-        box-sizing: border-box;
-        position: relative;
-
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-
-        -webkit-tap-highlight-color: transparent;
-
-        font-family: "Ubuntu Mono", monospace;
-
-        &::before,
-        &::after {
-          box-sizing: inherit;
-        }
-      }
-
-      html {
-        font-size: 16px;
-      }
-
-      body,
-      html {
-        height: 100%;
-      }
-
-      body, #root {
-        display: flex;
-        flex-direction: column;
-      }
-
-      #root {
-        flex-grow: 1;
-      }
-
-      a {
-        transition: opacity 0.25s ease-out;
-
-        &:link,
-        &:visited {
-          color: ${COLORS[2]};
-        }
-
-        &:hover,
-        &:focus {
-          opacity: 0.8;
-        }
-      }
-
-      hr {
-        height: 1px;
-        background-color: lightgrey;
-        border: none;
-      }
-
-    `;
-  }
-
   public render() {
     return (
       <ErrorBoundary>
+        <GlobalStyles />
         <LetterWall
           numberOfLetters={175}
           key={this.state.version}
-          className={css`
+          css={css`
             flex-grow: 1;
             padding: 2vh 2vh 0;
             margin-bottom: 2vh;
@@ -96,7 +38,7 @@ export class App extends Component<{}, State> {
                 this.setState(({ version }) => ({ version: version + 1 }), cb)
               }
               mode={mode}
-              className={css`
+              css={css`
                 position: relative;
                 z-index: 100;
               `}

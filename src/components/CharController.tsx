@@ -11,7 +11,7 @@ type CharDef = {
   fixedChar?: string;
   term?: string;
 };
-type CharDefMap = { [position: string]: CharDef };
+export type CharDefMap = { [position: string]: CharDef };
 type TermDef = { term: string; color: string };
 
 export type TermDefMap = { [term: string]: TermDef };
@@ -30,17 +30,17 @@ type Props = {
 };
 type State = { charDefs: CharDefMap; terms: TermDefMap; winner?: string };
 
-export class CharController extends PureComponent<Props, State> {
-  private getRandomChar = () =>
-    CHARS.charAt(Math.floor(Math.random() * CHARS.length));
+export const getRandomChar = () =>
+  CHARS.charAt(Math.floor(Math.random() * CHARS.length));
 
+export class CharController extends PureComponent<Props, State> {
   public state: State = {
     charDefs: Array(...Array(this.props.numberOfLetters)).reduce<CharDefMap>(
       (charDefs, _x, i) => ({
         ...charDefs,
         [i]: {
           position: i,
-          randomChar: this.getRandomChar()
+          randomChar: getRandomChar()
         }
       }),
       {} as CharDefMap
@@ -115,7 +115,7 @@ export class CharController extends PureComponent<Props, State> {
               }
             }
 
-            newCharPositions.sort();
+            newCharPositions.sort((a, b) => a - b);
 
             newCharPositions.forEach((position, i) => {
               draft.charDefs[position].fixedChar = termChars[i];

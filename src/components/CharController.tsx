@@ -1,7 +1,11 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import { produce } from "immer";
 import { PureComponent } from "react";
 import { COLORS } from "../utils/Colors";
 import { ErrorCode } from "../utils/ErrorCodes";
+
+jsx;
 
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 

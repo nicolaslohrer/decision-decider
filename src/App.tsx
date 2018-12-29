@@ -9,8 +9,6 @@ import { Decider } from "./decider/Decider";
 
 jsx; // TODO: This is no long-term solution. Remove in all files once the underlying problem is resolved. See https://bit.ly/2S4Xj06.
 
-// TODO: Improve lighthouse score.
-
 export const App: FunctionComponent = () => {
   const [version, setVersion] = useState(0);
   return (

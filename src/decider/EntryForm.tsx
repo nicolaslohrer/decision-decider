@@ -97,6 +97,7 @@ export const EntryForm: FunctionComponent<Props> = ({ reset, className }) => {
                       setTerm(value)
                     }
                     autoFocus={true}
+                    autoComplete="off"
                   />
                   <button
                     type="submit"

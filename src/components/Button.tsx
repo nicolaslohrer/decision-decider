@@ -1,12 +1,15 @@
 import styled from "@emotion/styled";
+import { HTMLProps } from "react";
 import { COLORS } from "../settings";
 import { getColorCycleKeyframes } from "../utils/colorCycle";
 
 const backgroundColorCycle = getColorCycleKeyframes("background-color");
 
-export const Button = styled.button`
+type Props = { fullWidth?: boolean } & HTMLProps<HTMLButtonElement>;
+
+export const Button = styled.button<Props>`
   border-radius: 3px;
-  width: 100%;
+  width: ${({ fullWidth }) => fullWidth && "100%"};
   line-height: 2;
   border: 0 none;
   font-weight: 700;
@@ -18,7 +21,9 @@ export const Button = styled.button`
   animation: ${({ disabled }) => disabled && "none"};
   transition: opacity 0.35s ease-out;
 
-  &:hover {
+  &:hover,
+  &:focus {
     opacity: 0.85;
+    outline: none;
   }
 `;

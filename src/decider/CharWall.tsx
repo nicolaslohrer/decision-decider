@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsx jsx */ jsx;
 import { css, jsx } from "@emotion/core";
 import Rect from "@reach/rect";
 import { FunctionComponent, memo, useContext } from "react";
@@ -10,12 +10,11 @@ import { getRandomChar } from "../utils/randomChar";
 import { DeciderContext } from "./Decider";
 import { Chars } from "./useDecider";
 
-jsx;
-
 export const CharWall: FunctionComponent = memo(() => {
   const { chars, terms, winner, lifecyclePhase } = useContext(DeciderContext);
   const numberOfLetters = Object.keys(chars).length;
 
+  // XXX: Use CSS grid?
   return (
     <Rect>
       {({ ref, rect }: any) => {

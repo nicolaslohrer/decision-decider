@@ -1,11 +1,9 @@
-/** @jsx jsx */
+/** @jsx jsx */ jsx;
 import { css, Global, jsx } from "@emotion/core";
 import { normalize } from "polished";
 import { FunctionComponent } from "react";
 import "typeface-ubuntu-mono";
 import { COLORS } from "../settings";
-
-jsx;
 
 export const GlobalStyles: FunctionComponent = () => (
   <Global
@@ -36,7 +34,7 @@ export const GlobalStyles: FunctionComponent = () => (
 
       body,
       html {
-        height: 100%;
+        height: 99%;
       }
 
       body,

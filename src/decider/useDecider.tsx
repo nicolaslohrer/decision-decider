@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsx jsx */ jsx;
 import { jsx } from "@emotion/core";
 import { produce } from "immer";
 import { useState } from "react";
@@ -10,8 +10,6 @@ import {
   LETTER_ROTATION_DURATION
 } from "../settings";
 import { getRandomChar } from "../utils/randomChar";
-
-jsx;
 
 export type LifecyclePhase =
   | "COLLECTING_USER_INPUT"
@@ -157,6 +155,7 @@ export const useDecider = (numberOfLetters: number) => {
     "COLLECTING_USER_INPUT"
   );
 
+  // XXX: Can I make this nested mess easier to read with a utility function that takes a map of functions keyed by ms?
   const submit = () => {
     if (Object.keys(terms).length && !winner) {
       setLifecyclePhase("HIDING_ENTRY_FORM");

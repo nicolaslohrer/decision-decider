@@ -1,12 +1,10 @@
-/** @jsx jsx */
+/** @jsx jsx */ jsx;
 import { css, jsx } from "@emotion/core";
 import "@reach/dialog/styles.css";
 import { FunctionComponent, useState } from "react";
 import { Dialog } from "./Dialog";
 import { Imprint } from "./Imprint";
 import { Privacy } from "./Privacy";
-
-jsx;
 
 type Props = { className?: string };
 

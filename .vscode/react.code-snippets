@@ -3,11 +3,9 @@
     "prefix": "rfc",
     "description": "React Function Component",
     "body": [
-      "/** @jsx jsx */",
+      "/** @jsx jsx */ jsx;",
       "import { jsx } from \"@emotion/core\";",
       "import { FunctionComponent } from \"react\";",
-      "",
-      "jsx;", // TODO: Hopefully remove this eventually.
       "",
       "export const ${1:Name}: FunctionComponent = () => {",
       "  return <div>${1:Name}</div>;",

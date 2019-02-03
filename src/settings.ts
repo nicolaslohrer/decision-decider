@@ -1,4 +1,4 @@
-export const NUMBER_OF_LETTERS = 175;
+export const NUMBER_OF_LETTERS = 150;
 
 export const LETTER_ROTATION_DURATION = 3500;
 export const LETTER_FILTERING_DURATION = 2000;

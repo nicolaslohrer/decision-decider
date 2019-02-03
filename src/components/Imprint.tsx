@@ -1,9 +1,7 @@
-/** @jsx jsx */
+/** @jsx jsx */ jsx;
 import { jsx } from "@emotion/core";
 import { FunctionComponent } from "react";
 import Markdown from "react-remarkable";
-
-jsx;
 
 export const Imprint: FunctionComponent = () => {
   return (

@@ -1,11 +1,9 @@
-/** @jsx jsx */
+/** @jsx jsx */ jsx;
 import { css, Global, jsx } from "@emotion/core";
 import { normalize } from "polished";
 import { FunctionComponent } from "react";
 import "typeface-ubuntu-mono";
 import { COLORS } from "../settings";
-
-jsx;
 
 export const GlobalStyles: FunctionComponent = () => (
   <Global
@@ -32,21 +30,18 @@ export const GlobalStyles: FunctionComponent = () => (
 
       html {
         font-size: 16px;
+        position: absolute;
+        height: calc(100% - 0.5rem);
+        width: 100%;
+        overflow: hidden;
       }
 
       body,
-      html {
+      #root {
+        position: absolute;
         height: 100%;
-      }
-
-      body,
-      #root {
-        display: flex;
-        flex-direction: column;
-      }
-
-      #root {
-        flex-grow: 1;
+        width: 100%;
+        overflow: hidden;
       }
 
       a {

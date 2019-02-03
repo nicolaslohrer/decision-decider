@@ -1,7 +1,5 @@
-/** @jsx jsx */
+/** @jsx jsx */ jsx;
 import { css, jsx } from "@emotion/core";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@reach/dialog/styles.css";
 import Rect from "@reach/rect";
 import VisuallyHidden from "@reach/visually-hidden";
@@ -10,22 +8,28 @@ import { Button } from "../components/Button";
 import { FORM_FADE_OUT_DURATION } from "../settings";
 import { DeciderContext } from "./Decider";
 
-jsx;
+type Props = { className?: string };
 
-type Props = {
-  reset: () => void;
-  className?: string;
-};
+export const OptionEditor: FunctionComponent<Props> = ({ className }) => {
+  const { registerTerm, lifecyclePhase } = useContext(DeciderContext);
 
-export const EntryForm: FunctionComponent<Props> = ({ reset, className }) => {
-  const { registerTerm, submit, terms, lifecyclePhase } = useContext(
-    DeciderContext
-  );
+  if (
+    !["COLLECTING_USER_INPUT", "HIDING_ENTRY_FORM"].includes(lifecyclePhase)
+  ) {
+    return null;
+  }
+
   const [term, setTerm] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className={className}>
+    <div
+      css={css`
+        position: relative;
+        z-index: 100;
+      `}
+      className={className}
+    >
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -56,24 +60,14 @@ export const EntryForm: FunctionComponent<Props> = ({ reset, className }) => {
                   `
               ]}
             >
-              <div
-                css={
-                  !["COLLECTING_USER_INPUT", "HIDING_ENTRY_FORM"].includes(
-                    lifecyclePhase
-                  ) &&
-                  css`
-                    position: absolute;
-                    left: -10000px;
-                  `
-                }
-              >
+              <div>
                 <div
                   css={css`
                     display: flex;
                     margin-bottom: 2vh;
+                    align-items: center;
                   `}
                 >
-                  {/* TODO: It'd be nicer to show mobile keyboards on mount right away. But that doesn't seem to be easily possible. Setting the focus on input element or setting autoFocus={true} isn't sufficient, unfortunately. */}
                   <VisuallyHidden>
                     <label htmlFor="input">Enter Option</label>
                   </VisuallyHidden>
@@ -83,7 +77,7 @@ export const EntryForm: FunctionComponent<Props> = ({ reset, className }) => {
                       border-bottom: 1px solid grey;
                       outline: 0 none;
                       line-height: 2;
-                      padding: 0 3rem 0 0.5rem;
+                      padding: 0 3rem 0 0.25rem;
                       font-size: 1.25rem;
                       flex-grow: 1;
                       border-radius: 0;
@@ -99,40 +93,22 @@ export const EntryForm: FunctionComponent<Props> = ({ reset, className }) => {
                     autoFocus={true}
                     autoComplete="off"
                   />
-                  <button
-                    type="submit"
-                    css={css`
-                      border: 0 none;
-                      line-height: 2;
-                      padding: 0 1rem;
-                      cursor: pointer;
-                      right: 0;
-                      font-size: 1.25rem;
-                      background-color: transparent;
-                      position: absolute;
-                    `}
-                    title="Add option"
-                  >
-                    <FontAwesomeIcon icon={faPlus} size="xs" />
-                  </button>
+                  {term && (
+                    <Button
+                      type="submit"
+                      css={css`
+                        position: absolute;
+                        right: 0;
+                        text-transform: uppercase;
+                        line-height: 1.5;
+                      `}
+                      title="Add option"
+                    >
+                      Add
+                    </Button>
+                  )}
                 </div>
-                <Button
-                  type="button"
-                  onClick={() => {
-                    setTerm("");
-                    submit();
-                    inputRef.current!.focus();
-                  }}
-                  disabled={Object.keys(terms).length < 2}
-                >
-                  Decide Decision
-                </Button>
               </div>
-              {lifecyclePhase === "DONE" && (
-                <Button type="button" onClick={reset}>
-                  Start over
-                </Button>
-              )}
             </div>
           )}
         </Rect>

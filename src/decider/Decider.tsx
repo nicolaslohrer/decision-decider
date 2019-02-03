@@ -4,7 +4,7 @@ import { rgba } from "polished";
 import { createContext, FunctionComponent } from "react";
 import { NUMBER_OF_LETTERS } from "../settings";
 import { CharWall } from "./CharWall";
-import { EntryForm } from "./EntryForm";
+import { OptionEditor } from "./OptionEditor";
 import { SubmitButton } from "./SubmitButton";
 import { useDecider } from "./useDecider";
 
@@ -34,8 +34,7 @@ export const Decider: FunctionComponent<Props> = ({ reset, className }) => {
         `}
         className={className}
       >
-        {/* XXX: Rename to OptionEditor? */}
-        <EntryForm />
+        <OptionEditor />
         <CharWall />
         {Object.keys(deciderState.terms).length >= 2 && (
           <SubmitButton

@@ -2,13 +2,19 @@
 import { css, jsx } from "@emotion/core";
 import "@reach/dialog/styles.css";
 import { FunctionComponent, useState } from "react";
+import { Dialog } from "./components/Dialog";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { GlobalStyles } from "./components/GlobalStyles";
 import { Header } from "./components/Header";
+import { Imprint } from "./components/Imprint";
+import { Privacy } from "./components/Privacy";
 import { Decider } from "./decider/Decider";
 
 export const App: FunctionComponent = () => {
   const [version, setVersion] = useState(0);
+  const [isImprintVisible, setIsImprintVisible] = useState(false);
+  const [isPrivacyVisible, setIsPrivacyVisible] = useState(false);
+
   return (
     <ErrorBoundary>
       <GlobalStyles />
@@ -22,10 +28,10 @@ export const App: FunctionComponent = () => {
         `}
       >
         <Header
-          onMenuClick={() => {
-            // XXX: Open sidebar.
-          }}
+          onImprintClick={() => setIsImprintVisible(true)}
+          onPrivacyClick={() => setIsPrivacyVisible(true)}
         />
+
         <Decider
           key={version}
           reset={() => setVersion(prev => prev + 1)}
@@ -34,8 +40,16 @@ export const App: FunctionComponent = () => {
             padding-right: 0.5rem;
           `}
         />
-        {/* XXX: Move content of Footer to new Sidebar. */}
-        {/* <Footer /> */}
+        {isImprintVisible && (
+          <Dialog onDismiss={() => setIsImprintVisible(false)}>
+            <Imprint />
+          </Dialog>
+        )}
+        {isPrivacyVisible && (
+          <Dialog onDismiss={() => setIsPrivacyVisible(false)}>
+            <Privacy />
+          </Dialog>
+        )}
       </div>
     </ErrorBoundary>
   );

@@ -2,14 +2,21 @@
 import { css, jsx } from "@emotion/core";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Menu, MenuButton, MenuItem, MenuList } from "@reach/menu-button";
+import "@reach/menu-button/styles.css";
 import VisuallyHidden from "@reach/visually-hidden";
 import { FunctionComponent } from "react";
 import { COLORS } from "../settings";
 
-type Props = { onMenuClick: () => void; className?: string };
+type Props = {
+  onImprintClick: () => void;
+  onPrivacyClick: () => void;
+  className?: string;
+};
 
 export const Header: FunctionComponent<Props> = ({
-  onMenuClick: handleMenuClick,
+  onImprintClick: handleImprintClick,
+  onPrivacyClick: handlePrivacyClick,
   className
 }) => {
   return (
@@ -39,22 +46,38 @@ export const Header: FunctionComponent<Props> = ({
       >
         Decision Decider
       </h1>
-      <span
-        role="button"
-        onClick={handleMenuClick}
-        css={css`
-          padding: 0.3rem;
+      <Menu>
+        <MenuButton
+          css={css`
+            padding: 0.3rem;
+            background: none;
+            border: 0 none;
+            color: inherit;
 
-          &:hover,
-          &:focus {
-            opacity: 0.8;
-          }
-        `}
-      >
-        {/* XXX: Add hover/focus style. */}
-        <FontAwesomeIcon icon={faEllipsisV} size="sm" />
-        <VisuallyHidden>Open menu</VisuallyHidden>
-      </span>
+            &:hover,
+            &:focus {
+              opacity: 0.8;
+              outline: none;
+            }
+          `}
+        >
+          <FontAwesomeIcon icon={faEllipsisV} size="sm" />
+          <VisuallyHidden>Open menu</VisuallyHidden>
+        </MenuButton>
+        <MenuList
+          css={css`
+            z-index: 125;
+            padding: 0;
+
+            [data-reach-menu-item][data-selected] {
+              background: ${COLORS[2]};
+            }
+          `}
+        >
+          <MenuItem onSelect={handleImprintClick}>Imprint</MenuItem>
+          <MenuItem onSelect={handlePrivacyClick}>Privacy</MenuItem>
+        </MenuList>
+      </Menu>
     </div>
   );
 };

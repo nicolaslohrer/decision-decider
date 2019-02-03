@@ -30,12 +30,18 @@ export const GlobalStyles: FunctionComponent = () => (
 
       html {
         font-size: 16px;
+        position: absolute;
         height: calc(100% - 0.5rem);
+        width: 100%;
+        overflow: hidden;
       }
 
       body,
       #root {
+        position: absolute;
         height: 100%;
+        width: 100%;
+        overflow: hidden;
       }
 
       a {

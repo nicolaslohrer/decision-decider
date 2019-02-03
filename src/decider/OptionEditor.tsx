@@ -10,7 +10,7 @@ import { DeciderContext } from "./Decider";
 
 type Props = { className?: string };
 
-export const EntryForm: FunctionComponent<Props> = ({ className }) => {
+export const OptionEditor: FunctionComponent<Props> = ({ className }) => {
   const { registerTerm, lifecyclePhase } = useContext(DeciderContext);
 
   if (

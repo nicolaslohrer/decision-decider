@@ -18,7 +18,6 @@ export const SubmitButton: FunctionComponent<Props> = ({
 
   return (
     <div className={className}>
-      {/* XXX: Hide after submit. */}
       {lifecyclePhase === "COLLECTING_USER_INPUT" && (
         <Button
           type="button"

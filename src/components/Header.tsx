@@ -19,9 +19,9 @@ export const Header: FunctionComponent<Props> = ({
         color: white;
         display: grid;
         grid-template-columns: 1fr auto;
-        grid-column-gap: 2vh;
+        grid-column-gap: 0.5rem;
         align-items: center;
-        padding: 1.25vh 2vh;
+        padding: 0 0.5rem;
 
         span,
         h1 {
@@ -34,11 +34,19 @@ export const Header: FunctionComponent<Props> = ({
         css={css`
           margin: 0;
           font-weight: 500;
+          line-height: 2;
         `}
       >
         Decision Decider
       </h1>
-      <span role="button" onClick={handleMenuClick}>
+      <span
+        role="button"
+        onClick={handleMenuClick}
+        css={css`
+          padding: 0.3rem;
+        `}
+      >
+        {/* XXX: Add hover/focus style. */}
         <FontAwesomeIcon icon={faEllipsisV} size="sm" />
         <VisuallyHidden>Open menu</VisuallyHidden>
       </span>

@@ -14,12 +14,12 @@ export const CharWall: FunctionComponent = memo(() => {
   const { chars, terms, winner, lifecyclePhase } = useContext(DeciderContext);
   const numberOfLetters = Object.keys(chars).length;
 
-  // XXX: Use CSS grid?
   return (
     <Rect>
       {({ ref, rect }: any) => {
-        let squareSize: number = 0;
-        let remainder: number = 0;
+        let remainder = 0;
+        let charWidth = 0;
+        let charHeight = 0;
 
         // Fit squares into rect. https://stackoverflow.com/a/38567903/7480786
         if (rect && rect.height) {
@@ -28,7 +28,9 @@ export const CharWall: FunctionComponent = memo(() => {
           let rows = columns / rectRatio;
           columns = Math.ceil(columns);
           rows = Math.ceil(rows);
-          squareSize = rect.width / columns;
+          charWidth = rect.width / columns;
+          charHeight = rect.height / rows;
+
           remainder = rows * columns - numberOfLetters;
         }
 
@@ -45,21 +47,17 @@ export const CharWall: FunctionComponent = memo(() => {
           <ul
             ref={ref}
             css={css`
-              flex-grow: 1;
-              /* XXX: Try https://css-tricks.com/auto-sizing-columns-css-grid-auto-fill-vs-auto-fit/ */
+              grid-row-start: charwall;
               display: flex;
               flex-wrap: wrap;
-              justify-content: ${["FILTERING_LETTERS", "DONE"].includes(
-                lifecyclePhase
-              )
-                ? "center"
-                : "space-between"};
+              justify-content: center;
               align-items: center;
               align-content: center;
               list-style-type: none;
               margin: 0;
               padding: 0;
               perspective: 1000px;
+              overflow: hidden;
             `}
           >
             {Object.keys(charsWithDummies)
@@ -74,17 +72,17 @@ export const CharWall: FunctionComponent = memo(() => {
                     css`
                       text-align: center;
                       text-transform: uppercase;
-                      font-size: calc(${squareSize}px * 0.55);
+                      font-size: calc(${charWidth}px * 0.55);
                       font-weight: 400;
                       transition: 0.5s ease-out;
                       transform-style: preserve-3d;
                       position: relative;
-                      width: ${squareSize}px;
-                      height: ${squareSize}px;
+                      width: ${charWidth}px;
+                      height: calc(${charHeight}px);
                       display: block;
                       border-radius: 2px;
                       background-color: #f5f5f5;
-                      border: ${squareSize * 0.03}px solid white;
+                      border: ${charWidth * 0.03}px solid white;
 
                       > span {
                         display: block;
@@ -127,9 +125,9 @@ export const CharWall: FunctionComponent = memo(() => {
                         ? css`
                             transition: all ${LETTER_FILTERING_DURATION}ms
                               ease-out;
-                            width: calc(1.5 * ${squareSize}px);
-                            height: calc(1.5 * ${squareSize}px);
-                            font-size: calc(1 * ${squareSize}px);
+                            width: calc(1.5 * ${charWidth}px);
+                            height: calc(1.5 * ${charHeight}px);
+                            font-size: calc(1 * ${charWidth}px);
                           `
                         : css`
                             transition: all ${LETTER_FILTERING_DURATION}ms

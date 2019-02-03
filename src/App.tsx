@@ -12,29 +12,31 @@ export const App: FunctionComponent = () => {
   return (
     <ErrorBoundary>
       <GlobalStyles />
-
-      {/* XXX: Add hover/focus style. */}
-
-      <Header
-        onMenuClick={() => {
-          // XXX: Open sidebar.
-        }}
+      <div
         css={css`
-          /* XXX: Use grid for gaps */
-          margin-bottom: 1vh;
+          display: grid;
+          grid-template-rows: auto 1fr;
+          height: 100%;
+          min-height: 0;
+          grid-gap: 0.25rem;
         `}
-      />
-
-      <Decider
-        key={version}
-        reset={() => setVersion(prev => prev + 1)}
-        css={css`
-          padding-left: 2vh;
-          padding-right: 2vh;
-        `}
-      />
-      {/* XXX: Move content of Footer to new Sidebar. */}
-      {/* <Footer /> */}
+      >
+        <Header
+          onMenuClick={() => {
+            // XXX: Open sidebar.
+          }}
+        />
+        <Decider
+          key={version}
+          reset={() => setVersion(prev => prev + 1)}
+          css={css`
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+          `}
+        />
+        {/* XXX: Move content of Footer to new Sidebar. */}
+        {/* <Footer /> */}
+      </div>
     </ErrorBoundary>
   );
 };

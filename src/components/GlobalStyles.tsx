@@ -30,21 +30,12 @@ export const GlobalStyles: FunctionComponent = () => (
 
       html {
         font-size: 16px;
-      }
-
-      body,
-      html {
-        height: 99%;
+        height: calc(100% - 0.5rem);
       }
 
       body,
       #root {
-        display: flex;
-        flex-direction: column;
-      }
-
-      #root {
-        flex-grow: 1;
+        height: 100%;
       }
 
       a {

@@ -26,33 +26,30 @@ export const Decider: FunctionComponent<Props> = ({ reset, className }) => {
     <DeciderContext.Provider value={deciderState}>
       <div
         css={css`
-          /* XXX: Use grid for layout and gaps. */
-          display: flex;
-          flex-direction: column;
-          flex-grow: 1;
+          display: grid;
+          grid-template-rows: auto [charwall] 1fr;
+          grid-gap: 0.5rem;
+          overflow: hidden;
+          min-height: 0;
         `}
         className={className}
       >
         {/* XXX: Rename to OptionEditor? */}
-        <EntryForm
-          css={css`
-            margin-bottom: 2vh;
-          `}
-        />
+        <EntryForm />
         <CharWall />
         {Object.keys(deciderState.terms).length >= 2 && (
           <SubmitButton
             reset={reset}
             css={css`
-              box-shadow: ${rgba("#000", 0.3)} 0 0 1px,
-                ${rgba("#000", 0.4)} 0 6px 8px -4px;
+              box-shadow: ${rgba("black", 0.3)} 0 0 1px,
+                ${rgba("black", 0.3)} 0 4px 6px -4px;
               background-color: white;
               border-radius: 4px;
-              padding: 1.25vh;
+              padding: 0.5rem;
               position: absolute;
-              bottom: 0;
-              left: 2vh;
-              width: calc(100% - 4vh);
+              bottom: 4px;
+              left: 0.5rem;
+              width: calc(100% - 1rem);
             `}
           />
         )}

@@ -44,6 +44,11 @@ export const Header: FunctionComponent<Props> = ({
         onClick={handleMenuClick}
         css={css`
           padding: 0.3rem;
+
+          &:hover,
+          &:focus {
+            opacity: 0.8;
+          }
         `}
       >
         {/* XXX: Add hover/focus style. */}

@@ -5,7 +5,7 @@ import { createContext, FunctionComponent } from "react";
 import { NUMBER_OF_LETTERS } from "../settings";
 import { CharWall } from "./CharWall";
 import { OptionEditor } from "./OptionEditor";
-import { SubmitButton } from "./SubmitButton";
+import { OverlayButtons } from "./OverlayButtons";
 import { useDecider } from "./useDecider";
 
 type Props = { reset: () => void; className?: string };
@@ -37,7 +37,7 @@ export const Decider: FunctionComponent<Props> = ({ reset, className }) => {
         <OptionEditor />
         <CharWall />
         {Object.keys(deciderState.terms).length >= 2 && (
-          <SubmitButton
+          <OverlayButtons
             reset={reset}
             css={css`
               box-shadow: ${rgba("black", 0.3)} 0 0 1px,

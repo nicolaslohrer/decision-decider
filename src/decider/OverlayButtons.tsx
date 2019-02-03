@@ -6,8 +6,7 @@ import { DeciderContext } from "./Decider";
 
 type Props = { reset: () => void; className?: string };
 
-// XXX: Rename component (bc it includes reset button, too).
-export const SubmitButton: FunctionComponent<Props> = ({
+export const OverlayButtons: FunctionComponent<Props> = ({
   reset,
   className
 }) => {

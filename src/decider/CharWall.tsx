@@ -124,7 +124,7 @@ export const CharWall: FunctionComponent = memo(() => {
                         ? css`
                             transition: all ${LETTER_FILTERING_DURATION}ms
                               ease-out;
-                            /* XXX: These three properties below cause the letters to disappear on iOS. Find a workaround.*/
+                            /* TODO: These three properties below cause weird, unpredictable behavior on iOS (flickering, disappearing letters). Find a workaround.*/
                             width: ${1.5 * charWidth}px;
                             height: ${1.5 * charHeight}px;
                             font-size: ${charWidth}px;

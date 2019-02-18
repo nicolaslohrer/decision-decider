@@ -9,4 +9,4 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 serviceWorker.register();
 
-// XXX: Cover basic usage scenarios with some tests.
+// TODO: Cover basic usage scenarios with some tests.

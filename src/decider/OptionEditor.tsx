@@ -13,14 +13,14 @@ type Props = { className?: string };
 export const OptionEditor: FunctionComponent<Props> = ({ className }) => {
   const { registerTerm, lifecyclePhase } = useContext(DeciderContext);
 
+  const [term, setTerm] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
   if (
     !["COLLECTING_USER_INPUT", "HIDING_ENTRY_FORM"].includes(lifecyclePhase)
   ) {
     return null;
   }
-
-  const [term, setTerm] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div

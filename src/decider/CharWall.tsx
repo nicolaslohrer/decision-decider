@@ -65,7 +65,6 @@ export const CharWall: FunctionComponent = memo(() => {
               .sort((a, b) => a - b)
               .map(position => (
                 <li
-                  // XXX: Fix card animations in Safari on iOS.
                   key={charsWithDummies[position].position}
                   // For flip animation, see https://davidwalsh.name/css-flip.
                   css={[

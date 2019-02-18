@@ -1,6 +1,6 @@
 {
   "name": "decision-decider",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "private": true,
   "dependencies": {
     "@emotion/core": "^10.0.7",

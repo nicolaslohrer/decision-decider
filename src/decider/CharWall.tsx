@@ -65,23 +65,21 @@ export const CharWall: FunctionComponent = memo(() => {
               .sort((a, b) => a - b)
               .map(position => (
                 <li
-                  // TODO: Fix card animations in Safari on iOS.
                   key={charsWithDummies[position].position}
                   // For flip animation, see https://davidwalsh.name/css-flip.
                   css={[
                     css`
                       text-align: center;
                       text-transform: uppercase;
-                      font-size: calc(${charWidth}px * 0.55);
+                      font-size: ${0.55 * charWidth}px;
                       font-weight: 400;
                       transition: 0.5s ease-out;
                       transform-style: preserve-3d;
                       position: relative;
                       width: ${charWidth}px;
-                      height: calc(${charHeight}px);
+                      height: ${charHeight}px;
                       display: block;
                       border-radius: 2px;
-                      background-color: #f5f5f5;
                       border: ${charWidth * 0.03}px solid white;
 
                       > span {
@@ -125,9 +123,10 @@ export const CharWall: FunctionComponent = memo(() => {
                         ? css`
                             transition: all ${LETTER_FILTERING_DURATION}ms
                               ease-out;
-                            width: calc(1.5 * ${charWidth}px);
-                            height: calc(1.5 * ${charHeight}px);
-                            font-size: calc(1 * ${charWidth}px);
+                            /* TODO: These three properties below cause weird, unpredictable behavior on iOS (flickering, disappearing letters). Find a workaround.*/
+                            width: ${1.5 * charWidth}px;
+                            height: ${1.5 * charHeight}px;
+                            font-size: ${charWidth}px;
                           `
                         : css`
                             transition: all ${LETTER_FILTERING_DURATION}ms
@@ -147,6 +146,7 @@ export const CharWall: FunctionComponent = memo(() => {
                       css`
                         z-index: 2;
                         transform: rotateY(0deg);
+                        background-color: #f5f5f5;
                       `
                     ]}
                   />
@@ -155,6 +155,7 @@ export const CharWall: FunctionComponent = memo(() => {
                       css`
                         transform: rotateY(180deg);
                         color: black;
+                        background-color: #f5f5f5;
                       `,
                       charsWithDummies[position].fixedChar &&
                         css`

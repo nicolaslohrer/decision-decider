@@ -155,7 +155,7 @@ export const useDecider = (numberOfLetters: number) => {
     "COLLECTING_USER_INPUT"
   );
 
-  // XXX: Can I make this nested mess easier to read with a utility function that takes a map of functions keyed by ms?
+  // TODO: Can I make this nested mess easier to read with a utility function that takes a map of functions keyed by ms?
   const submit = () => {
     if (Object.keys(terms).length && !winner) {
       setLifecyclePhase("HIDING_ENTRY_FORM");

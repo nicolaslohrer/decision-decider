@@ -25,6 +25,7 @@ export const FlipCard: FunctionComponent<FlipCardProps> = ({
         transition: ${transitionDurationMs}ms ease-out;
         transform-style: preserve-3d;
         position: relative;
+        will-change: transform;
       `,
       visibleSide === "back" &&
         css`

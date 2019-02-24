@@ -102,9 +102,7 @@ export const CharWall: FunctionComponent = memo(() => {
                               ease-out;
                             transform: scale(0.5);
                             width: 0;
-                            margin: 0;
                             border: 0;
-                            padding: 0;
                             opacity: 0;
                             overflow: hidden;
                           `)

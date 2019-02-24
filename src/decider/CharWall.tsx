@@ -7,6 +7,7 @@ import {
   LETTER_ROTATION_DURATION
 } from "../settings";
 import { getRandomChar } from "../utils/randomChar";
+import { CharCard, CharCardBack, CharCardFront } from "./CharCard";
 import { DeciderContext } from "./Decider";
 import { Chars } from "./useDecider";
 
@@ -64,43 +65,18 @@ export const CharWall: FunctionComponent = memo(() => {
               .map(k => Number(k))
               .sort((a, b) => a - b)
               .map(position => (
-                <li
+                <CharCard
+                  is="li"
                   key={charsWithDummies[position].position}
-                  // For flip animation, see https://davidwalsh.name/css-flip.
+                  visibleSide={
+                    charsWithDummies[position].fixedChar === undefined
+                      ? "front"
+                      : "back"
+                  }
+                  widthPx={charWidth}
+                  heightPx={charHeight}
                   css={[
-                    css`
-                      text-align: center;
-                      text-transform: uppercase;
-                      font-size: ${0.55 * charWidth}px;
-                      font-weight: 400;
-                      transition: 0.5s ease-out;
-                      transform-style: preserve-3d;
-                      position: relative;
-                      width: ${charWidth}px;
-                      height: ${charHeight}px;
-                      display: block;
-                      border-radius: 2px;
-                      border: ${charWidth * 0.03}px solid white;
-
-                      > span {
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                        border-radius: 2px;
-                        line-height: 1;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        backface-visibility: hidden;
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                      }
-                    `,
-                    charsWithDummies[position].fixedChar &&
-                      css`
-                        transform: rotateY(180deg);
-                      `,
+                    charsWithDummies[position].fixedChar && css``,
                     ["ROTATING_LETTERS", "FILTERING_LETTERS", "DONE"].includes(
                       lifecyclePhase
                     ) &&
@@ -141,35 +117,23 @@ export const CharWall: FunctionComponent = memo(() => {
                           `)
                   ]}
                 >
-                  <span
-                    css={[
-                      css`
-                        z-index: 2;
-                        transform: rotateY(0deg);
-                        background-color: #f5f5f5;
-                      `
-                    ]}
+                  <CharCardFront bgColor="#f5f5f5" />
+                  <CharCardBack
+                    {...(charsWithDummies[position].fixedChar
+                      ? {
+                          char: charsWithDummies[position].fixedChar,
+                          bgColor:
+                            charsWithDummies[position].fixedChar !== " " &&
+                            terms[charsWithDummies[position].term!].color,
+                          color: "white"
+                        }
+                      : {
+                          char: charsWithDummies[position].randomChar,
+                          bgColor: "#f5f5f5",
+                          color: "black"
+                        })}
                   />
-                  <span
-                    css={[
-                      css`
-                        transform: rotateY(180deg);
-                        color: black;
-                        background-color: #f5f5f5;
-                      `,
-                      charsWithDummies[position].fixedChar &&
-                        css`
-                          color: white;
-                          background-color: ${charsWithDummies[position]
-                            .fixedChar !== " " &&
-                            terms[charsWithDummies[position].term!].color};
-                        `
-                    ]}
-                  >
-                    {charsWithDummies[position].fixedChar ||
-                      charsWithDummies[position].randomChar}
-                  </span>
-                </li>
+                </CharCard>
               ))}
           </ul>
         );

@@ -76,7 +76,6 @@ export const CharWall: FunctionComponent = memo(() => {
                   widthPx={charWidth}
                   heightPx={charHeight}
                   css={[
-                    charsWithDummies[position].fixedChar && css``,
                     ["ROTATING_LETTERS", "FILTERING_LETTERS", "DONE"].includes(
                       lifecyclePhase
                     ) &&
@@ -84,14 +83,8 @@ export const CharWall: FunctionComponent = memo(() => {
                         transition-duration: ${LETTER_ROTATION_DURATION}ms;
                         transform: rotateY(
                           ${charsWithDummies[position].term !== winner
-                            ? `${[4, 5, 6, 7, 8, 9][
-                                Math.floor(Math.random() * 5)
-                              ] * 360}deg`
-                            : `${[4, 5, 6, 7, 8, 9][
-                                Math.floor(Math.random() * 5)
-                              ] *
-                                360 +
-                                180}deg`}
+                            ? getRandom([4, 5, 6, 7, 8, 9]) * 360
+                            : getRandom([4, 5, 6, 7, 8, 9]) * 360 + 180}deg
                         );
                       `,
                     ["FILTERING_LETTERS", "DONE"].includes(lifecyclePhase) &&
@@ -141,3 +134,7 @@ export const CharWall: FunctionComponent = memo(() => {
     </Rect>
   );
 });
+
+function getRandom<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * (arr.length - 1))];
+}

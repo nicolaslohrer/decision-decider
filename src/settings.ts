@@ -1,7 +1,7 @@
 export const NUMBER_OF_LETTERS = 150;
 
 export const LETTER_ROTATION_DURATION = 3500;
-export const LETTER_FILTERING_DURATION = 2000;
+export const LETTER_FILTERING_DURATION = 2250;
 export const FORM_FADE_OUT_DURATION = 250;
 
 export enum ErrorCode {

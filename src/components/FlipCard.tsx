@@ -7,14 +7,14 @@ import { FunctionComponent, HTMLProps, ReactNode } from "react";
 export type FlipCardProps = {
   is?: "div" | "span" | "li";
   children: [ReactNode, ReactNode];
-  visibleSide?: "front" | "back";
+  isFlipped?: boolean;
   className?: string;
   transitionDurationMs?: number;
 };
 
 export const FlipCard: FunctionComponent<FlipCardProps> = ({
   is: Is = "div",
-  visibleSide = "front",
+  isFlipped,
   transitionDurationMs = "500",
   ...restProps
 }) => (
@@ -27,7 +27,7 @@ export const FlipCard: FunctionComponent<FlipCardProps> = ({
         position: relative;
         will-change: transform;
       `,
-      visibleSide === "back" &&
+      isFlipped &&
         css`
           transform: rotateY(180deg);
         `

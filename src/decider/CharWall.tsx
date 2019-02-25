@@ -68,11 +68,7 @@ export const CharWall: FunctionComponent = memo(() => {
                 <CharCard
                   is="li"
                   key={charsWithDummies[position].position}
-                  visibleSide={
-                    charsWithDummies[position].fixedChar === undefined
-                      ? "front"
-                      : "back"
-                  }
+                  isFlipped={charsWithDummies[position].fixedChar !== undefined}
                   widthPx={charWidth}
                   heightPx={charHeight}
                   css={[

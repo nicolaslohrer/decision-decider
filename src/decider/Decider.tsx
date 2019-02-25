@@ -13,7 +13,7 @@ type Props = { reset: () => void; className?: string };
 export const DeciderContext = createContext<ReturnType<typeof useDecider>>({
   chars: {},
   lifecyclePhase: "COLLECTING_USER_INPUT",
-  submit: () => {},
+  submit: async () => {},
   registerTerm: () => {},
   terms: {},
   winner: undefined

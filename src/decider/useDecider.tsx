@@ -10,6 +10,7 @@ import {
   LETTER_ROTATION_DURATION
 } from "../settings";
 import { getRandomChar } from "../utils/randomChar";
+import { sleep } from "../utils/sleep";
 
 export type LifecyclePhase =
   | "COLLECTING_USER_INPUT"
@@ -69,18 +70,18 @@ export const useDecider = (numberOfLetters: number) => {
     }
   };
 
-  const registerTerm = (term: string) => {
+  const registerTerm = (rawTerm: string) => {
     try {
-      let availableChars: Chars = {
-        ...getAvailableChars()
-      };
+      let availableChars: Chars = { ...getAvailableChars() };
 
-      if (
-        term &&
-        !Object.keys(terms).some(termId => terms[termId].term === term)
-      ) {
-        const trimmedTerm = term.trim();
-        const termChars: string[] = trimmedTerm.split("");
+      const term = rawTerm.trim();
+
+      const isDuplicate = Object.keys(terms).some(
+        termId => terms[termId].term === term
+      );
+
+      if (term && !isDuplicate) {
+        const termChars: string[] = term.split("");
 
         const newCharPositions: number[] = [];
 
@@ -155,25 +156,16 @@ export const useDecider = (numberOfLetters: number) => {
     "COLLECTING_USER_INPUT"
   );
 
-  // TODO: Can I make this nested mess easier to read with a utility function that takes a map of functions keyed by ms?
-  const submit = () => {
+  const submit = async () => {
     if (Object.keys(terms).length && !winner) {
       setLifecyclePhase("HIDING_ENTRY_FORM");
-      setTimeout(
-        () =>
-          setTimeout(() => {
-            setLifecyclePhase("ROTATING_LETTERS");
-            pickWinner();
-            setTimeout(() => {
-              setLifecyclePhase("FILTERING_LETTERS");
-              setTimeout(
-                () => setLifecyclePhase("DONE"),
-                LETTER_FILTERING_DURATION
-              );
-            }, LETTER_ROTATION_DURATION);
-          }),
-        FORM_FADE_OUT_DURATION + 450
-      );
+      await sleep(FORM_FADE_OUT_DURATION + 450);
+      setLifecyclePhase("ROTATING_LETTERS");
+      await sleep(LETTER_ROTATION_DURATION);
+      pickWinner();
+      setLifecyclePhase("FILTERING_LETTERS");
+      await sleep(LETTER_FILTERING_DURATION);
+      setLifecyclePhase("DONE");
     }
   };
 

@@ -64,15 +64,11 @@ export const CharWall: FunctionComponent = memo(() => {
             {Object.keys(charsWithDummies)
               .map(k => Number(k))
               .sort((a, b) => a - b)
-              .map(position => (
+              .map(position => charsWithDummies[position])
+              .map(({ term, position, fixedChar, randomChar }) => (
                 <CharCard
-                  is="li"
-                  key={charsWithDummies[position].position}
-                  visibleSide={
-                    charsWithDummies[position].fixedChar === undefined
-                      ? "front"
-                      : "back"
-                  }
+                  key={position}
+                  isFlipped={fixedChar !== undefined}
                   widthPx={charWidth}
                   heightPx={charHeight}
                   css={[
@@ -82,13 +78,13 @@ export const CharWall: FunctionComponent = memo(() => {
                       css`
                         transition-duration: ${LETTER_ROTATION_DURATION}ms;
                         transform: rotateY(
-                          ${charsWithDummies[position].term !== winner
+                          ${term !== winner
                             ? getRandom([4, 5, 6, 7, 8, 9]) * 360
                             : getRandom([4, 5, 6, 7, 8, 9]) * 360 + 180}deg
                         );
                       `,
                     ["FILTERING_LETTERS", "DONE"].includes(lifecyclePhase) &&
-                      (charsWithDummies[position].term === winner
+                      (term === winner
                         ? css`
                             transition: all ${LETTER_FILTERING_DURATION}ms
                               ease-out;
@@ -110,20 +106,15 @@ export const CharWall: FunctionComponent = memo(() => {
                 >
                   <CharCardFront bgColor="#f5f5f5" />
                   <CharCardBack
-                    {...(charsWithDummies[position].fixedChar
-                      ? {
-                          char: charsWithDummies[position].fixedChar,
-                          bgColor:
-                            charsWithDummies[position].fixedChar !== " " &&
-                            terms[charsWithDummies[position].term!].color,
-                          color: "white"
-                        }
-                      : {
-                          char: charsWithDummies[position].randomChar,
-                          bgColor: "#f5f5f5",
-                          color: "black"
-                        })}
-                  />
+                    bgColor={
+                      fixedChar && fixedChar.trim()
+                        ? terms[term!].color
+                        : "#f5f5f5"
+                    }
+                    color={fixedChar ? "white" : "black"}
+                  >
+                    {fixedChar || randomChar}
+                  </CharCardBack>
                 </CharCard>
               ))}
           </ul>

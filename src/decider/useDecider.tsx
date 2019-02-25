@@ -10,6 +10,7 @@ import {
   LETTER_ROTATION_DURATION
 } from "../settings";
 import { getRandomChar } from "../utils/randomChar";
+import { sleep } from "../utils/sleep";
 
 export type LifecyclePhase =
   | "COLLECTING_USER_INPUT"
@@ -177,5 +178,3 @@ export const useDecider = (numberOfLetters: number) => {
     winner
   };
 };
-
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));

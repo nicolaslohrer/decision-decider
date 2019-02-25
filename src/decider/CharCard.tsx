@@ -63,6 +63,7 @@ const CharCardSide: FunctionComponent<
   </Component>
 );
 
+// XXX: Rather just spread the styles onto both Front and Back instead of introducing yet another level of nesting and indirection with ChardCardSide.
 export const CharCardFront: FunctionComponent<CharCardSideProps> = props => (
   <CharCardSide {...props} component={FlipCardFront} />
 );

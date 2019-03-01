@@ -158,11 +158,11 @@ export const useDecider = (numberOfLetters: number) => {
 
   const submit = async () => {
     if (Object.keys(terms).length && !winner) {
+      pickWinner();
       setLifecyclePhase("HIDING_ENTRY_FORM");
       await sleep(FORM_FADE_OUT_DURATION + 450);
       setLifecyclePhase("ROTATING_LETTERS");
       await sleep(LETTER_ROTATION_DURATION);
-      pickWinner();
       setLifecyclePhase("FILTERING_LETTERS");
       await sleep(LETTER_FILTERING_DURATION);
       setLifecyclePhase("DONE");

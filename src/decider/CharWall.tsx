@@ -78,9 +78,8 @@ export const CharWall: FunctionComponent = memo(() => {
                       css`
                         transition-duration: ${LETTER_ROTATION_DURATION}ms;
                         transform: rotateY(
-                          ${term !== winner
-                            ? getRandom([4, 5, 6, 7, 8, 9]) * 360
-                            : getRandom([4, 5, 6, 7, 8, 9]) * 360 + 180}deg
+                          ${getRandom([4, 5, 6, 7, 8, 9]) * 360 +
+                            (term === winner ? 180 : 0)}deg
                         );
                       `,
                     ["FILTERING_LETTERS", "DONE"].includes(lifecyclePhase) &&

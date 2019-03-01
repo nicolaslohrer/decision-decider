@@ -15,8 +15,8 @@ import { sleep } from "../utils/sleep";
 export type LifecyclePhase =
   | "COLLECTING_USER_INPUT"
   | "HIDING_ENTRY_FORM"
-  | "ROTATING_LETTERS"
-  | "FILTERING_LETTERS"
+  | "SPINNING_CHARS"
+  | "FILTERING_CHARS"
   | "DONE";
 
 type Char = {
@@ -161,9 +161,9 @@ export const useDecider = (numberOfLetters: number) => {
       pickWinner();
       setLifecyclePhase("HIDING_ENTRY_FORM");
       await sleep(FORM_FADE_OUT_DURATION + 450);
-      setLifecyclePhase("ROTATING_LETTERS");
+      setLifecyclePhase("SPINNING_CHARS");
       await sleep(LETTER_ROTATION_DURATION);
-      setLifecyclePhase("FILTERING_LETTERS");
+      setLifecyclePhase("FILTERING_CHARS");
       await sleep(LETTER_FILTERING_DURATION);
       setLifecyclePhase("DONE");
     }

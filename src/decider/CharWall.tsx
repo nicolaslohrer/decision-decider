@@ -72,7 +72,7 @@ export const CharWall: FunctionComponent = memo(() => {
                   widthPx={charWidth}
                   heightPx={charHeight}
                   css={[
-                    ["ROTATING_LETTERS", "FILTERING_LETTERS", "DONE"].includes(
+                    ["SPINNING_CHARS", "FILTERING_CHARS", "DONE"].includes(
                       lifecyclePhase
                     ) &&
                       css`
@@ -82,7 +82,7 @@ export const CharWall: FunctionComponent = memo(() => {
                             (term === winner ? 180 : 0)}deg
                         );
                       `,
-                    ["FILTERING_LETTERS", "DONE"].includes(lifecyclePhase) &&
+                    ["FILTERING_CHARS", "DONE"].includes(lifecyclePhase) &&
                       (term === winner
                         ? css`
                             transition: all ${LETTER_FILTERING_DURATION}ms

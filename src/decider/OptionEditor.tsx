@@ -50,8 +50,8 @@ export const OptionEditor: FunctionComponent<Props> = ({ className }) => {
 
                 [
                   "HIDING_ENTRY_FORM",
-                  "ROTATING_LETTERS",
-                  "FILTERING_LETTERS"
+                  "SPINNING_CHARS",
+                  "FILTERING_CHARS"
                 ].includes(lifecyclePhase) &&
                   css`
                     margin-top: -200px;

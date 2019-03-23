@@ -28,7 +28,6 @@
     "react-dom": "^16.8.5",
     "react-remarkable": "^1.1.3",
     "react-scripts": "2.1.8",
-    "terser": "3.17.0",
     "typeface-ubuntu-mono": "0.0.72",
     "typescript": "^3.3.4000"
   },

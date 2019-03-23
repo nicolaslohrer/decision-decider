@@ -31,5 +31,8 @@
     "**/*.min.*",
     "**/*.map",
     "**/target/**"
-  ]
+  ],
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "files.eol": "\n",
+  "search-node-modules.path": "./node_modules"
 }

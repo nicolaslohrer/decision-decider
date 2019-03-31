@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import { HTMLProps } from "react";
+import { ButtonHTMLAttributes } from "react";
 import { COLORS } from "../settings";
 import { getColorCycleKeyframes } from "../utils/colorCycle";
 
 const backgroundColorCycle = getColorCycleKeyframes("background-color");
 
-type Props = { fullWidth?: boolean } & HTMLProps<HTMLButtonElement>;
+type Props = { fullWidth?: boolean } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = styled.button<Props>`
   border-radius: 3px;

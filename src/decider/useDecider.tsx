@@ -111,14 +111,14 @@ export const useDecider = (numberOfLetters: number) => {
 
           newCharPositions.sort((a, b) => a - b);
 
-          newCharPositions.forEach((position, i) => {
-            setChars(
-              produce(draft => {
+          setChars(
+            produce(draft => {
+              newCharPositions.forEach((position, i) => {
                 draft[position].fixedChar = termChars[i];
                 draft[position].term = term;
-              })
-            );
-          });
+              });
+            })
+          );
 
           setTerms(
             produce(draft => {

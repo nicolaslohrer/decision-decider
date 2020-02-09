@@ -14,24 +14,6 @@
     }
   },
   "editor.tabSize": 2,
-  "todohighlight.keywords": ["TODO:", "FIXME:", "XXX:"],
-  "todohighlight.include": [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.json",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.html"
-  ],
-  "todohighlight.exclude": [
-    "**/node_modules/**",
-    "**/dist/**",
-    "**/build/**",
-    "**/.vscode/**",
-    "**/*.min.*",
-    "**/*.map",
-    "**/target/**"
-  ],
   "typescript.tsdk": "./node_modules/typescript/lib",
   "files.eol": "\n",
   "search-node-modules.path": "./node_modules",

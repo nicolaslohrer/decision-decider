@@ -7,9 +7,13 @@ import "@reach/dialog/styles.css";
 import { FC } from "react";
 import { COLORS } from "../settings";
 
-type Props = { onDismiss: () => void };
+type Props = { onDismiss: () => void; "aria-label": string };
 
-export const Dialog: FC<Props> = ({ onDismiss, children }) => {
+export const Dialog: FC<Props> = ({
+  onDismiss,
+  children,
+  "aria-label": ariaLabel
+}) => {
   return (
     <DialogOverlay
       onDismiss={onDismiss}
@@ -18,6 +22,7 @@ export const Dialog: FC<Props> = ({ onDismiss, children }) => {
       `}
     >
       <DialogContent
+        aria-label={ariaLabel}
         css={css`
           width: 90%;
           max-width: 700px;

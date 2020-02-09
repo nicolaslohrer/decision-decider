@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import "core-js/es/array/fill";
+import "react-app-polyfill/stable";
 import ReactDOM from "react-dom";
 import { App } from "./App";
 import * as serviceWorker from "./serviceWorker";

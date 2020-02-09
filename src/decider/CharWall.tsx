@@ -23,8 +23,7 @@ export const CharWall: FC = memo(() => {
     let charWidth = 0;
     let charHeight = 0;
 
-    // XXX: Use optional chaining where applicable. Requires TS update first.
-    if (rect && rect.height) {
+    if (rect?.height) {
       const rectRatio = rect.width / rect.height;
       let columns = Math.sqrt(numberOfLetters * rectRatio);
       let rows = columns / rectRatio;
@@ -115,9 +114,7 @@ export const CharWall: FC = memo(() => {
         >
           <CharCardFront bgColor="#f5f5f5" />
           <CharCardBack
-            bgColor={
-              fixedChar && fixedChar.trim() ? terms[term!].color : "#f5f5f5"
-            }
+            bgColor={fixedChar?.trim() ? terms[term!].color : "#f5f5f5"}
             color={fixedChar ? "white" : "black"}
           >
             {fixedChar || randomChar}

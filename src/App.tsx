@@ -60,5 +60,3 @@ export const App: FC = () => {
     </ErrorBoundary>
   );
 };
-
-// XXX: Run npm audit.

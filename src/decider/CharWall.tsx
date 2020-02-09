@@ -1,7 +1,7 @@
-/** @jsx jsx */ jsx;
+/** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { useRect } from "@reach/rect";
-import { FunctionComponent, memo, useContext, useMemo, useRef } from "react";
+import { FC, memo, useContext, useMemo, useRef } from "react";
 import {
   LETTER_FILTERING_DURATION,
   LETTER_ROTATION_DURATION
@@ -11,7 +11,7 @@ import { CharCard, CharCardBack, CharCardFront } from "./CharCard";
 import { DeciderContext } from "./Decider";
 import { Chars } from "./useDecider";
 
-export const CharWall: FunctionComponent = memo(() => {
+export const CharWall: FC = memo(() => {
   const { chars, terms, winner, lifecyclePhase } = useContext(DeciderContext);
   const numberOfLetters = Object.keys(chars).length;
 
@@ -23,7 +23,7 @@ export const CharWall: FunctionComponent = memo(() => {
     let charWidth = 0;
     let charHeight = 0;
 
-    if (rect && rect.height) {
+    if (rect?.height) {
       const rectRatio = rect.width / rect.height;
       let columns = Math.sqrt(numberOfLetters * rectRatio);
       let rows = columns / rectRatio;
@@ -47,7 +47,7 @@ export const CharWall: FunctionComponent = memo(() => {
       };
     }
     return charsWithDummies;
-  }, [chars, numberOfLetters, remainder, getRandomChar]);
+  }, [chars, numberOfLetters, remainder]);
 
   // Convert char collection to an array that we can easily iterate over.
   const charList = useMemo(
@@ -114,9 +114,7 @@ export const CharWall: FunctionComponent = memo(() => {
         >
           <CharCardFront bgColor="#f5f5f5" />
           <CharCardBack
-            bgColor={
-              fixedChar && fixedChar.trim() ? terms[term!].color : "#f5f5f5"
-            }
+            bgColor={fixedChar?.trim() ? terms[term!].color : "#f5f5f5"}
             color={fixedChar ? "white" : "black"}
           >
             {fixedChar || randomChar}

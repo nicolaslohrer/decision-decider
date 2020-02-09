@@ -1,15 +1,12 @@
-/** @jsx jsx */ jsx;
+/** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { FunctionComponent, useContext } from "react";
+import { FC, useContext } from "react";
 import { Button } from "../components/Button";
 import { DeciderContext } from "./Decider";
 
 type Props = { reset: () => void; className?: string };
 
-export const OverlayButtons: FunctionComponent<Props> = ({
-  reset,
-  className
-}) => {
+export const OverlayButtons: FC<Props> = ({ reset, className }) => {
   const { submit, terms, lifecyclePhase } = useContext(DeciderContext);
   if (!["COLLECTING_USER_INPUT", "DONE"].includes(lifecyclePhase)) {
     return null;

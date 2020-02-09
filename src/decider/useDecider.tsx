@@ -1,5 +1,4 @@
-/** @jsx jsx */ jsx;
-import { jsx } from "@emotion/core";
+/** @jsx jsx */
 import { produce } from "immer";
 import { useCallback, useState } from "react";
 import {

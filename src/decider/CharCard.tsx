@@ -1,7 +1,7 @@
-/** @jsx jsx */ jsx;
+/** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { Color } from "csstype";
-import { FunctionComponent, HTMLProps, memo } from "react";
+import { FC, HTMLProps, memo } from "react";
 import { useFlipCard } from "../components/FlipCard";
 
 type CharCardProps = {
@@ -10,7 +10,7 @@ type CharCardProps = {
   heightPx: number;
 } & HTMLProps<HTMLLIElement>;
 
-export const CharCard: FunctionComponent<CharCardProps> = memo(
+export const CharCard: FC<CharCardProps> = memo(
   ({ widthPx, heightPx, isFlipped, ...restProps }) => {
     const { outerStyles } = useFlipCard({ isFlipped });
     return (
@@ -40,7 +40,7 @@ type CharCardInnerProps = {
   color?: Color;
 } & HTMLProps<HTMLDivElement>;
 
-const CharCardInner: FunctionComponent<CharCardInnerProps> = memo(
+const CharCardInner: FC<CharCardInnerProps> = memo(
   ({ color, bgColor, ...restProps }) => {
     const { innerStyles } = useFlipCard();
     return (

@@ -1,7 +1,7 @@
-/** @jsx jsx */ jsx; // TODO: This is no long-term solution. Remove in all files once the underlying problem is resolved. See https://bit.ly/2S4Xj06.
+/** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import "@reach/dialog/styles.css";
-import { FunctionComponent, useState } from "react";
+import { FC, useState } from "react";
 import { Dialog } from "./components/Dialog";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { GlobalStyles } from "./components/GlobalStyles";
@@ -10,7 +10,7 @@ import { Imprint } from "./components/Imprint";
 import { Privacy } from "./components/Privacy";
 import { Decider } from "./decider/Decider";
 
-export const App: FunctionComponent = () => {
+export const App: FC = () => {
   const [version, setVersion] = useState(0);
   const [isImprintVisible, setIsImprintVisible] = useState(false);
   const [isPrivacyVisible, setIsPrivacyVisible] = useState(false);

@@ -1,11 +1,11 @@
-/** @jsx jsx */ jsx;
+/** @jsx jsx */
 import { css, Global, jsx } from "@emotion/core";
 import { normalize } from "polished";
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import "typeface-ubuntu-mono";
 import { COLORS } from "../settings";
 
-export const GlobalStyles: FunctionComponent = () => (
+export const GlobalStyles: FC = () => (
   <Global
     styles={css`
       ${normalize()}
@@ -34,6 +34,10 @@ export const GlobalStyles: FunctionComponent = () => (
         height: calc(100% - 0.5rem);
         width: 100%;
         overflow: hidden;
+      }
+
+      body {
+        margin: 0;
       }
 
       body,

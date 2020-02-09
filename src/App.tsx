@@ -41,12 +41,18 @@ export const App: FC = () => {
           `}
         />
         {isImprintVisible && (
-          <Dialog onDismiss={() => setIsImprintVisible(false)}>
+          <Dialog
+            onDismiss={() => setIsImprintVisible(false)}
+            aria-label="Imprint"
+          >
             <Imprint />
           </Dialog>
         )}
         {isPrivacyVisible && (
-          <Dialog onDismiss={() => setIsPrivacyVisible(false)}>
+          <Dialog
+            onDismiss={() => setIsPrivacyVisible(false)}
+            aria-label="Privacy"
+          >
             <Privacy />
           </Dialog>
         )}

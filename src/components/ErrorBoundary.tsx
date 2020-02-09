@@ -1,8 +1,6 @@
-/** @jsx jsx */ jsx;
-import { jsx } from "@emotion/core";
+/** @jsx jsx */
 import { Component } from "react";
 
-// TODO: Migrate to function component once the React team introduces a way to handle componentDidCatch with them.
 export class ErrorBoundary extends Component {
   public componentDidCatch(e: any) {
     alert(

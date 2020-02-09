@@ -1,15 +1,15 @@
-/** @jsx jsx */ jsx;
+/** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import "@reach/dialog/styles.css";
 import VisuallyHidden from "@reach/visually-hidden";
-import { FunctionComponent, useContext, useRef, useState } from "react";
+import { FC, useContext, useRef, useState } from "react";
 import { Button } from "../components/Button";
 import { FORM_FADE_OUT_DURATION } from "../settings";
 import { DeciderContext } from "./Decider";
 
 type Props = { className?: string };
 
-export const OptionEditor: FunctionComponent<Props> = ({ className }) => {
+export const OptionEditor: FC<Props> = ({ className }) => {
   const { registerTerm, lifecyclePhase } = useContext(DeciderContext);
 
   const [term, setTerm] = useState("");

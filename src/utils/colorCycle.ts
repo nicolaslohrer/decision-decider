@@ -1,9 +1,7 @@
 /** @jsx jsx */
-import { jsx, keyframes } from "@emotion/core";
+import { keyframes } from "@emotion/core";
 import { COLORS } from "../settings";
 import { shuffleArray } from "./shuffleArray";
-
-jsx;
 
 export const getColorCycleKeyframes = (cssPropertyName: string) => keyframes`
   ${(() => {

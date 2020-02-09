@@ -1,11 +1,11 @@
-/** @jsx jsx */ jsx;
+/** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Menu, MenuButton, MenuItem, MenuList } from "@reach/menu-button";
 import "@reach/menu-button/styles.css";
 import VisuallyHidden from "@reach/visually-hidden";
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import { COLORS } from "../settings";
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
   className?: string;
 };
 
-export const Header: FunctionComponent<Props> = ({
+export const Header: FC<Props> = ({
   onImprintClick: handleImprintClick,
   onPrivacyClick: handlePrivacyClick,
   className

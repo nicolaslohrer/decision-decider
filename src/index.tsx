@@ -1,4 +1,4 @@
-/** @jsx jsx */ jsx;
+/** @jsx jsx */
 import { jsx } from "@emotion/core";
 import "core-js/es/array/fill";
 import ReactDOM from "react-dom";

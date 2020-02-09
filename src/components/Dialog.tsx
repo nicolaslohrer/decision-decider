@@ -1,15 +1,15 @@
-/** @jsx jsx */ jsx;
+/** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import { COLORS } from "../settings";
 
 type Props = { onDismiss: () => void };
 
-export const Dialog: FunctionComponent<Props> = ({ onDismiss, children }) => {
+export const Dialog: FC<Props> = ({ onDismiss, children }) => {
   return (
     <DialogOverlay
       onDismiss={onDismiss}

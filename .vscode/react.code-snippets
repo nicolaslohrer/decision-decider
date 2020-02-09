@@ -3,11 +3,11 @@
     "prefix": "rfc",
     "description": "React Function Component",
     "body": [
-      "/** @jsx jsx */ jsx;",
+      "/** @jsx jsx */",
       "import { jsx } from \"@emotion/core\";",
-      "import { FunctionComponent } from \"react\";",
+      "import { FC } from \"react\";",
       "",
-      "export const ${1:Name}: FunctionComponent = () => {",
+      "export const ${1:Name}: FC = () => {",
       "  return <div>${1:Name}</div>;",
       "};",
       ""

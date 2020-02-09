@@ -10,4 +10,4 @@ ReactDOM.render(<App />, document.getElementById("root"));
 serviceWorker.register();
 
 // TODO: Cover basic usage scenarios with some tests.
-// XXX: Fix sourcemap warning chrome console.
+// TODO: Fix sourcemap warning in chrome console.

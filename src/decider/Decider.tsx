@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { rgba } from "polished";
 import { createContext, FC, memo } from "react";
 import { NUMBER_OF_LETTERS } from "../settings";

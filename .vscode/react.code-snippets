@@ -3,7 +3,7 @@
     "prefix": "rfc",
     "description": "React Function Component",
     "body": [
-      "/** @jsx jsx */",
+      "/** @jsxImportSource @emotion/react */",
       "import { jsx } from \"@emotion/react\";",
       "import { FC } from \"react\";",
       "",

@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { useRect } from "@reach/rect";
 import { FC, memo, useContext, useMemo, useRef } from "react";
 import {
@@ -90,7 +90,7 @@ export const CharWall: FC = memo(() => {
                 transition-duration: ${LETTER_ROTATION_DURATION}ms;
                 transform: rotateY(
                   ${getRandom([4, 5, 6, 7, 8, 9]) * 360 +
-                  (term === winner ? 180 : 0)}deg
+                    (term === winner ? 180 : 0)}deg
                 );
               `,
             ["FILTERING_CHARS", "DONE"].includes(lifecyclePhase) &&

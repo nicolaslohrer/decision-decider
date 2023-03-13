@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
+/** @jsxImportSource @emotion/react */
 import { FC, useContext } from "react";
 import { Button } from "../components/Button";
 import { DeciderContext } from "./Decider";

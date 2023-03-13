@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
 import { keyframes } from "@emotion/react";
 import { COLORS } from "../settings";
 import { shuffleArray } from "./shuffleArray";

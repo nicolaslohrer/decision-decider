@@ -1,10 +1,10 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Menu, MenuButton, MenuItem, MenuList } from "@reach/menu-button";
 import "@reach/menu-button/styles.css";
-import VisuallyHidden from "@reach/visually-hidden";
+import { VisuallyHidden } from "@reach/visually-hidden";
 import { FC } from "react";
 import { COLORS } from "../settings";
 

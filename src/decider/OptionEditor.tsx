@@ -1,7 +1,7 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import "@reach/dialog/styles.css";
-import VisuallyHidden from "@reach/visually-hidden";
+import { VisuallyHidden } from "@reach/visually-hidden";
 import { FC, useContext, useRef, useState } from "react";
 import { Button } from "../components/Button";
 import { FORM_FADE_OUT_DURATION } from "../settings";

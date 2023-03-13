@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
 import { Component } from "react";
 
 export class ErrorBoundary extends Component {

@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Color } from "csstype";
 import { FC, HTMLProps, memo } from "react";
 import { useFlipCard } from "../components/FlipCard";
 
@@ -36,8 +35,8 @@ export const CharCard: FC<CharCardProps> = memo(
 
 type CharCardInnerProps = {
   char?: string;
-  bgColor?: Color;
-  color?: Color;
+  bgColor?: string;
+  color?: string;
 } & HTMLProps<HTMLDivElement>;
 
 const CharCardInner: FC<CharCardInnerProps> = memo(

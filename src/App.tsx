@@ -34,7 +34,7 @@ export const App: FC = () => {
 
         <Decider
           key={version}
-          reset={() => setVersion(prev => prev + 1)}
+          reset={() => setVersion((prev) => prev + 1)}
           css={css`
             padding-left: 0.5rem;
             padding-right: 0.5rem;

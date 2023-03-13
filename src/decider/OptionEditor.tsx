@@ -30,7 +30,7 @@ export const OptionEditor: FC<Props> = ({ className }) => {
       className={className}
     >
       <form
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault();
           registerTerm(term);
           setTerm("");
@@ -50,7 +50,7 @@ export const OptionEditor: FC<Props> = ({ className }) => {
                 margin-top: -200px;
                 opacity: 0;
                 transform: scale(0.9);
-              `
+              `,
           ]}
         >
           <div>

@@ -12,7 +12,7 @@ type Props = { onDismiss: () => void; "aria-label": string };
 export const Dialog: FC<Props> = ({
   onDismiss,
   children,
-  "aria-label": ariaLabel
+  "aria-label": ariaLabel,
 }) => {
   return (
     <DialogOverlay

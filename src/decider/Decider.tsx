@@ -16,7 +16,7 @@ export const DeciderContext = createContext<ReturnType<typeof useDecider>>({
   submit: async () => {},
   registerTerm: () => {},
   terms: {},
-  winner: undefined
+  winner: undefined,
 });
 
 export const Decider: FC<Props> = memo(({ reset, className }) => {

@@ -6,7 +6,7 @@ export const FORM_FADE_OUT_DURATION = 250;
 
 export enum ErrorCode {
   CHAR_LIMIT_EXCEEDED,
-  TERM_LIMIT_EXCEEDED
+  TERM_LIMIT_EXCEEDED,
 }
 
 export const COLORS = [
@@ -17,5 +17,5 @@ export const COLORS = [
   "#00adb0",
   "#ecb03d",
   "#db4b88",
-  "#7cb741"
+  "#7cb741",
 ];

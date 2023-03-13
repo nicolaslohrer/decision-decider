@@ -17,7 +17,7 @@ type Props = {
 export const Header: FC<Props> = ({
   onImprintClick: handleImprintClick,
   onPrivacyClick: handlePrivacyClick,
-  className
+  className,
 }) => {
   return (
     <div

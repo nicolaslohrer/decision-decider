@@ -26,7 +26,7 @@ export const CharCard: FC<CharCardProps> = memo(
             height: ${heightPx}px;
             border-radius: 2px;
             border: ${widthPx * 0.03}px solid white;
-          `
+          `,
         ]}
         {...restProps}
       />
@@ -55,7 +55,7 @@ const CharCardInner: FC<CharCardInnerProps> = memo(
             align-items: center;
             color: ${color};
             background-color: ${bgColor};
-          `
+          `,
         ]}
         {...restProps}
       />

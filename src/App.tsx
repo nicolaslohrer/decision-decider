@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import "@reach/dialog/styles.css";
 import { FC, useState } from "react";
 import { Dialog } from "./components/Dialog";
@@ -34,7 +34,7 @@ export const App: FC = () => {
 
         <Decider
           key={version}
-          reset={() => setVersion(prev => prev + 1)}
+          reset={() => setVersion((prev) => prev + 1)}
           css={css`
             padding-left: 0.5rem;
             padding-right: 0.5rem;

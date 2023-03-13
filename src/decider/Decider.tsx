@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { rgba } from "polished";
 import { createContext, FC, memo } from "react";
 import { NUMBER_OF_LETTERS } from "../settings";
@@ -16,7 +16,7 @@ export const DeciderContext = createContext<ReturnType<typeof useDecider>>({
   submit: async () => {},
   registerTerm: () => {},
   terms: {},
-  winner: undefined
+  winner: undefined,
 });
 
 export const Decider: FC<Props> = memo(({ reset, className }) => {

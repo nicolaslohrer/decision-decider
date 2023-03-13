@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
 import { produce } from "immer";
 import { useCallback, useState } from "react";
 import {
@@ -6,7 +6,7 @@ import {
   ErrorCode,
   FORM_FADE_OUT_DURATION,
   LETTER_FILTERING_DURATION,
-  LETTER_ROTATION_DURATION
+  LETTER_ROTATION_DURATION,
 } from "../settings";
 import { getRandomChar } from "../utils/randomChar";
 import { sleep } from "../utils/sleep";
@@ -36,8 +36,8 @@ export const useDecider = (numberOfLetters: number) => {
         ...chars,
         [i]: {
           position: i,
-          randomChar: getRandomChar()
-        }
+          randomChar: getRandomChar(),
+        },
       }),
       {}
     )
@@ -53,7 +53,7 @@ export const useDecider = (numberOfLetters: number) => {
             ? availableChars
             : {
                 ...availableChars,
-                [position]: chars[position]
+                [position]: chars[position],
               },
 
         {}
@@ -65,7 +65,9 @@ export const useDecider = (numberOfLetters: number) => {
     while (true) {
       const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
       if (
-        !Object.keys(terms).some(termId => terms[termId].color === randomColor)
+        !Object.keys(terms).some(
+          (termId) => terms[termId].color === randomColor
+        )
       ) {
         return randomColor;
       }
@@ -80,7 +82,7 @@ export const useDecider = (numberOfLetters: number) => {
         const term = rawTerm.trim();
 
         const isDuplicate = Object.keys(terms).some(
-          termId => terms[termId].term === term
+          (termId) => terms[termId].term === term
         );
 
         if (term && !isDuplicate) {
@@ -111,7 +113,7 @@ export const useDecider = (numberOfLetters: number) => {
           newCharPositions.sort((a, b) => a - b);
 
           setChars(
-            produce(draft => {
+            produce((draft) => {
               newCharPositions.forEach((position, i) => {
                 draft[position].fixedChar = termChars[i];
                 draft[position].term = term;
@@ -120,7 +122,7 @@ export const useDecider = (numberOfLetters: number) => {
           );
 
           setTerms(
-            produce(draft => {
+            produce((draft) => {
               draft[term] = { term, color: getUnusedColor() };
             })
           );
@@ -180,6 +182,6 @@ export const useDecider = (numberOfLetters: number) => {
     chars,
     terms,
     submit,
-    winner
+    winner,
   };
 };

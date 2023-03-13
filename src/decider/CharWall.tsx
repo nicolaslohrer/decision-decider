@@ -1,10 +1,10 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { useRect } from "@reach/rect";
 import { FC, memo, useContext, useMemo, useRef } from "react";
 import {
   LETTER_FILTERING_DURATION,
-  LETTER_ROTATION_DURATION
+  LETTER_ROTATION_DURATION,
 } from "../settings";
 import { getRandomChar } from "../utils/randomChar";
 import { CharCard, CharCardBack, CharCardFront } from "./CharCard";
@@ -43,7 +43,7 @@ export const CharWall: FC = memo(() => {
     for (let i = numberOfLetters; i < numberOfLetters + remainder; i++) {
       charsWithDummies[i] = {
         position: i,
-        randomChar: getRandomChar()
+        randomChar: getRandomChar(),
       };
     }
     return charsWithDummies;
@@ -53,9 +53,9 @@ export const CharWall: FC = memo(() => {
   const charList = useMemo(
     () =>
       Object.keys(charsWithDummies)
-        .map(k => Number(k))
+        .map((k) => Number(k))
         .sort((a, b) => a - b)
-        .map(position => charsWithDummies[position]),
+        .map((position) => charsWithDummies[position]),
     [charsWithDummies]
   );
 
@@ -109,7 +109,7 @@ export const CharWall: FC = memo(() => {
                     border: 0;
                     opacity: 0;
                     overflow: hidden;
-                  `)
+                  `),
           ]}
         >
           <CharCardFront bgColor="#f5f5f5" />

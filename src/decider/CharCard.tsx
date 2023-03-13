@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { Color } from "csstype";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { FC, HTMLProps, memo } from "react";
 import { useFlipCard } from "../components/FlipCard";
 
@@ -26,7 +25,7 @@ export const CharCard: FC<CharCardProps> = memo(
             height: ${heightPx}px;
             border-radius: 2px;
             border: ${widthPx * 0.03}px solid white;
-          `
+          `,
         ]}
         {...restProps}
       />
@@ -36,8 +35,8 @@ export const CharCard: FC<CharCardProps> = memo(
 
 type CharCardInnerProps = {
   char?: string;
-  bgColor?: Color;
-  color?: Color;
+  bgColor?: string;
+  color?: string;
 } & HTMLProps<HTMLDivElement>;
 
 const CharCardInner: FC<CharCardInnerProps> = memo(
@@ -55,7 +54,7 @@ const CharCardInner: FC<CharCardInnerProps> = memo(
             align-items: center;
             color: ${color};
             background-color: ${bgColor};
-          `
+          `,
         ]}
         {...restProps}
       />

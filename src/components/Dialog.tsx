@@ -1,18 +1,22 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { COLORS } from "../settings";
 
-type Props = { onDismiss: () => void; "aria-label": string };
+type Props = {
+  onDismiss: () => void;
+  "aria-label": string;
+  children: ReactNode;
+};
 
 export const Dialog: FC<Props> = ({
   onDismiss,
   children,
-  "aria-label": ariaLabel
+  "aria-label": ariaLabel,
 }) => {
   return (
     <DialogOverlay

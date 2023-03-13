@@ -3,8 +3,8 @@
     "prefix": "rfc",
     "description": "React Function Component",
     "body": [
-      "/** @jsx jsx */",
-      "import { jsx } from \"@emotion/core\";",
+      "/** @jsxImportSource @emotion/react */",
+      "import { jsx } from \"@emotion/react\";",
       "import { FC } from \"react\";",
       "",
       "export const ${1:Name}: FC = () => {",

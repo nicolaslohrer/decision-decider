@@ -1,7 +1,7 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import "@reach/dialog/styles.css";
-import VisuallyHidden from "@reach/visually-hidden";
+import { VisuallyHidden } from "@reach/visually-hidden";
 import { FC, useContext, useRef, useState } from "react";
 import { Button } from "../components/Button";
 import { FORM_FADE_OUT_DURATION } from "../settings";
@@ -30,7 +30,7 @@ export const OptionEditor: FC<Props> = ({ className }) => {
       className={className}
     >
       <form
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault();
           registerTerm(term);
           setTerm("");
@@ -50,7 +50,7 @@ export const OptionEditor: FC<Props> = ({ className }) => {
                 margin-top: -200px;
                 opacity: 0;
                 transform: scale(0.9);
-              `
+              `,
           ]}
         >
           <div>

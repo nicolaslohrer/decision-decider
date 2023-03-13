@@ -1,11 +1,11 @@
-/** @jsx jsx */
-import { css } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { useMemo } from "react";
 
 // The flip animation is heavily inspired by https://davidwalsh.name/css-flip.
 export const useFlipCard = ({
   isFlipped,
-  transitionDurationMs = 500
+  transitionDurationMs = 500,
 }: {
   isFlipped?: boolean;
   transitionDurationMs?: number;
@@ -18,7 +18,7 @@ export const useFlipCard = ({
         transform-style: preserve-3d;
         position: relative;
         will-change: transform;
-      `
+      `,
     ];
 
     if (isFlipped) {

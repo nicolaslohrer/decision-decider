@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import "@reach/dialog/styles.css";
 import { FC, useState } from "react";
 import { Dialog } from "./components/Dialog";

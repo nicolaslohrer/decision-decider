@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import "@reach/dialog/styles.css";
 import VisuallyHidden from "@reach/visually-hidden";
 import { FC, useContext, useRef, useState } from "react";

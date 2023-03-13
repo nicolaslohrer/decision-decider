@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import "react-app-polyfill/stable";
 import ReactDOM from "react-dom";
 import { App } from "./App";

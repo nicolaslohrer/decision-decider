@@ -3,8 +3,9 @@
   "version": "0.5.11",
   "private": true,
   "dependencies": {
-    "@emotion/core": "10.0.27",
-    "@emotion/styled": "10.0.27",
+    "@emotion/eslint-plugin": "11.10.0",
+    "@emotion/react": "11.10.6",
+    "@emotion/styled": "11.10.6",
     "@fortawesome/fontawesome-svg-core": "1.2.27",
     "@fortawesome/free-solid-svg-icons": "5.12.1",
     "@fortawesome/react-fontawesome": "0.1.8",
@@ -33,7 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .tsx --cache --fix"
   },
   "husky": {
     "hooks": {
@@ -46,7 +48,17 @@
     ]
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "plugins": [
+      "@emotion"
+    ],
+    "rules": {
+      "@emotion/pkg-renaming": "error",
+      "@emotion/jsx-import": "error",
+      "@emotion/no-vanilla": "error",
+      "@emotion/import-from-emotion": "error",
+      "@emotion/styled-import": "error"
+    }
   },
   "browserslist": {
     "production": [

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, Global, jsx } from "@emotion/core";
+import { css, Global, jsx } from "@emotion/react";
 import { normalize } from "polished";
 import { FC } from "react";
 import "typeface-ubuntu-mono";

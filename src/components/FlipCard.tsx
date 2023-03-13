@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import { useMemo } from "react";
 
 // The flip animation is heavily inspired by https://davidwalsh.name/css-flip.

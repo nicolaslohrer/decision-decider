@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { Color } from "csstype";
 import { FC, HTMLProps, memo } from "react";
 import { useFlipCard } from "../components/FlipCard";

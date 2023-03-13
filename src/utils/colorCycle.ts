@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { keyframes } from "@emotion/core";
+import { keyframes } from "@emotion/react";
 import { COLORS } from "../settings";
 import { shuffleArray } from "./shuffleArray";
 

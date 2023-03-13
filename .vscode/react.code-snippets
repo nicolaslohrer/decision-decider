@@ -4,7 +4,7 @@
     "description": "React Function Component",
     "body": [
       "/** @jsx jsx */",
-      "import { jsx } from \"@emotion/core\";",
+      "import { jsx } from \"@emotion/react\";",
       "import { FC } from \"react\";",
       "",
       "export const ${1:Name}: FC = () => {",

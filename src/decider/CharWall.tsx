@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { useRect } from "@reach/rect";
 import { FC, memo, useContext, useMemo, useRef } from "react";
 import {

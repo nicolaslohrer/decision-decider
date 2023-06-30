@@ -1,6 +1,6 @@
 {
   "name": "decision-decider",
-  "version": "0.5.12",
+  "version": "0.5.13",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",

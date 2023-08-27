@@ -40,7 +40,8 @@ export const Decider: FC<Props> = memo(({ reset, className }) => {
           <OverlayButtons
             reset={reset}
             css={css`
-              box-shadow: ${rgba("black", 0.3)} 0 0 1px,
+              box-shadow:
+                ${rgba("black", 0.3)} 0 0 1px,
                 ${rgba("black", 0.3)} 0 4px 6px -4px;
               background-color: white;
               border-radius: 4px;

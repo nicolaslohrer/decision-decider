@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import "@reach/dialog/styles.css";
 import { VisuallyHidden } from "@reach/visually-hidden";
@@ -44,7 +43,7 @@ export const OptionEditor: FC<Props> = ({ className }) => {
             `,
 
             ["HIDING_ENTRY_FORM", "SPINNING_CHARS", "FILTERING_CHARS"].includes(
-              lifecyclePhase
+              lifecyclePhase,
             ) &&
               css`
                 margin-top: -200px;

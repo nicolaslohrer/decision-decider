@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { FC, HTMLProps, memo } from "react";
 import { useFlipCard } from "../components/FlipCard";
@@ -30,7 +29,7 @@ export const CharCard: FC<CharCardProps> = memo(
         {...restProps}
       />
     );
-  }
+  },
 );
 
 type CharCardInnerProps = {
@@ -59,7 +58,7 @@ const CharCardInner: FC<CharCardInnerProps> = memo(
         {...restProps}
       />
     );
-  }
+  },
 );
 
 export const CharCardBack = CharCardInner;

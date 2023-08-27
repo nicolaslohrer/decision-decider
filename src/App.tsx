@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import "@reach/dialog/styles.css";
 import { FC, useState } from "react";

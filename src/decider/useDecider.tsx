@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { produce } from "immer";
 import { useCallback, useState } from "react";
 import {
@@ -39,8 +38,8 @@ export const useDecider = (numberOfLetters: number) => {
           randomChar: getRandomChar(),
         },
       }),
-      {}
-    )
+      {},
+    ),
   );
   const [terms, setTerms] = useState<Terms>({});
   const [winner, setWinner] = useState<string | undefined>(undefined);
@@ -56,9 +55,9 @@ export const useDecider = (numberOfLetters: number) => {
                 [position]: chars[position],
               },
 
-        {}
+        {},
       ),
-    [chars]
+    [chars],
   );
 
   const getUnusedColor = useCallback(() => {
@@ -66,7 +65,7 @@ export const useDecider = (numberOfLetters: number) => {
       const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
       if (
         !Object.keys(terms).some(
-          (termId) => terms[termId].color === randomColor
+          (termId) => terms[termId].color === randomColor,
         )
       ) {
         return randomColor;
@@ -82,7 +81,7 @@ export const useDecider = (numberOfLetters: number) => {
         const term = rawTerm.trim();
 
         const isDuplicate = Object.keys(terms).some(
-          (termId) => terms[termId].term === term
+          (termId) => terms[termId].term === term,
         );
 
         if (term && !isDuplicate) {
@@ -101,7 +100,7 @@ export const useDecider = (numberOfLetters: number) => {
             const randomCharPosition = Number(
               Object.keys(availableChars)[
                 Math.floor(Math.random() * Object.keys(availableChars).length)
-              ]
+              ],
             );
 
             if (randomCharPosition in availableChars) {
@@ -118,26 +117,26 @@ export const useDecider = (numberOfLetters: number) => {
                 draft[position].fixedChar = termChars[i];
                 draft[position].term = term;
               });
-            })
+            }),
           );
 
           setTerms(
             produce((draft) => {
               draft[term] = { term, color: getUnusedColor() };
-            })
+            }),
           );
         }
       } catch (e) {
         switch (e) {
           case ErrorCode.CHAR_LIMIT_EXCEEDED:
             alert(
-              "Sorry, I'm out of letters. No one can possibly handle that many decisions."
+              "Sorry, I'm out of letters. No one can possibly handle that many decisions.",
             );
             break;
 
           case ErrorCode.TERM_LIMIT_EXCEEDED:
             alert(
-              "Sorry, I'm out of colors. No one can possibly handle that many decisions."
+              "Sorry, I'm out of colors. No one can possibly handle that many decisions.",
             );
             break;
 
@@ -146,7 +145,7 @@ export const useDecider = (numberOfLetters: number) => {
         }
       }
     },
-    [getAvailableChars, terms, getUnusedColor]
+    [getAvailableChars, terms, getUnusedColor],
   );
 
   const pickWinner = useCallback(() => {
@@ -155,12 +154,12 @@ export const useDecider = (numberOfLetters: number) => {
         Object.keys(terms)[
           Math.floor(Math.random() * Object.keys(terms).length)
         ]
-      ].term
+      ].term,
     );
   }, [terms]);
 
   const [lifecyclePhase, setLifecyclePhase] = useState<LifecyclePhase>(
-    "COLLECTING_USER_INPUT"
+    "COLLECTING_USER_INPUT",
   );
 
   const submit = useCallback(async () => {

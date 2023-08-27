@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useRect } from "@reach/rect";
 import { FC, memo, useContext, useMemo, useRef } from "react";
@@ -56,7 +55,7 @@ export const CharWall: FC = memo(() => {
         .map((k) => Number(k))
         .sort((a, b) => a - b)
         .map((position) => charsWithDummies[position]),
-    [charsWithDummies]
+    [charsWithDummies],
   );
 
   return (
@@ -84,7 +83,7 @@ export const CharWall: FC = memo(() => {
           heightPx={charHeight}
           css={[
             ["SPINNING_CHARS", "FILTERING_CHARS", "DONE"].includes(
-              lifecyclePhase
+              lifecyclePhase,
             ) &&
               css`
                 transition-duration: ${LETTER_ROTATION_DURATION}ms;

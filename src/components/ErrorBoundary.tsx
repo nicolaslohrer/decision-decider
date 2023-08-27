@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Component, ReactNode } from "react";
 
 interface Props {
@@ -8,7 +7,7 @@ interface Props {
 export class ErrorBoundary extends Component<Props> {
   public componentDidCatch(e: any) {
     alert(
-      "Uhm. Something went wrong. Sorry about that. Maybe try to do start over or something. I dunno."
+      "Uhm. Something went wrong. Sorry about that. Maybe try to do start over or something. I dunno.",
     );
   }
 

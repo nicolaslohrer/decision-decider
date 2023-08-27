@@ -1,6 +1,7 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import eslint from "vite-plugin-eslint";
+import VitePluginInjectPreload from "vite-plugin-inject-preload";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig(() => {
@@ -20,7 +21,7 @@ export default defineConfig(() => {
         registerType: "autoUpdate",
         injectRegister: "auto",
         workbox: {
-          globPatterns: ["**/*.{js,css,html,png,woff,woff2}"],
+          globPatterns: ["**/*.{js,css,html,png,ico,woff,woff2}"],
         },
         includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
         manifest: {
@@ -59,6 +60,19 @@ export default defineConfig(() => {
             },
           ],
         },
+      }),
+      VitePluginInjectPreload({
+        injectTo: "head",
+        files: [
+          {
+            match: /.*\.woff2$/,
+            attributes: {
+              type: "font/woff2",
+              as: "font",
+              crossorigin: "anonymous",
+            },
+          },
+        ],
       }),
     ],
   };

@@ -39,7 +39,7 @@ export const Header: FC<Props> = ({
       <h1
         css={css`
           margin: 0;
-          font-weight: 500;
+          font-weight: 700;
           line-height: 2;
         `}
       >

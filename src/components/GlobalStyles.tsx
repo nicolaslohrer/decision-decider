@@ -1,7 +1,8 @@
 import { css, Global } from "@emotion/react";
+import "@fontsource/ubuntu-mono/latin-400.css";
+import "@fontsource/ubuntu-mono/latin-700.css";
 import { normalize } from "polished";
 import { FC } from "react";
-import "typeface-ubuntu-mono";
 import { COLORS } from "../settings";
 
 export const GlobalStyles: FC = () => (

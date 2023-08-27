@@ -1,6 +1,7 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import eslint from "vite-plugin-eslint";
+import VitePluginInjectPreload from "vite-plugin-inject-preload";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig(() => {
@@ -59,6 +60,19 @@ export default defineConfig(() => {
             },
           ],
         },
+      }),
+      VitePluginInjectPreload({
+        injectTo: "head",
+        files: [
+          {
+            match: /.*\.woff2$/,
+            attributes: {
+              type: "font/woff2",
+              as: "font",
+              crossorigin: "anonymous",
+            },
+          },
+        ],
       }),
     ],
   };

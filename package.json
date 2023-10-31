@@ -1,6 +1,6 @@
 {
   "name": "decision-decider",
-  "version": "0.5.17",
+  "version": "0.5.18",
   "private": true,
   "dependencies": {
     "@emotion/babel-plugin": "11.11.0",

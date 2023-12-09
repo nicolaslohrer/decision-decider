@@ -6,9 +6,8 @@ import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig(() => {
   return {
-    build: {
-      outDir: "build",
-    },
+    build: { outDir: "build" },
+    server: { open: true },
     plugins: [
       react({
         jsxImportSource: "@emotion/react",

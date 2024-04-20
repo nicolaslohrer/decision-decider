@@ -46,19 +46,6 @@ The basis for this storage is Art. 6 Para. 1 lit. f) GDPR. Our legitimate intere
 
 The data will be deleted within no more than 30 days, unless continued storage is required for evidentiary purposes. In which case, all or part of the data will be excluded from deletion until the investigation of the relevant incident is finally resolved.
 
-### Google Fonts
-Our website uses Google Fonts to display external fonts. This is a service provided by Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043 (hereinafter: Google).
-
-Through [certification according to the EU-US Privacy Shield](https://www.privacyshield.gov/participant?id=a2zt000000001L5AAI&status=Active) Google guarantees that it will follow the EU's data protection regulations when processing data in the United States.
-
-To enable the display of certain fonts on our website, a connection to the Google server in the USA is established whenever our website is accessed.
-
-The legal basis is Art. 6 Para. 1 lit. f) GDPR. Our legitimate interest lies in the optimization and economic operation of our site.
-
-When you access our site, a connection to Google is established from which Google can identify the site from which your request has been sent and to which IP address the fonts are being transmitted for display.
-
-Google offers detailed information [[1]](https://adssettings.google.com/authenticated)[[2]](https://policies.google.com/privacy) in particular on options for preventing the use of data.
-
 ---------------------
 
 [Model Data Protection Statement](https://www.ratgeberrecht.eu/leistungen/muster-datenschutzerklaerung.html) provided by [Anwaltskanzlei Weiß & Partner](https://www.ratgeberrecht.eu/)

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Markdown from "react-remarkable";
+import { Markdown } from "./Markdown";
 
 export const Imprint: FC = () => {
   return (

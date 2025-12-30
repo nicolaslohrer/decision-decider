@@ -5,7 +5,7 @@ import { DeciderContext } from "./Decider";
 type Props = { reset: () => void; className?: string };
 
 export const OverlayButtons: FC<Props> = ({ reset, className }) => {
-  const { submit, terms, lifecyclePhase } = useContext(DeciderContext);
+  const { submit, lifecyclePhase } = useContext(DeciderContext);
   if (!["COLLECTING_USER_INPUT", "DONE"].includes(lifecyclePhase)) {
     return null;
   }
@@ -13,12 +13,7 @@ export const OverlayButtons: FC<Props> = ({ reset, className }) => {
   return (
     <div className={className}>
       {lifecyclePhase === "COLLECTING_USER_INPUT" && (
-        <Button
-          type="button"
-          onClick={submit}
-          disabled={Object.keys(terms).length < 2}
-          fullWidth
-        >
+        <Button type="button" onClick={submit} fullWidth>
           Decide Decision
         </Button>
       )}

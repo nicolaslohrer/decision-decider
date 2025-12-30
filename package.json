@@ -28,7 +28,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remarkable": "2.0.1",
-    "typescript": "5.9.2",
+    "typescript": "5.9.3",
     "unplugin-inject-preload": "3.0.0",
     "vite": "7.3.0",
     "vite-plugin-eslint": "1.8.1",

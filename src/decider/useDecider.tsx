@@ -76,7 +76,7 @@ export const useDecider = (numberOfLetters: number) => {
   const registerTerm = useCallback(
     (rawTerm: string) => {
       try {
-        let availableChars: Chars = { ...getAvailableChars() };
+        const availableChars: Chars = { ...getAvailableChars() };
 
         const term = rawTerm.trim();
 

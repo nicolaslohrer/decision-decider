@@ -5,7 +5,7 @@ interface Props {
 }
 
 export class ErrorBoundary extends Component<Props> {
-  public componentDidCatch(e: any) {
+  public componentDidCatch() {
     alert(
       "Uhm. Something went wrong. Sorry about that. Maybe try to do start over or something. I dunno.",
     );

@@ -5,6 +5,7 @@ import { NUMBER_OF_LETTERS } from "../settings";
 import { CharWall } from "./CharWall";
 import { OptionEditor } from "./OptionEditor";
 import { OverlayButtons } from "./OverlayButtons";
+import { Losers } from "./Losers";
 import { useDecider } from "./useDecider";
 
 type Props = { reset: () => void; className?: string };
@@ -26,7 +27,7 @@ export const Decider: FC<Props> = memo(({ reset, className }) => {
       <div
         css={css`
           display: grid;
-          grid-template-rows: auto [charwall] 1fr;
+          grid-template-rows: auto [charwall] 1fr auto;
           grid-gap: 0.5rem;
           overflow: hidden;
           min-height: 0;
@@ -35,6 +36,7 @@ export const Decider: FC<Props> = memo(({ reset, className }) => {
       >
         <OptionEditor />
         <CharWall />
+        <Losers />
         {Object.keys(deciderState.terms).length >= 2 && (
           <OverlayButtons
             reset={reset}

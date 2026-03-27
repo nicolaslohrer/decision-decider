@@ -113,7 +113,11 @@ export const useDecider = (numberOfLetters: number) => {
           setChars((prev) => {
             const next = { ...prev };
             newCharPositions.forEach((position, i) => {
-              next[position] = { ...next[position], fixedChar: termChars[i], term };
+              next[position] = {
+                ...next[position],
+                fixedChar: termChars[i],
+                term,
+              };
             });
             return next;
           });

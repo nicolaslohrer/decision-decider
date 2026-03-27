@@ -21,6 +21,7 @@ export const Losers: FC = () => {
       css={css`
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         gap: 0.2em;
         padding: 0.25em 0 0.5em;
         font-size: clamp(1rem, 2.5vw, 1.9rem);

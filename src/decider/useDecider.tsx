@@ -1,4 +1,3 @@
-import { produce } from "immer";
 import { useCallback, useState } from "react";
 import {
   COLORS,
@@ -111,20 +110,18 @@ export const useDecider = (numberOfLetters: number) => {
 
           newCharPositions.sort((a, b) => a - b);
 
-          setChars(
-            produce((draft) => {
-              newCharPositions.forEach((position, i) => {
-                draft[position].fixedChar = termChars[i];
-                draft[position].term = term;
-              });
-            }),
-          );
+          setChars((prev) => {
+            const next = { ...prev };
+            newCharPositions.forEach((position, i) => {
+              next[position] = { ...next[position], fixedChar: termChars[i], term };
+            });
+            return next;
+          });
 
-          setTerms(
-            produce((draft) => {
-              draft[term] = { term, color: getUnusedColor() };
-            }),
-          );
+          setTerms((prev) => ({
+            ...prev,
+            [term]: { term, color: getUnusedColor() },
+          }));
         }
       } catch (e) {
         switch (e) {

@@ -8,13 +8,13 @@ export const Imprint: FC = () => {
 
 Information in accordance with Section 5 TMG
 
-Nicolas Schabram ※ Suttnerstraße 12 ※ D-22765 Hamburg
+Nicolas Lohrer ※ Suttnerstraße 12 ※ D-22765 Hamburg
 
 ## Contact Information
 
 Telephone: +49 40 72379910
 
-E-Mail: <mail@nicolasschabram.de>
+E-Mail: <mail@nicolaslohrer.de>
 
 Internet address: <http://decision-decider.com>
 

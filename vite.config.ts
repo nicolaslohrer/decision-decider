@@ -1,7 +1,6 @@
 import react from "@vitejs/plugin-react";
 import UnpluginInjectPreload from "unplugin-inject-preload/vite";
 import { defineConfig } from "vite";
-import eslint from "vite-plugin-eslint";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig(() => {
@@ -11,11 +10,7 @@ export default defineConfig(() => {
     plugins: [
       react({
         jsxImportSource: "@emotion/react",
-        babel: {
-          plugins: ["@emotion/babel-plugin"],
-        },
       }),
-      eslint(),
       VitePWA({
         registerType: "autoUpdate",
         injectRegister: "auto",

@@ -15,11 +15,11 @@ The following privacy policy is intended to inform you in particular about the t
 ## I. Information about us as controllers of your data
 The party responsible for this website (the "controller") for purposes of data protection law is:
 
-Nicolas Schabram ※ Suttnerstraße 12 ※ D-22765 Hamburg
+Nicolas Lohrer ※ Suttnerstraße 12 ※ D-22765 Hamburg
 
 Telephone: +49 40 72379910
 
-E-Mail: <mail@nicolasschabram.de>
+E-Mail: <mail@nicolaslohrer.de>
 
 ## II. The rights of users and data subjects
 With regard to the data processing to be described in more detail below, users and data subjects have the right
